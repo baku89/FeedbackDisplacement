@@ -1,7 +1,6 @@
-# sumdge-vj
+# Sumdge Tool VJ
 
-> My fine app
-
+> VJ set for ucoming events in March.
 
 ## Dev
 
