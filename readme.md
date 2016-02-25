@@ -1,6 +1,6 @@
 # Sumdge Tool VJ
 
-> VJ set for ucoming events in March.
+> VJ set for ucpoming events in March.
 
 ## Dev
 
