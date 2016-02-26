@@ -1,4 +1,4 @@
-# Sumdge Tool VJ
+# Smudge Tool VJ
 
 > VJ set for ucpoming events in March.
 
