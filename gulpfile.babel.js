@@ -78,4 +78,4 @@ gulp.task('watch', () => {
 
 //==================================================
 
-gulp.task('default', ['browser-sync', 'webpack', 'jade', 'stylus', 'electron-dev', 'watch'])
+gulp.task('default', ['webpack', 'jade', 'stylus', 'electron-dev', 'watch', 'browser-sync'])

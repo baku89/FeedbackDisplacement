@@ -26,11 +26,9 @@ function createMainWindow() {
 	console.log(indexFile);
 
 	if (process.env['NODE_ENV'] == 'dev') {
-		setTimeout(function () {
-			window.loadURL('file:' + indexFile);
-		}, 10);
+		window.loadURL('' + indexFile);
 	} else {
-		window.loadURL('file:' + indexFile);
+		window.loadURL('file://' + indexFile);
 	}
 
 	window.on('closed', onClosed);

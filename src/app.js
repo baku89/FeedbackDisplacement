@@ -1,6 +1,4 @@
-const PIXI = require('pixi')
-
-console.log(PIXI.WebGLRenderer)
+const THREE = require('three')
 
 class App {
 
@@ -8,30 +6,14 @@ class App {
 
 	init() {
 
-		this.renderer = new PIXI.WebGLRenderer(800, 600)
-		this.stage = new PIXI.Stage(0x0, true)
+		this.scene = new THREE.Scene()
+		this.renderer = new THREE.WebGLRenderer(
+			canvas: document.getElementById('canvas')
+			antialias: false
+		)
 
-		document.body.appendChild(this.renderer.view)
-
-		this.uniforms = {
-			resolution: {type: '2f', value: {x:0, y:0}}
-		}
-
-		// make filter
-		{
-			let filter = new PIXI.AbstractFilter(
-				require('./shaders/filter.frag'),
-				this.uniforms
-			)
-
-			this.stage.filters = [filter]
-		}
-
-
-
-		this.onResize()
-
-		this.animate()
+		window.addEventListener('resize', this.onResize.bind(this))
+		window.addEventListener('click', this.onClick.bind(this))
 	}
 
 	animate() {
@@ -41,8 +23,12 @@ class App {
 	}
 
 	onResize() {
-		this.uniforms.resolution.value.x = window.innerWidth
-		this.uniforms.resolution.value.y = window.innerHeight
+		// this.uniforms.resolution.value.x = window.innerWidth
+		// this.uniforms.resolution.value.y = window.innerHeight
+	}
+
+	onClick() {
+
 	}
 
 

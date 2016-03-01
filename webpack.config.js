@@ -5,7 +5,7 @@ module.exports = {
 	output: {
 		filename: 'main.js'
 	},
-	target: 'atom',
+	target: 'electron',
 	stats: {
 		colors: true,
 		// modules: true,
