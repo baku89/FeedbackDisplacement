@@ -1,12 +1,10 @@
-'use strict'
 const app = require('app')
 const BrowserWindow = require('browser-window')
 
 require('crash-reporter').start()
-
 require('electron-debug')()
-var indexFile = `${__dirname}/index.html`
 
+var indexFile = `${__dirname}/index.html`
 if (process.env['NODE_ENV'] == 'dev') {
 	indexFile = "http://localhost:9999"
 }
@@ -23,13 +21,14 @@ function createMainWindow() {
 		height: 400
 	})
 
+	console.log(indexFile)
+
 	if (process.env['NODE_ENV'] == 'dev') {
-		// we need to wait until browsersync is ready
-		setTimeout(function() {
-			window.loadUrl(indexFile)
-		}, 5000)
+		setTimeout(() => {
+			window.loadURL(`file:${indexFile}`)
+		}, 10)
 	} else {
-		window.loadUrl(`file:${indexFile}`)
+		window.loadURL(`file:${indexFile}`)
 	}
 
 
