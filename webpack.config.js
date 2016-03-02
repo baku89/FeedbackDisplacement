@@ -21,7 +21,7 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
+				loader: 'babel!eslint',
 				exclude: /node_modules/
 			},
 			{
@@ -37,6 +37,11 @@ module.exports = {
 	},
 	stylus: {
 		use: [require('nib')()]
+	},
+	eslint: {
+		configFile: './.eslintrc',
+		formatter: require('eslint-friendly-formatter'),
+		failOnError: true
 	},
 	plugins: [
 		new webpack.IgnorePlugin(/vertx/),

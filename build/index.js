@@ -1,5 +1,7 @@
 'use strict';
 
+/* global __dirname, process */
+
 var app = require('app');
 var BrowserWindow = require('browser-window');
 
@@ -22,8 +24,6 @@ function createMainWindow() {
 		width: 600,
 		height: 400
 	});
-
-	console.log(indexFile);
 
 	if (process.env['NODE_ENV'] == 'dev') {
 		window.loadURL('' + indexFile);

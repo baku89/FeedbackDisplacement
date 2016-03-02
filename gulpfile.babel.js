@@ -32,6 +32,7 @@ gulp.task('webpack', () => {
 gulp.task('electron-dev', () => {
 	return gulp.src('src/index.js')
 		.pipe($.plumber())
+		.pipe($.eslint({useEslintrc: true}))
 		.pipe($.sourcemaps.init())
 		.pipe($.babel({presets: ['es2015']}))
 		.pipe(gulp.dest('build'))

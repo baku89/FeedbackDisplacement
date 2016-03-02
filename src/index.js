@@ -1,10 +1,12 @@
+/* global __dirname, process */
+
 const app = require('app')
 const BrowserWindow = require('browser-window')
 
 require('crash-reporter').start()
 require('electron-debug')()
 
-var indexFile = `${__dirname}/index.html`
+let indexFile = `${__dirname}/index.html`
 if (process.env['NODE_ENV'] == 'dev') {
 	indexFile = "http://localhost:9999"
 }
@@ -20,8 +22,6 @@ function createMainWindow() {
 		width: 600,
 		height: 400
 	})
-
-	console.log(indexFile)
 
 	if (process.env['NODE_ENV'] == 'dev') {
 		window.loadURL(`${indexFile}`)
