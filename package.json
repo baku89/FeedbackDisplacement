@@ -18,7 +18,7 @@
     "test": "xo",
     "build": "export NODE_ENV='production'; electron-packager . $npm_package_productName --out=dist --ignore='^/dist$' --prune --asar --all --version=$npm_package_electronVersion",
     "start": "export NODE_ENV='dev'; electron . & webpack --watch --progress --colors --output-source-map-file",
-    "dev": "export NODE_ENV='dev'; electron ./build & gulp"
+    "dev": "export NODE_ENV='dev'; electron ./build"
   },
   "keywords": [
     "electron-app"

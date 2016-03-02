@@ -1,0 +1,42 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'dev' ]
+2 info using npm@3.3.6
+3 info using node@v5.0.0
+4 verbose run-script [ 'predev', 'dev', 'postdev' ]
+5 info lifecycle sumdge-vj@0.0.0~predev: sumdge-vj@0.0.0
+6 silly lifecycle sumdge-vj@0.0.0~predev: no script for predev, continuing
+7 info lifecycle sumdge-vj@0.0.0~dev: sumdge-vj@0.0.0
+8 verbose lifecycle sumdge-vj@0.0.0~dev: unsafe-perm in lifecycle true
+9 verbose lifecycle sumdge-vj@0.0.0~dev: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/mugi/Works/2016/10_smudge/smudgevj/node_modules/.bin:/Users/mugi/torch/install/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/opt/ImageMagick/bin:/Users/mugi/Dropbox/Application/bin:/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources
+10 verbose lifecycle sumdge-vj@0.0.0~dev: CWD: /Users/mugi/Works/2016/10_smudge/smudgevj
+11 silly lifecycle sumdge-vj@0.0.0~dev: Args: [ '-c', 'export NODE_ENV=\'dev\'; electron ./build' ]
+12 silly lifecycle sumdge-vj@0.0.0~dev: Returned: code: 1  signal: null
+13 info lifecycle sumdge-vj@0.0.0~dev: Failed to exec dev script
+14 verbose stack Error: sumdge-vj@0.0.0 dev: `export NODE_ENV='dev'; electron ./build`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:233:16)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at EventEmitter.emit (events.js:172:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:24:14)
+14 verbose stack     at emitTwo (events.js:87:13)
+14 verbose stack     at ChildProcess.emit (events.js:172:7)
+14 verbose stack     at maybeClose (internal/child_process.js:818:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+15 verbose pkgid sumdge-vj@0.0.0
+16 verbose cwd /Users/mugi/Works/2016/10_smudge/smudgevj
+17 error Darwin 15.2.0
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "dev"
+19 error node v5.0.0
+20 error npm  v3.3.6
+21 error code ELIFECYCLE
+22 error sumdge-vj@0.0.0 dev: `export NODE_ENV='dev'; electron ./build`
+22 error Exit status 1
+23 error Failed at the sumdge-vj@0.0.0 dev script 'export NODE_ENV='dev'; electron ./build'.
+23 error This is most likely a problem with the sumdge-vj package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     export NODE_ENV='dev'; electron ./build
+23 error You can get their info via:
+23 error     npm owner ls sumdge-vj
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]
