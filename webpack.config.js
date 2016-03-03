@@ -1,4 +1,4 @@
-var webpack = require('webpack');
+let webpack = require('webpack');
 
 module.exports = {
 	entry: './src/main.js',
@@ -6,11 +6,6 @@ module.exports = {
 		filename: 'main.js'
 	},
 	target: 'electron',
-	stats: {
-		colors: true,
-		// modules: true,
-		reasons: true
-	},
 	resolve: {
 		alias: {},
 		modulesDirectories: [

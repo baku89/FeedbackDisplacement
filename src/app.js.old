@@ -1,7 +1,5 @@
 const THREE = require('three')
 
-const ShaderPlane = require('./shader-plane.js')
-
 class App {
 
 	constructor() {}

@@ -3,7 +3,10 @@
 const gulp = require('gulp')
 const $ = require('gulp-load-plugins')()
 const webpack = require('webpack')
-const browserSync = require('browser-sync').create()
+const WebpackStream = require('webpack-stream')
+const BrowserSync = require('browser-sync')
+
+const browserSync = BrowserSync.create()
 
 let developmentMode = true
 
@@ -23,7 +26,7 @@ gulp.task('webpack', () => {
 
 	return gulp.src('')
 		.pipe($.plumber())
-		.pipe($.webpack(config))
+		.pipe(WebpackStream(config))
 		.pipe(gulp.dest('build'))
     .pipe(browserSync.stream())
 })
@@ -66,8 +69,6 @@ gulp.task('browser-sync', () => {
 			baseDir: 'build'
 		}
 	})
-	console.log('Starting Electron...')
-	$.shell(['electron ./build'])
 })
 
 //==================================================
