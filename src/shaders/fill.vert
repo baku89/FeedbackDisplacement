@@ -1,3 +1,6 @@
+varying vec2 pos;
+
 void main(void) {
-	gl_Position = vec4(position.xy / 100.0, 0.0, 0.0);
+	pos = vec2(uv.x, 1.0 - uv.y);
+	gl_Position = vec4(position, 1.0);
 }

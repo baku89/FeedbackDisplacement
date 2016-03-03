@@ -6,6 +6,12 @@ class App {
 
 	init() {
 
+		this.initScene()
+		this.initSource()
+	}
+
+	initScene() {
+
 		this.scene = new THREE.Scene()
 		this.renderer = new THREE.WebGLRenderer({
 			canvas: document.getElementById('canvas'),
@@ -18,37 +24,44 @@ class App {
 		// this.camera.rotation.set(0, -Math.PI / 4, 0)
 		this.scene.add(this.camera)
 
+		let kumiko = new THREE.TextureLoader().load('/assets/kumiko.png')
+		console.log(kumiko)
+
+		this.uniforms = {
+			resolution: {type: 'v2', value: new THREE.Vector2()},
+			texture: {
+				type: 't',
+				value: kumiko
+			}
+		}
+
 		let mat = new THREE.ShaderMaterial({
 			uniforms: this.uniforms,
 			vertexShader: require('./shaders/fill.vert'),
-			fragmentShader: require('./shaders/filter.frag'),
-			wireframe: true
+			fragmentShader: require('./shaders/filter.frag')
 		})
-
-		// draw plane
-		this.plane = new THREE.Mesh(
-			new THREE.PlaneGeometry(0.1, 0.1, 10, 10),
-			mat//new THREE.MeshBasicMaterial({wireframe: true})
+		let plane = new THREE.Mesh(
+			new THREE.PlaneGeometry(2, 2),
+			mat
 		)
-		this.scene.add(this.plane)
-
-		this.uniforms = {
-			resolution: {type: 'v2', value: new THREE.Vector2()}
-		}
-
-
-		{
-			let axis = new THREE.AxisHelper(5)
-			this.scene.add(axis)
-		}
+		this.scene.add(plane)
 
 		window.addEventListener('resize', this.onResize.bind(this))
 		window.addEventListener('click', this.onClick.bind(this))
 
-
 		this.onResize()
-
 		this.animate()
+	}
+
+	initSource() {
+
+		// let loader = new THREE.TextureLoader()
+
+		// loader.load('/assets/kumiko.png', (tex) => {
+		// 	console.log('loaded Ohmae')
+		// 	this.uniforms.image.value = tex
+		// 	console.log(this.uniforms)
+		// })
 	}
 
 	animate() {
@@ -61,7 +74,7 @@ class App {
 
 		this.renderer.setSize(w, h)
 		this.renderer.render(this.scene, this.camera)
-		this.uniforms.resolution.set(w, h)
+		this.uniforms.resolution.value.set(w, h)
 	}
 
 	onClick() {
