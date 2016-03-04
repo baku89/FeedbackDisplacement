@@ -3,13 +3,14 @@ let webpack = require('webpack');
 module.exports = {
 	entry: './src/main.js',
 	output: {
-		filename: 'main.js'
+		filename: '[name].js'
 	},
 	target: 'electron',
 	resolve: {
 		alias: {},
 		modulesDirectories: [
-			'node_modules'
+			'node_modules',
+			"web_modules"
 		],
 	},
 	module: {
@@ -17,7 +18,7 @@ module.exports = {
 			{
 				test: /\.js$/,
 				loader: 'babel!eslint',
-				exclude: /node_modules/
+				exclude: /node_modules|web_modules/
 			},
 			{
 				test: /\.jade$/,
@@ -41,7 +42,8 @@ module.exports = {
 	plugins: [
 		new webpack.IgnorePlugin(/vertx/),
 		new webpack.ProvidePlugin({
-			$: 'jquery'
+			$: 'jquery',
+			THREE: 'three'
 		})
 	]
 };

@@ -1,22 +1,20 @@
-/* global THREE */
 
-export default class App {
+export default class ShaderPlane {
 
 	constructor(option) {
-
-		this.width = option.width
-		this.height = option.height
 
 		this.scene = new THREE.Scene()
 
 		// renderer
-		let rendererOption = {
-			antialias: false
-		}
+		let rendererOption = {}
 		if (option.canvas) {
 			rendererOption.canvas = option.canvas
 		}
-		this.renderer = new THREE.WebGLRenderer(renderOption)
+		this.renderer = new THREE.WebGLRenderer(rendererOption)
+		this.renderer.setSize(
+			option.width || 128,
+			option.height || 128
+		)
 
 		// camera
 		this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000)
@@ -25,7 +23,7 @@ export default class App {
 
 		this.uniforms = option.uniforms
 
-		let mat - new THREE.ShaderMaterial({
+		let mat = new THREE.ShaderMaterial({
 			uniforms: this.uniforms,
 			vertexShader: option.vertexShader || require('./shaders/shader-plane.vert'),
 			fragmentShader: option.fragmentShader
@@ -37,6 +35,10 @@ export default class App {
 		)
 
 		this.scene.add(plane)
+	}
+
+	setSize(width, height) {
+		this.renderer.setSize(width, height)
 	}
 
 	render(targetRenderer) {

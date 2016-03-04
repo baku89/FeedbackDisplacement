@@ -1,6 +1,9 @@
-const THREE = require('three')
+import 'postprocessing/ShaderPass'
+import 'postprocessing/MaskPass'
+import 'postprocessing/RenderPass'
+import 'postprocessing/EffectComposer'
 
-const ShaderPlane = require('./shader-plane.js')
+import BrushPass from './brush-pass.js'
 
 class App {
 
@@ -14,52 +17,19 @@ class App {
 
 	initScene() {
 
-		this.scene = new THREE.Scene()
+		const w = window.innerWidth
+		const h = window.innerHeight
+
 		this.renderer = new THREE.WebGLRenderer({
-			canvas: document.getElementById('canvas'),
-			antialias: false
+			canvas: document.getElementById('canvas')
 		})
+		this.renderer.setClearColor(0x0)
 
-		// renderTarget
-		{
-			const w = window.innerWidth
-			const h = window.innerHeight
-			const option = {
-				depthBuffer: false,
-				stencilBuffer: false
-			}
-			this.prevFrame = new THREE.WebGLRenderTarget(w, h, option)
-			this.curtFrame = new THREE.WebGLRenderTarget(w, h, option)
-		}
+		this.conposer = new THREE.EffectComposer(this.renderer)
+		this.composer.addPass(new THREE.RenderPass)
 
+		// let kumiko = new THREE.TextureLoader().load('/assets/kumiko.png')
 
-		// camera
-		this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000)
-		this.camera.position.set(0, 0, 10)
-		// this.camera.rotation.set(0, -Math.PI / 4, 0)
-		this.scene.add(this.camera)
-
-		let kumiko = new THREE.TextureLoader().load('/assets/kumiko.png')
-		console.log(kumiko)
-
-		this.uniforms = {
-			resolution: {type: 'v2', value: new THREE.Vector2()},
-			texture: {
-				type: 't',
-				value: kumiko
-			}
-		}
-
-		let mat = new THREE.ShaderMaterial({
-			uniforms: this.uniforms,
-			vertexShader: require('./shaders/fill.vert'),
-			fragmentShader: require('./shaders/filter.frag')
-		})
-		let plane = new THREE.Mesh(
-			new THREE.PlaneGeometry(2, 2),
-			mat
-		)
-		this.scene.add(plane)
 
 		window.addEventListener('resize', this.onResize.bind(this))
 		window.addEventListener('click', this.onClick.bind(this))
@@ -76,26 +46,19 @@ class App {
 	animate() {
 		window.requestAnimationFrame(this.animate)
 
-		this.renderer.render(this.scene, this.camera)
-
-		let swap = this.prevFrame
-		this.curtFrame = this.prevFrame
-		this.prevFrame = swap
+		this.plane.render()
 	}
 
 	onResize() {
 		const w = window.innerWidth
 		const h = window.innerHeight
 
-		this.renderer.setSize(w, h)
-		this.prevFrame.setSize(w, h)
-		this.curtFrame.setSize(w, h)
-		this.renderer.render(this.scene, this.camera)
-		this.uniforms.resolution.value.set(w, h)
+		// this.plane.setSize(w, h)
+		// this.uniforms.resolution.value.set(w, h)
 	}
 
-	onClick() {
-
+	onClick(e) {
+		// this.uniforms.cursor.value.set(e.clientX, e.clientY)
 	}
 
 
