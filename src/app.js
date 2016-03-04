@@ -4,6 +4,7 @@ import 'postprocessing/RenderPass'
 import 'postprocessing/EffectComposer'
 
 import BrushPass from './brush-pass.js'
+import BasePass from './base-pass.js'
 
 class App {
 
@@ -20,13 +21,17 @@ class App {
 		const w = window.innerWidth
 		const h = window.innerHeight
 
-		this.renderer = new THREE.WebGLRenderer({
-			canvas: document.getElementById('canvas')
-		})
-		this.renderer.setClearColor(0x0)
+		this.brushPass = new BrushPass()
 
-		this.conposer = new THREE.EffectComposer(this.renderer)
-		this.composer.addPass(new THREE.RenderPass)
+		this.renderPass = new BasePass({
+			canvas: document.getElementById('canvas'),
+			width: w,
+			height: h,
+			fragmentShader: require('./shaders/render.frag'),
+			uniforms: {
+				texture: {type: 't', value: this.brushPass.texture}
+			}
+		})
 
 		// let kumiko = new THREE.TextureLoader().load('/assets/kumiko.png')
 
@@ -46,7 +51,7 @@ class App {
 	animate() {
 		window.requestAnimationFrame(this.animate)
 
-		this.plane.render()
+		this.renderPass.render()
 	}
 
 	onResize() {

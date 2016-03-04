@@ -1,14 +1,14 @@
 import BasePass from './base-pass.js'
 
 
-export default class BasePass {
+export default class BrushPass {
 
 	constructor() {
 
 		const w = window.innerWidth
 		const h = window.innerHeight
 
-		this.uniform = {
+		this.uniforms = {
 			resolution: {type: 'v2', value: new THREE.Vector2()},
 			prev: {type: 't', value: null},
 			cursor: {type: 'v2', value: new THREE.Vector2()}
@@ -25,7 +25,8 @@ export default class BasePass {
 		this.pass = new BasePass({
 			width: w,
 			height: h,
-			fragmentShader: require('./shaders/brush.frag')
+			fragmentShader: require('./shaders/brush.frag'),
+			uniforms: this.uniforms
 		})
 
 		window.addEventListener('resize', this.onResize.bind(this))

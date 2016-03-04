@@ -26,9 +26,9 @@ function createMainWindow() {
 	});
 
 	if (process.env['NODE_ENV'] == 'dev') {
-		window.loadURL('' + indexFile);
+		window.loadUrl('' + indexFile);
 	} else {
-		window.loadURL('file://' + indexFile);
+		window.loadUrl('file://' + indexFile);
 	}
 
 	window.on('closed', onClosed);
