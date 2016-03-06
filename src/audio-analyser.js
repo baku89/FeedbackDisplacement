@@ -2,8 +2,8 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext
 window.navigator.getUserMedia = window.navigator.getUserMedia || window.navigator.webkitGetUserMedia
 
 
-const SOURCE_NAME = 'Soundflower (2ch)'
-// const SOURCE_NAME = 'Default'
+// const SOURCE_NAME = 'Soundflower (2ch)'
+const SOURCE_NAME = 'Default'
 
 export default class AudioAnalyser {
 
@@ -54,7 +54,7 @@ export default class AudioAnalyser {
 		// this.analyser.connect(context.destination)
 
 		// create data
-		this.frequencyData = new Uint8Array(this.analyser.frequencyBinCount)
+		this.frequencyData = new Uint8Array(this.analyser.fftSize)
 
 		this.update = this._update
 
@@ -65,17 +65,15 @@ export default class AudioAnalyser {
 
 	_update() {
 
-		this.analyser.getByteFrequencyData(this.frequencyData)
+		this.analyser.getByteTimeDomainData(this.frequencyData)
 
 		// calc average
-		this.volume = this.frequencyData[512]
-		// for (let i = 0; i < 1024; i++) {
-		// 	// average += this.frequencyData[i]
-		// 	this.volume = Math.max(this.volume, this.frequencyData[i])
-		// }
+		let volume = 0.0
+		for (let i = 0; i < this.frequencyData.length; i++) {
+			volume = Math.max(volume, this.frequencyData[i])
+		}
 
-		console.log(this.volume)
-		this.volume /= 256.0
+		this.volume = (volume / 128.0) - 1.0
 	}
 
 

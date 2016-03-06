@@ -59,6 +59,8 @@ export default class BrushPass extends BasePass {
 	}
 
 	onOvercoat(value) {
+
+		console.log(value, 'asldfjasldkfj')
 		// this.uniforms.cursor.value.set(e.offsetX, e.offsetY)
 
 		this.uniforms.imageOpacity.value = 1

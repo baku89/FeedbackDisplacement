@@ -4,6 +4,8 @@ import 'postprocessing/RenderPass'
 import 'postprocessing/EffectComposer'
 
 import Interface from './vj-interface.js'
+
+
 import Ticker from './ticker.js'
 
 import BrushPass from './brush-pass.js'
