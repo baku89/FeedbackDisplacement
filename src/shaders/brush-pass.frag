@@ -16,13 +16,11 @@ varying vec2 pos;
 
 void main() {
 
-	// vec4 color = texture2D(texture, pos);
-	// float dist = distance(pos, cursor / resolution);
-	// vec4 circle = vec4(dist, dist, dist, 1.0);
+	// uneune
+	// float angle = snoise2((pos + cursor / resolution) * frequency) * 2.0 * PI + (pos.x + pos.y - 1.0) * 40.0;
+	// vec2 vel = vec2(cos(angle), sin(angle)) * speed;
 
-	float angle = snoise2((pos + cursor / resolution) * frequency) * 2.0 * PI + (pos.x + pos.y - 1.0) * 40.0;
-	vec2 vel = vec2(cos(angle), sin(angle)) * speed;
-
+	vec2 vel = vec2(0.0, 0.0);
 
 	vec3 imageColor = texture2D(image, pos).rgb;
 	vec3 prevColor = texture2D(prev, pos + vel).rgb;

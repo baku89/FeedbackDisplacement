@@ -3,6 +3,9 @@ import 'postprocessing/MaskPass'
 import 'postprocessing/RenderPass'
 import 'postprocessing/EffectComposer'
 
+import Interface from './vj-interface.js'
+import Ticker from './ticker.js'
+
 import BrushPass from './brush-pass.js'
 import BasePass from './base-pass.js'
 
@@ -50,15 +53,15 @@ class App {
 		this.animate = this.animate.bind(this)
 
 		this.onResize()
-		this.animate()
+
+		Ticker.on('update', this.animate.bind(this))
+		Ticker.start()
 	}
 
 	initSource() {
 	}
 
-	animate() {
-		window.requestAnimationFrame(this.animate)
-
+	animate(elapsed) {
 		this.brushPass.render()
 		this.renderPass.render()
 	}
