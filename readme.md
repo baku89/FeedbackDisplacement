@@ -1,6 +1,6 @@
 # Smudge Tool VJ
 
-!()[thumb.png]
+![](thumb.png)
 
 > VJ set for upcoming events in March.
 
