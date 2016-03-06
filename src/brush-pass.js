@@ -1,9 +1,24 @@
 import BasePass from './base-pass.js'
 
 
-export default class BrushPass {
+export default class BrushPass extends BasePass {
 
 	constructor(renderer, w, h) {
+
+		let uniforms = {
+			resolution: {type: 'v2', value: new THREE.Vector2()},
+			prev: {type: 't', value: null},
+			image: {type: 't', value: window.kumiko},
+			cursor: {type: 'v2', value: new THREE.Vector2()},
+			imageOpacity: {type: 'f', value: 0},
+			frequency: {type: 'f', value: 2},
+			speed: {type: 'f', value: 0.002}
+		}
+
+		super(renderer, {
+			fragmentShader: require('./shaders/brush-pass.frag'),
+			uniforms: uniforms
+		})
 
 		let targetOption = {
 			depthBuffer: false,
@@ -15,21 +30,12 @@ export default class BrushPass {
 		this.prevTexture = new THREE.WebGLRenderTarget(w, h, targetOption)
 		this.texture = new THREE.WebGLRenderTarget(w, h, targetOption)
 
+		this.uniforms.prev.value = this.texture
 
-		this.uniforms = {
-			resolution: {type: 'v2', value: new THREE.Vector2()},
-			prev: {type: 't', value: this.texture},
-			image: {type: 't', value: window.kumiko},
-			cursor: {type: 'v2', value: new THREE.Vector2()},
-			imageOpacity: {type: 'f', value: 0},
-			frequency: {type: 'f', value: 2},
-			speed: {type: 'f', value: 0.002}
-		}
-
-		this.pass = new BasePass(this.renderer, {
-			fragmentShader: require('./shaders/brush-pass.frag'),
-			uniforms: this.uniforms
-		})
+		// this.pass = new BasePass(this.renderer, {
+		// 	fragmentShader: require('./shaders/brush-pass.frag'),
+		// 	uniforms: this.uniforms
+		// })
 
 		window.addEventListener('click', this.onClick.bind(this))
 	}
@@ -46,16 +52,17 @@ export default class BrushPass {
 		this.texture = swap
 
 		this.uniforms.prev.value = this.prevTexture
-		this.pass.render(this.texture)
+
+		super.render(this.texture)
 
 		this.uniforms.imageOpacity.value = 0
 	}
 
 	setSize(w, h) {
+		super.setSize(w, h)
 		this.uniforms.resolution.value.set(w, h)
 		this.prevTexture.setSize(w, h)
 		this.texture.setSize(w, h)
-		this.pass.setSize(w, h)
 	}
 
 }
