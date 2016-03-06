@@ -9,6 +9,7 @@ import Ticker from './ticker.js'
 import BrushPass from './brush-pass.js'
 import BasePass from './base-pass.js'
 
+window.Interface = Interface
 window.renderer = null
 
 class App {
@@ -62,6 +63,9 @@ class App {
 	}
 
 	animate(elapsed) {
+
+		Interface.update()
+
 		this.brushPass.render()
 		this.renderPass.render()
 	}

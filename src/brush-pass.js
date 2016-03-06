@@ -1,18 +1,22 @@
 import BasePass from './base-pass.js'
 
 
+const MIN_FLOW = 0.06
+
 export default class BrushPass extends BasePass {
 
 	constructor(renderer, w, h) {
 
 		let uniforms = {
-			resolution: {type: 'v2', value: new THREE.Vector2()},
+			aspect: {type: 'f', value: h / w},
 			prev: {type: 't', value: null},
 			image: {type: 't', value: window.kumiko},
 			cursor: {type: 'v2', value: new THREE.Vector2()},
 			imageOpacity: {type: 'f', value: 0},
 			frequency: {type: 'f', value: 2},
-			speed: {type: 'f', value: 0.002}
+			speed: {type: 'f', value: MIN_FLOW},
+			speedAmp: {type: 'f', value: 0.002},
+			seed: {type: 'f', value: 0}
 		}
 
 		super(renderer, {
@@ -21,8 +25,8 @@ export default class BrushPass extends BasePass {
 		})
 
 		let targetOption = {
-			depthBuffer: false,
-			stencilBuffer: false
+			// wrapS: THREE.MirroredRepeatWrapping,
+			// wrapT: THREE.MirroredRepeatWrapping
 		}
 
 		this.renderer = renderer
@@ -37,12 +41,32 @@ export default class BrushPass extends BasePass {
 		// 	uniforms: this.uniforms
 		// })
 
-		window.addEventListener('click', this.onClick.bind(this))
+		// event
+		window.Interface.on('change-flow', this.onChangeFlow.bind(this))
+		window.Interface.on('overcoat', this.onOvercoat.bind(this))
+		window.Interface.on('volume', this.onChangeVolume.bind(this))
+		window.Interface.on('flow-speed', this.onChangeFlowSpeed.bind(this))
 	}
 
-	onClick(e) {
-		this.uniforms.cursor.value.set(e.offsetX, e.offsetY)
+	onChangeFlowSpeed(value) {
+
+		this.uniforms.speedAmp.value = value * 0.05
+	}
+
+	onChangeFlow(value) {
+
+		this.uniforms.seed.value = Math.random()
+	}
+
+	onOvercoat(value) {
+		// this.uniforms.cursor.value.set(e.offsetX, e.offsetY)
+
 		this.uniforms.imageOpacity.value = 1
+	}
+
+	onChangeVolume(value) {
+		// console.log(value)
+		this.uniforms.speed.value =  Math.pow(value, 3) * (1 - MIN_FLOW) + MIN_FLOW
 	}
 
 	render() {
@@ -60,7 +84,7 @@ export default class BrushPass extends BasePass {
 
 	setSize(w, h) {
 		super.setSize(w, h)
-		this.uniforms.resolution.value.set(w, h)
+		this.uniforms.aspect.value = h / w
 		this.prevTexture.setSize(w, h)
 		this.texture.setSize(w, h)
 	}
