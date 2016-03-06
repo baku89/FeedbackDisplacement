@@ -1,20 +1,10 @@
+export default class BasePass {
 
-export default class ShaderPlane {
-
-	constructor(option) {
+	constructor(renderer, option) {
 
 		this.scene = new THREE.Scene()
 
-		// renderer
-		let rendererOption = {}
-		if (option.canvas) {
-			rendererOption.canvas = option.canvas
-		}
-		this.renderer = new THREE.WebGLRenderer(rendererOption)
-		this.renderer.setSize(
-			option.width || 128,
-			option.height || 128
-		)
+		this.renderer = renderer
 
 		// camera
 		this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000)
@@ -25,7 +15,7 @@ export default class ShaderPlane {
 
 		let mat = new THREE.ShaderMaterial({
 			uniforms: this.uniforms,
-			vertexShader: option.vertexShader || require('./shaders/shader-plane.vert'),
+			vertexShader: option.vertexShader || require('./shaders/base-pass.vert'),
 			fragmentShader: option.fragmentShader
 		})
 

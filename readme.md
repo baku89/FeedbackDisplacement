@@ -1,6 +1,8 @@
 # Smudge Tool VJ
 
-> VJ set for ucpoming events in March.
+!()[thumb.png]
+
+> VJ set for upcoming events in March.
 
 ## Dev
 

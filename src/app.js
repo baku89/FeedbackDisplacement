@@ -6,6 +6,8 @@ import 'postprocessing/EffectComposer'
 import BrushPass from './brush-pass.js'
 import BasePass from './base-pass.js'
 
+window.renderer = null
+
 class App {
 
 	constructor() {}
@@ -21,20 +23,26 @@ class App {
 		const w = window.innerWidth
 		const h = window.innerHeight
 
-		this.brushPass = new BrushPass()
+		this.brushPass = new BrushPass(w, h)
 
-		this.renderPass = new BasePass({
-			canvas: document.getElementById('canvas'),
-			width: w,
-			height: h,
-			fragmentShader: require('./shaders/render.frag'),
+		// make renderer
+		this.renderer = new THREE.WebGLRenderer({
+			canvas: document.getElementById('canvas')
+		})
+		this.renderer.setClearColor(0x000000)
+
+		this.prevRenderTarget = new THREE.WebGLRenderTarget(w, h, {
+		})
+
+		this.brushPass = new BrushPass(this.renderer)
+
+		this.renderPass = new BasePass(this.renderer, {
+			renderer: this.renderer,
+			fragmentShader: require('./shaders/render-pass.frag'),
 			uniforms: {
 				texture: {type: 't', value: this.brushPass.texture}
 			}
 		})
-
-		// let kumiko = new THREE.TextureLoader().load('/assets/kumiko.png')
-
 
 		window.addEventListener('resize', this.onResize.bind(this))
 		window.addEventListener('click', this.onClick.bind(this))
@@ -51,6 +59,7 @@ class App {
 	animate() {
 		window.requestAnimationFrame(this.animate)
 
+		this.brushPass.render()
 		this.renderPass.render()
 	}
 
@@ -58,16 +67,17 @@ class App {
 		const w = window.innerWidth
 		const h = window.innerHeight
 
-		// this.plane.setSize(w, h)
-		// this.uniforms.resolution.value.set(w, h)
+		this.brushPass.setSize(w, h)
+		this.renderPass.setSize(w, h)
 	}
 
 	onClick(e) {
 		// this.uniforms.cursor.value.set(e.clientX, e.clientY)
 	}
-
-
 }
 
+window.kumiko = new THREE.TextureLoader().load('/assets/kumiko.png', () => {
+	new App().init()
+})
 
-new App().init()
+

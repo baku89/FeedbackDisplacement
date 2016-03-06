@@ -10,9 +10,6 @@ void main() {
 
 	vec4 color = texture2D(prev, pos);
 
-
-
-
 	// vec4 color = texture2D(texture, pos);
 	// float dist = distance(pos, cursor / resolution);
 	// vec4 circle = vec4(dist, dist, dist, 1.0);
