@@ -83,7 +83,7 @@ class App {
 	}
 }
 
-window.kumiko = new THREE.TextureLoader().load('/assets/kumiko.png', () => {
+window.kumiko = new THREE.TextureLoader().load('/assets/rainbow.jpg', () => {
 	new App().init()
 })
 
