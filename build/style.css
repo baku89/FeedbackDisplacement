@@ -33,7 +33,8 @@ body {
 .control__volume {
   background: #fff;
   opacity: 0.5;
-  transform-origin: top left;
+  -webkit-transform-origin: top left;
+          transform-origin: top left;
 }
 .control__threshold {
   position: relative;

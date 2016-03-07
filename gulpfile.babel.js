@@ -46,7 +46,7 @@ gulp.task('electron-dev', () => {
 gulp.task('jade', () => {
 	return gulp.src('./src/index.jade')
 		.pipe($.plumber())
-		.pipe($.jade())
+		.pipe($.jade({pretty: developmentMode}))
 		.pipe(gulp.dest('build'))
 		.pipe(browserSync.stream())
 })
@@ -56,6 +56,8 @@ gulp.task('stylus', () => {
 	return gulp.src('./src/style.styl')
 		.pipe($.plumber())
 		.pipe($.stylus({use: require('nib')()}))
+		.pipe($.autoprefixer())
+		.pipe($.if(!developmentMode, $.minifyCss()))
 		.pipe(gulp.dest('build'))
 		.pipe(browserSync.stream())
 
@@ -80,5 +82,12 @@ gulp.task('watch', () => {
 })
 
 //==================================================
+gulp.task('release', () => {
+	developmentMode = false
+	process.env.NODE_ENV = 'production'
+})
+
+//==================================================
 
 gulp.task('default', ['webpack', 'jade', 'stylus', 'electron-dev', 'watch', 'browser-sync'])
+gulp.task('build', ['release', 'jade', 'stylus', 'webpack'])

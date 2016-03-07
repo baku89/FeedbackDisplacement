@@ -13,7 +13,6 @@ class Ticker extends EventEmitter {
 	}
 
 	start() {
-		console.log('start ticker')
 		this.update()
 	}
 

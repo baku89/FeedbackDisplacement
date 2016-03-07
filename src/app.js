@@ -7,7 +7,6 @@ import 'postprocessing/EffectComposer'
 
 import Interface from './vj-interface.js'
 
-
 import Ticker from './ticker.js'
 
 import BrushPass from './brush-pass.js'
@@ -23,7 +22,7 @@ class App {
 	init() {
 
 		this.initScene()
-		this.initSource()
+		this.initHUD()
 	}
 
 	initScene() {
@@ -57,7 +56,16 @@ class App {
 		Ticker.start()
 	}
 
-	initSource() {
+	initHUD() {
+
+		let stats = new require('stats.js')()
+		stats.setMode(1)
+
+		stats.domElement.style.position = 'absolute'
+		stats.domElement.style.left = '0px'
+		stats.domElement.style.top = '0px'
+
+		document.body.appendChild( stats.domElement )
 	}
 
 	animate(elapsed) {

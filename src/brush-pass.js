@@ -1,5 +1,3 @@
-/* global Interface */
-
 import BasePass from './base-pass.js'
 import CoatServer from './coat-server.js'
 import FlowManager from './flow-manager.js'

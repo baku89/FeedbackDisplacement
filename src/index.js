@@ -8,7 +8,7 @@ require('electron-debug')()
 
 let indexFile = `${__dirname}/index.html`
 if (process.env['NODE_ENV'] == 'dev') {
-	indexFile = "http://localhost:9999"
+	indexFile = 'http://localhost:9999'
 }
 
 let mainWindow
