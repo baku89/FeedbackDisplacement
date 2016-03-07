@@ -9,9 +9,21 @@ export default class AudioAnalyser {
 
 	constructor() {
 		this.volume = 0
-		this.initUserMedia = this.initUserMedia.bind(this)
+		this.attack = false
+		this._threshold = 0
+		this.minInterval = 400
+		this.prevTime = 0
 
-		window.MediaStreamTrack.getSources(this.gotSources.bind(this))
+		this.$volume = $('.control__volume')
+		this.$threshold = $('.control__threshold')
+
+		// call set
+		this.threshold = 0.8
+
+		this.initUserMedia = this.initUserMedia.bind(this)
+		this.gotSources = this.gotSources.bind(this)
+
+		window.MediaStreamTrack.getSources(this.gotSources)
 	}
 
 	gotSources(sourceInfos) {
@@ -31,9 +43,7 @@ export default class AudioAnalyser {
 		const option = {
 			audio: {
 				optional: [
-					{
-						sourceId: sourceId
-					}
+					{sourceId: sourceId}
 				]
 			}
 		}
@@ -54,26 +64,49 @@ export default class AudioAnalyser {
 		// this.analyser.connect(context.destination)
 
 		// create data
-		this.frequencyData = new Uint8Array(this.analyser.fftSize)
+		this.domainData = new Uint8Array(this.analyser.fftSize)
 
 		this.update = this._update
-
-
 	}
 
 	update() {}
 
 	_update() {
 
-		this.analyser.getByteTimeDomainData(this.frequencyData)
+		this.analyser.getByteTimeDomainData(this.domainData)
 
 		// calc average
 		let volume = 0.0
-		for (let i = 0; i < this.frequencyData.length; i++) {
-			volume = Math.max(volume, this.frequencyData[i])
+		for (let i = 0; i < this.domainData.length; i++) {
+			volume = Math.max(volume, this.domainData[i])
 		}
 
 		this.volume = (volume / 128.0) - 1.0
+
+		if (this.attack) {
+			this.attack = false
+		} else {
+			let now = Date.now()
+			if (this.volume >= this._threshold && now - this.prevTime > this.minInterval) {
+				this.attack = true
+				this.prevTime = now
+			}
+		}
+
+		this.$volume.css({
+			scale: [this.volume, 1],
+			background: this.attack ? 'red' : 'white'
+		})
+	}
+
+	get threshold() {
+		return this._threshold
+	}
+	set threshold(value) {
+		this._threshold = value
+		this.$threshold.css({
+			left: `${this._threshold * 100}%`
+		})
 	}
 
 

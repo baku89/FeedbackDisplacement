@@ -1,3 +1,5 @@
+import 'jquery.transit'
+
 import 'postprocessing/ShaderPass'
 import 'postprocessing/MaskPass'
 import 'postprocessing/RenderPass'
@@ -29,8 +31,6 @@ class App {
 		const w = window.innerWidth
 		const h = window.innerHeight
 
-		this.brushPass = new BrushPass(w, h)
-
 		// make renderer
 		this.renderer = new THREE.WebGLRenderer({
 			canvas: document.getElementById('canvas')
@@ -40,7 +40,7 @@ class App {
 		this.prevRenderTarget = new THREE.WebGLRenderTarget(w, h, {
 		})
 
-		this.brushPass = new BrushPass(this.renderer)
+		this.brushPass = new BrushPass(this.renderer, w, h)
 
 		this.renderPass = new BasePass(this.renderer, {
 			renderer: this.renderer,
@@ -85,8 +85,6 @@ class App {
 	}
 }
 
-window.kumiko = new THREE.TextureLoader().load('/assets/rainbow.jpg', () => {
-	new App().init()
-})
+new App().init()
 
 

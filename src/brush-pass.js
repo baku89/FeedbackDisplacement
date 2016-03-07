@@ -1,7 +1,7 @@
 import BasePass from './base-pass.js'
+import CoatServer from './coat-server.js'
 
-
-const MIN_FLOW = 0.06
+const MIN_FLOW = 0.3
 
 export default class BrushPass extends BasePass {
 
@@ -10,12 +10,12 @@ export default class BrushPass extends BasePass {
 		let uniforms = {
 			aspect: {type: 'f', value: h / w},
 			prev: {type: 't', value: null},
-			image: {type: 't', value: window.kumiko},
+			image: {type: 't', value: null},
 			cursor: {type: 'v2', value: new THREE.Vector2()},
-			imageOpacity: {type: 'f', value: 0},
-			frequency: {type: 'f', value: 2},
+			imageOpacity: {type: 'f', value: 1},
+			frequency: {type: 'f', value: 1.5},
 			speed: {type: 'f', value: MIN_FLOW},
-			speedAmp: {type: 'f', value: 0.002},
+			speedAmp: {type: 'f', value: 0.3 * 0.05},
 			seed: {type: 'f', value: 0}
 		}
 
@@ -31,21 +31,28 @@ export default class BrushPass extends BasePass {
 
 		this.renderer = renderer
 
+		this.coatServer = new CoatServer((texture) => {
+			this.uniforms.image.value = texture
+			this.onDrawCoat()
+		})
+
 		this.prevTexture = new THREE.WebGLRenderTarget(w, h, targetOption)
 		this.texture = new THREE.WebGLRenderTarget(w, h, targetOption)
 
 		this.uniforms.prev.value = this.texture
 
-		// this.pass = new BasePass(this.renderer, {
-		// 	fragmentShader: require('./shaders/brush-pass.frag'),
-		// 	uniforms: this.uniforms
-		// })
-
 		// event
 		window.Interface.on('change-flow', this.onChangeFlow.bind(this))
-		window.Interface.on('overcoat', this.onOvercoat.bind(this))
+		window.Interface.on('draw-coat', this.onDrawCoat.bind(this))
 		window.Interface.on('volume', this.onChangeVolume.bind(this))
 		window.Interface.on('flow-speed', this.onChangeFlowSpeed.bind(this))
+		window.Interface.on('attack', this.onAttack.bind(this))
+	}
+
+	onAttack() {
+		// console.log('attac!!!')
+
+		this.uniforms.seed.value = Math.random()
 	}
 
 	onChangeFlowSpeed(value) {
@@ -53,14 +60,12 @@ export default class BrushPass extends BasePass {
 		this.uniforms.speedAmp.value = value * 0.05
 	}
 
-	onChangeFlow(value) {
+	onChangeFlow() {
 
 		this.uniforms.seed.value = Math.random()
 	}
 
-	onOvercoat(value) {
-
-		console.log(value, 'asldfjasldkfj')
+	onDrawCoat(value) {
 		// this.uniforms.cursor.value.set(e.offsetX, e.offsetY)
 
 		this.uniforms.imageOpacity.value = 1

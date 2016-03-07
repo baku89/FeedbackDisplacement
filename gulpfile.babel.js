@@ -27,9 +27,7 @@ gulp.task('webpack', () => {
 
 	return gulp.src('')
 		.pipe($.plumber())
-		.pipe(WebpackStream(config, null, () => {
-			notifier.notify('Error: Webpack')
-			}))
+		.pipe(WebpackStream(config))
 		.pipe(gulp.dest('build'))
     .pipe(browserSync.stream())
 })

@@ -12,5 +12,9 @@ export default class BaseInterface extends EventEmitter {
 	update() {
 		this.audioAnalyzer.update()
 		this.emit('volume', this.audioAnalyzer.volume)
+
+		if (this.audioAnalyzer.attack) {
+			this.emit('attack')
+		}
 	}
 }

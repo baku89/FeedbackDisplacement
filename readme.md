@@ -4,6 +4,12 @@
 
 > VJ set for upcoming events in spring.
 
+## Memo
+
+```
+ln -s "vdmx/Separate RGB.qtz" "~/Library/Application Support/VDMX/qcFX"
+```
+
 ## Dev
 
 ```

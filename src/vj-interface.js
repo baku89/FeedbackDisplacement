@@ -10,8 +10,11 @@ const TYPE = {
 const OSCList = {
 	'/volume': TYPE.every,
 	'/flow-speed': TYPE.every,
-	'/overcoat': TYPE.on,
-	'/change-flow': TYPE.on
+	'/draw-coat': TYPE.on,
+	'/change-flow': TYPE.on,
+	'/attack-threshold': function(value) {
+		this.audioAnalyzer.threshold = value
+	}
 }
 
 class VJInterface extends BaseInterface {
@@ -22,17 +25,21 @@ class VJInterface extends BaseInterface {
 		this.oscServer = new OSC.Server(1234, '0.0.0.0')
 		this.oscServer.on('message', this.onReceiveOSC.bind(this))
 	}
+
+
 	onReceiveOSC(msg, rinfo) {
 
 		let name = msg[0]
 		let value = msg[1]
 
-		console.log(name, value)
+		// console.log(name, value)
 
 		if (OSCList[name] == TYPE.every) {
 			this.emit(name.substr(1), value)
 		} else if (OSCList[name] == TYPE.on && value == 1) {
 			this.emit(name.substr(1), value)
+		} else if (typeof OSCList[name] == 'function') {
+			OSCList[name].call(this, value)
 		}
 	}
 
