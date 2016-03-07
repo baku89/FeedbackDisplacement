@@ -2,8 +2,8 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext
 window.navigator.getUserMedia = window.navigator.getUserMedia || window.navigator.webkitGetUserMedia
 
 
-// const SOURCE_NAME = 'Soundflower (2ch)'
-const SOURCE_NAME = 'Default'
+const SOURCE_NAME = 'Soundflower (2ch)'
+// const SOURCE_NAME = 'Default'
 
 export default class AudioAnalyser {
 

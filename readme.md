@@ -2,7 +2,7 @@
 
 ![](thumb.png)
 
-> VJ set for upcoming events in March.
+> VJ set for upcoming events in spring.
 
 ## Dev
 

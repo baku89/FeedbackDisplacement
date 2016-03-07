@@ -2,6 +2,7 @@
 
 const gulp = require('gulp')
 const $ = require('gulp-load-plugins')()
+const notifier = require('node-notifier')
 const webpack = require('webpack')
 const WebpackStream = require('webpack-stream')
 const BrowserSync = require('browser-sync')
@@ -26,7 +27,9 @@ gulp.task('webpack', () => {
 
 	return gulp.src('')
 		.pipe($.plumber())
-		.pipe(WebpackStream(config))
+		.pipe(WebpackStream(config, null, () => {
+			notifier.notify('Error: Webpack')
+			}))
 		.pipe(gulp.dest('build'))
     .pipe(browserSync.stream())
 })
