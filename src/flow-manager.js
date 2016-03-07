@@ -49,6 +49,7 @@ export default class FlowManager {
 	// speed
 	onChangeVolume(value) {
 		this.volume = value
+		// this.uniforms.imageOpacity.value = value > 0.9 ? 1 : 0
 		this.updateSpeed()
 	}
 	onChangeFlowSpeed(value) {

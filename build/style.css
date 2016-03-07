@@ -37,7 +37,7 @@ body {
 }
 .control__threshold {
   position: relative;
-  width: 1px;
+  width: 10px;
   background: #f00;
 }
 .control__coat-source {

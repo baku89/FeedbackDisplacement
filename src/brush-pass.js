@@ -30,7 +30,7 @@ export default class BrushPass extends BasePass {
 
 		this.coatServer = new CoatServer((texture) => {
 			this.uniforms.image.value = texture
-			this.onDrawCoat()
+			// this.onDrawCoat()
 		})
 
 		// init ping-pong renderer
@@ -45,12 +45,12 @@ export default class BrushPass extends BasePass {
 		this.uniforms.prev.value = this.texture
 
 		// event
-		Interface.on('draw-coat', this.onDrawCoat.bind(this))
+		// Interface.on('draw-coat', this.onDrawCoat.bind(this))
 	}
 
-	onDrawCoat() {
-		this.uniforms.imageOpacity.value = 1
-	}
+	// onDrawCoat() {
+	// 	this.uniforms.imageOpacity.value = 1
+	// }
 
 	render() {
 
@@ -62,7 +62,7 @@ export default class BrushPass extends BasePass {
 
 		super.render(this.texture)
 
-		this.uniforms.imageOpacity.value = 0
+		this.uniforms.imageOpacity.value = 1
 	}
 
 	setSize(w, h) {
