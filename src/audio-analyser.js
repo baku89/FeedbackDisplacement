@@ -9,6 +9,7 @@ export default class AudioAnalyser {
 
 	constructor() {
 		this.volume = 0
+		this.amp = 1
 		this.attack = false
 		this._threshold = 0
 		this.minInterval = 400
@@ -82,6 +83,7 @@ export default class AudioAnalyser {
 		}
 
 		this.volume = (volume / 128.0) - 1.0
+		this.volume = Math.min(this.volume * this.amp, 1)
 
 		if (this.attack) {
 			this.attack = false

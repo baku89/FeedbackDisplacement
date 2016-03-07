@@ -12,6 +12,10 @@ const OSCList = {
 	'/flow-speed': TYPE.every,
 	'/draw-coat': TYPE.on,
 	'/change-flow': TYPE.on,
+	'/audio-amp': function(value) {
+		console.log(value)
+		this.audioAnalyzer.amp = value
+	},
 	'/attack-threshold': function(value) {
 		this.audioAnalyzer.threshold = value
 	}
