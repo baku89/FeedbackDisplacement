@@ -27,10 +27,19 @@ vec2 polarTurb() {
 vec2 directionalDisp() {
 	vec3 color = texture2D(prev, pos).rgb;
 	float amp = snoise3(color + seed * 100.0) * speed * 2.0;
-
 	float angle = (floor(seed * 1000.0) + 0.5) * (PI / 2.0);
 
 	return amp * vec2(cos(angle), sin(angle));
+}
+
+
+vec2 earthworm() {
+	float wiggle = snoise2( (pos + seed) * frequency * 2.0 );
+
+	float dir = seed * PI * 2.0;
+	float angle = wiggle * 2.0 * PI + (cos(dir) * pos.x + sin(dir) * pos.y) * 80.0;
+
+	return vec2(cos(angle), sin(angle)) * speed;
 }
 
 void main() {
@@ -47,9 +56,11 @@ void main() {
 	vec2 offset = vec2(0.0);
 
 	if (flowType == 0) {
-		offset = directionalDisp();
+		offset = earthworm();
 	} else if (flowType == 1) {
 		offset = polarTurb();
+	} else if (flowType == 2) {
+		offset = directionalDisp();
 	}
 
 	// fix aspect
