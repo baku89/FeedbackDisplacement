@@ -1,32 +1,36 @@
-/* global Interface */
+const lerp = require('Interpolation').lerp
 
 import BasePass from './base-pass.js'
 import CoatServer from './coat-server.js'
-import FlowManager from './flow-manager.js'
+import FlowPass from './flow-pass.js'
+
+const MIN_FLOW = 0.3
+const SPEED_AMP = .05
 
 export default class BrushPass extends BasePass {
 
-	constructor(w, h) {
+	constructor(renderer, w, h) {
 
 		let uniforms = {
+			aspect: {type: 'f', value: h / w},
 			prev: {type: 't', value: null},
 			image: {type: 't', value: null},
 			imageOpacity: {type: 'f', value: 1},
-
-			flowType: {type: 'i', value: 0},
-			aspect: {type: 'f', value: 1},
 			frequency: {type: 'f', value: 1.5},
 			speed: {type: 'f', value: 0},
 			seed: {type: 'f', value: 0}
 		}
 
-		super({
+		super(renderer, {
 			fragmentShader: require('./shaders/brush-pass.frag'),
 			uniforms: uniforms
 		})
 
-		this.flowManager = new FlowManager(this.uniforms)
-		this.flowManager.setSize(w, h)
+		this.volume = MIN_FLOW
+		this.speedAmp = 0.3
+		this.updateSpeed()
+
+		this.renderer = renderer
 
 		this.coatServer = new CoatServer((texture) => {
 			this.uniforms.image.value = texture
@@ -45,19 +49,57 @@ export default class BrushPass extends BasePass {
 		this.uniforms.prev.value = this.texture
 
 		// event
-		Interface.on('draw-coat', this.onDrawCoat.bind(this))
+		window.Interface.on('change-flow', this.onChangeFlow.bind(this))
+		window.Interface.on('draw-coat', this.onDrawCoat.bind(this))
+		window.Interface.on('volume', this.onChangeVolume.bind(this))
+		window.Interface.on('flow-speed', this.onChangeFlowSpeed.bind(this))
+		window.Interface.on('attack', this.onAttack.bind(this))
 	}
 
-	onDrawCoat() {
+	onAttack() {
+		// console.log('attac!!!')
+
+		this.uniforms.seed.value = Math.random()
+	}
+
+
+
+	onChangeFlow() {
+
+		this.uniforms.seed.value = Math.random()
+	}
+
+	onDrawCoat(value) {
+		// this.uniforms.cursor.value.set(e.offsetX, e.offsetY)
+
 		this.uniforms.imageOpacity.value = 1
+	}
+
+	// speed
+
+	onChangeVolume(value) {
+		this.volume = value
+		this.updateSpeed()
+	}
+
+	onChangeFlowSpeed(value) {
+		this.speedAmp = value
+		this.updateSpeed()
+	}
+
+	updateSpeed() {
+		this.uniforms.speed.value =
+			lerp(MIN_FLOW, 1, Math.pow(this.volume, 3))
+			* this.speedAmp
+			* SPEED_AMP
 	}
 
 	render() {
 
-		// swap
 		let swap = this.prevTexture
 		this.prevTexture = this.texture
 		this.texture = swap
+
 		this.uniforms.prev.value = this.prevTexture
 
 		super.render(this.texture)
@@ -66,7 +108,8 @@ export default class BrushPass extends BasePass {
 	}
 
 	setSize(w, h) {
-		this.flowManager.setSize(w, h)
+		super.setSize(w, h)
+		this.uniforms.aspect.value = h / w
 		this.prevTexture.setSize(w, h)
 		this.texture.setSize(w, h)
 	}

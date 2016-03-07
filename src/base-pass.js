@@ -1,10 +1,8 @@
 export default class BasePass {
 
-	constructor(renderer, option) {
+	constructor(option) {
 
 		this.scene = new THREE.Scene()
-
-		this.renderer = renderer
 
 		// camera
 		this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000)
@@ -27,11 +25,7 @@ export default class BasePass {
 		this.scene.add(plane)
 	}
 
-	setSize(width, height) {
-		this.renderer.setSize(width, height)
-	}
-
 	render(targetRenderer) {
-		this.renderer.render(this.scene, this.camera, targetRenderer)
+		window.renderer.render(this.scene, this.camera, targetRenderer)
 	}
 }

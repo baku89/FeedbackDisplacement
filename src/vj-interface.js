@@ -12,6 +12,7 @@ const OSCList = {
 	'/flow-speed': TYPE.every,
 	'/draw-coat': TYPE.on,
 	'/change-flow': TYPE.on,
+	'/flow-type': TYPE.every,
 	'/audio-amp': function(value) {
 		console.log(value)
 		this.audioAnalyzer.amp = value
@@ -36,7 +37,7 @@ class VJInterface extends BaseInterface {
 		let name = msg[0]
 		let value = msg[1]
 
-		// console.log(name, value)
+		console.log(name, value)
 
 		if (OSCList[name] == TYPE.every) {
 			this.emit(name.substr(1), value)

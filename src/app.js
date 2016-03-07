@@ -32,18 +32,14 @@ class App {
 		const h = window.innerHeight
 
 		// make renderer
-		this.renderer = new THREE.WebGLRenderer({
+		window.renderer = new THREE.WebGLRenderer({
 			canvas: document.getElementById('canvas')
 		})
-		this.renderer.setClearColor(0x000000)
+		window.renderer.setClearColor(0x000000)
 
-		this.prevRenderTarget = new THREE.WebGLRenderTarget(w, h, {
-		})
+		this.brushPass = new BrushPass(w, h)
 
-		this.brushPass = new BrushPass(this.renderer, w, h)
-
-		this.renderPass = new BasePass(this.renderer, {
-			renderer: this.renderer,
+		this.renderPass = new BasePass({
 			fragmentShader: require('./shaders/render-pass.frag'),
 			uniforms: {
 				texture: {type: 't', value: this.brushPass.texture}
@@ -76,8 +72,9 @@ class App {
 		const w = window.innerWidth
 		const h = window.innerHeight
 
+		window.renderer.setSize(w, h)
+
 		this.brushPass.setSize(w, h)
-		this.renderPass.setSize(w, h)
 	}
 
 	onClick(e) {

@@ -51,6 +51,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-stylus": "^2.3.0",
     "gulp-util": "^3.0.7",
+    "interpolation": "^1.0.0",
     "jade": "^1.11.0",
     "jade-loader": "^0.8.0",
     "jquery": "^2.2.1",
