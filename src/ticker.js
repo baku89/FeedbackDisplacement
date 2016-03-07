@@ -1,12 +1,15 @@
 import EventEmitter from 'eventemitter3'
 
+const FPS = 30
+const FRAME_DURATION = 1000.0 / FPS
 
 class Ticker extends EventEmitter {
 
 	constructor() {
 		super()
 		this.update = this.update.bind(this)
-		this.previousTime = 0
+		this.prev = 0
+		this.now = 0
 	}
 
 	start() {
@@ -18,12 +21,14 @@ class Ticker extends EventEmitter {
 		cancelAnimationFrame(this.requiestId)
 	}
 
-	update(t) {
+	update() {
 		this.requestId = requestAnimationFrame(this.update)
-		let elapsed = t - this.previousTime
-		this.previousTime = t
-		if (elapsed) {
-			this.emit('update', elapsed)
+
+		this.now = window.performance.now()
+
+		if (this.now - this.prev >= FRAME_DURATION) {
+			this.emit('update')
+			this.prev = this.now
 		}
 	}
 }

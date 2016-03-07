@@ -33,4 +33,4 @@ Builds the app for OS X, Linux, and Windows, using [electron-packager](https://g
 
 ## License
 
-MIT © [baku89](http://baku89.com)
+MIT © [Baku Hashimoto](http://baku89.com)

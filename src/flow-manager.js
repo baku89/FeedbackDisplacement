@@ -8,8 +8,6 @@ Manages uniforms of BrushPass associated with optical flow.
 
 const lerp = require('Interpolation').lerp
 
-import BasePass from './base-pass.js'
-
 const MIN_FLOW = 0.3
 const SPEED_AMP = .05
 
