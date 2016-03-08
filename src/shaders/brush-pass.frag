@@ -36,7 +36,6 @@ vec2 directionalDisp() {
 
 vec2 earthworm() {
 	float wiggle = snoise2( (pos + seed) * frequency * 2.0 );
-
 	float dir = seed * PI * 2.0;
 	float angle = wiggle * 2.0 * PI + (cos(dir) * pos.x + sin(dir) * pos.y) * 80.0;
 
@@ -44,19 +43,15 @@ vec2 earthworm() {
 }
 
 vec2 colorDir() {
-
-	vec3 c = texture2D(prev, pos).rgb; //(pos.x - 0.5) + (pos.y - 0.5) + angle
-
+	vec3 c = texture2D(prev, pos).rgb;
 	float angle = (c.r - c.g + seed * 10.0) * PI * 1.0;
 
 	return vec2(cos(angle), sin(angle)) * speed;
 }
 
 vec2 imageDisp() {
-
 	vec3 color = texture2D(image, pos / vec2(2.0, 1.0)).rgb;
 	float amp = (color.r + color.b - color.b) / 2.0 * speed;
-
 	float angle = (seed + snoise2(pos / 1.0)) * PI * 2.0;
 
 	return amp * vec2(cos(angle), sin(angle));
