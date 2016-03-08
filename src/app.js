@@ -66,7 +66,7 @@ class App {
 		this.stats.domElement.style.left = '0px'
 		this.stats.domElement.style.top = '0px'
 
-		document.body.appendChild( this.stats.domElement )
+		// document.body.appendChild( this.stats.domElement )
 	}
 
 	animate() {

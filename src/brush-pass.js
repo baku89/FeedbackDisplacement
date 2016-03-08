@@ -13,7 +13,7 @@ export default class BrushPass extends BasePass {
 
 			flowType: {type: 'i', value: 0},
 			aspect: {type: 'f', value: 1},
-			frequency: {type: 'f', value: 1.5},
+			frequency: {type: 'f', value: 2},
 			speed: {type: 'f', value: 0},
 			seed: {type: 'f', value: 0}
 		}
