@@ -26,8 +26,8 @@ export default class BrushPass extends BasePass {
 		this.flowManager = new FlowManager(this.uniforms)
 		this.flowManager.setSize(w, h)
 
-		this.coatServer = new CoatServer((texture) => {
-			this.uniforms.image.value = texture
+		this.coatServer = new CoatServer(() => {
+			this.uniforms.image.value = this.coatServer.texture
 			// this.onDrawCoat()
 		})
 

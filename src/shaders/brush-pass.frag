@@ -19,9 +19,10 @@ uniform float seed;
 varying vec2 pos;
 
 vec2 polarTurb() {
+	vec3 color = texture2D(prev, pos).rgb;
 	vec2 perlin = (pos + vec2(seed)  * 20.0) * frequency * vec2(1.0, aspect);
 	float angle = snoise2(perlin) * 2.0 * PI;
-	return speed * vec2(cos(angle), sin(angle));
+	return speed * vec2(cos(angle), sin(angle)) * mix(0.2, 1.0, color.r);
 }
 
 vec2 directionalDisp() {
@@ -39,7 +40,26 @@ vec2 earthworm() {
 	float dir = seed * PI * 2.0;
 	float angle = wiggle * 2.0 * PI + (cos(dir) * pos.x + sin(dir) * pos.y) * 80.0;
 
+	return vec2(cos(angle), sin(angle)) * speed * 0.8;
+}
+
+vec2 colorDir() {
+
+	vec3 c = texture2D(prev, pos).rgb; //(pos.x - 0.5) + (pos.y - 0.5) + angle
+
+	float angle = (c.r - c.g + seed * 10.0) * PI * 1.0;
+
 	return vec2(cos(angle), sin(angle)) * speed;
+}
+
+vec2 imageDisp() {
+
+	vec3 color = texture2D(image, pos / vec2(2.0, 1.0)).rgb;
+	float amp = (color.r + color.b - color.b) / 2.0 * speed;
+
+	float angle = (seed + snoise2(pos / 2.0)) * PI * 2.0;
+
+	return amp * vec2(cos(angle), sin(angle));
 }
 
 void main() {
@@ -56,11 +76,15 @@ void main() {
 	vec2 offset = vec2(0.0);
 
 	if (flowType == 0) {
-		offset = earthworm();
-	} else if (flowType == 1) {
 		offset = polarTurb();
+	} else if (flowType == 1) {
+		offset = imageDisp();
 	} else if (flowType == 2) {
 		offset = directionalDisp();
+	} else if (flowType == 3) {
+		offset = earthworm();
+	} else if (flowType == 4) {
+		offset = colorDir();
 	}
 
 	// fix aspect

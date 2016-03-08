@@ -41,7 +41,8 @@ export default class FlowManager {
 
 	// seed
 	changeFlow() {
-		this.uniforms.seed.value = Math.random()
+		let prev = this.uniforms.seed.value
+		this.uniforms.seed.value = (prev + 0.4 + Math.random() / 2) % 1.0
 	}
 
 	// speed

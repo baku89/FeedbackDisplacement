@@ -1,3 +1,5 @@
+/* global Stats */
+
 import 'jquery.transit'
 
 import 'postprocessing/ShaderPass'
@@ -23,6 +25,9 @@ class App {
 
 		this.initScene()
 		this.initHUD()
+
+		Ticker.on('update', this.animate.bind(this))
+		Ticker.start()
 	}
 
 	initScene() {
@@ -48,32 +53,33 @@ class App {
 		window.addEventListener('resize', this.onResize.bind(this))
 		window.addEventListener('click', this.onClick.bind(this))
 
-		this.animate = this.animate.bind(this)
-
 		this.onResize()
-
-		Ticker.on('update', this.animate.bind(this))
-		Ticker.start()
 	}
 
 	initHUD() {
 
-		let stats = new require('stats.js')()
-		stats.setMode(1)
 
-		stats.domElement.style.position = 'absolute'
-		stats.domElement.style.left = '0px'
-		stats.domElement.style.top = '0px'
+		this.stats = new Stats()
+		this.stats.setMode(0)
 
-		document.body.appendChild( stats.domElement )
+		this.stats.domElement.style.position = 'absolute'
+		this.stats.domElement.style.left = '0px'
+		this.stats.domElement.style.top = '0px'
+
+		document.body.appendChild( this.stats.domElement )
 	}
 
-	animate(elapsed) {
+	animate() {
+
+
+		this.stats.begin()
 
 		Interface.update()
 
 		this.brushPass.render()
 		this.renderPass.render()
+
+		this.stats.end()
 	}
 
 	onResize() {
@@ -85,7 +91,7 @@ class App {
 		this.brushPass.setSize(w, h)
 	}
 
-	onClick(e) {
+	onClick() {
 		// this.uniforms.cursor.value.set(e.clientX, e.clientY)
 	}
 }

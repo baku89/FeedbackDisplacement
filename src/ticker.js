@@ -22,13 +22,14 @@ class Ticker extends EventEmitter {
 
 	update() {
 		this.requestId = requestAnimationFrame(this.update)
+		this.emit('update')
 
-		this.now = window.performance.now()
+		// this.now = window.performance.now()
 
-		if (this.now - this.prev >= FRAME_DURATION) {
-			this.emit('update')
-			this.prev = this.now
-		}
+		// if (this.now - this.prev >= FRAME_DURATION) {
+		// 	this.emit('update')
+		// 	this.prev = this.now
+		// }
 	}
 }
 
