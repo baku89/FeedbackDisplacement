@@ -13,6 +13,8 @@ const OSCList = {
 	'/draw-coat': TYPE.on,
 	'/change-flow': TYPE.on,
 	'/flow-type': TYPE.every,
+	'/saturation': TYPE.every,
+	'/opacity': TYPE.every,
 	'/audio-amp': function(value) {
 		this.audioAnalyzer.amp = value
 	},

@@ -11,8 +11,7 @@ import Interface from './vj-interface.js'
 
 import Ticker from './ticker.js'
 
-import BrushPass from './brush-pass.js'
-import BasePass from './base-pass.js'
+import RenderPass from './render-pass.js'
 
 window.Interface = Interface
 window.renderer = null
@@ -23,6 +22,7 @@ class App {
 
 	init() {
 
+		this.initRenderer()
 		this.initScene()
 		this.initHUD()
 
@@ -30,34 +30,25 @@ class App {
 		Ticker.start()
 	}
 
-	initScene() {
-
-		const w = window.innerWidth
-		const h = window.innerHeight
-
+	initRenderer() {
 		// make renderer
 		window.renderer = new THREE.WebGLRenderer({
 			canvas: document.getElementById('canvas')
 		})
 		window.renderer.setClearColor(0x000000)
+		window.renderer.setSize(window.innerWidth, window.innerHeight)
 
-		this.brushPass = new BrushPass(w, h)
-
-		this.renderPass = new BasePass({
-			fragmentShader: require('./shaders/render-pass.frag'),
-			uniforms: {
-				texture: {type: 't', value: this.brushPass.texture}
-			}
+		Interface.on('resize', (w, h) => {
+			window.renderer.setSize(w, h)
 		})
+	}
 
-		window.addEventListener('resize', this.onResize.bind(this))
-		window.addEventListener('click', this.onClick.bind(this))
+	initScene() {
 
-		this.onResize()
+		this.renderPass = new RenderPass()
 	}
 
 	initHUD() {
-
 
 		this.stats = new Stats()
 		this.stats.setMode(0)
@@ -66,33 +57,17 @@ class App {
 		this.stats.domElement.style.left = '0px'
 		this.stats.domElement.style.top = '0px'
 
-		// document.body.appendChild( this.stats.domElement )
+		document.body.appendChild( this.stats.domElement )
 	}
 
 	animate() {
-
-
 		this.stats.begin()
 
 		Interface.update()
 
-		this.brushPass.render()
 		this.renderPass.render()
 
 		this.stats.end()
-	}
-
-	onResize() {
-		const w = window.innerWidth
-		const h = window.innerHeight
-
-		window.renderer.setSize(w, h)
-
-		this.brushPass.setSize(w, h)
-	}
-
-	onClick() {
-		// this.uniforms.cursor.value.set(e.clientX, e.clientY)
 	}
 }
 

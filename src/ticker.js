@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3'
 
-const FPS = 30
-const FRAME_DURATION = 1000.0 / FPS
+// const FPS = 30
+// const FRAME_DURATION = 1000.0 / FPS
 
 class Ticker extends EventEmitter {
 

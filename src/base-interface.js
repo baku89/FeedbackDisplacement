@@ -7,6 +7,12 @@ export default class BaseInterface extends EventEmitter {
 		super()
 
 		this.audioAnalyzer = new AudioAnalyzer()
+
+		window.addEventListener('resize', this.onResize.bind(this))
+	}
+
+	onResize() {
+		this.emit('resize', window.innerWidth, window.innerHeight)
 	}
 
 	update() {

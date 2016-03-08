@@ -1,3 +1,5 @@
+/* global Interface */
+
 import BasePass from './base-pass.js'
 import CoatServer from './coat-server.js'
 import FlowManager from './flow-manager.js'
@@ -12,6 +14,7 @@ export default class BrushPass extends BasePass {
 			imageOpacity: {type: 'f', value: 1},
 
 			flowType: {type: 'i', value: 0},
+			coatOpacity: {type: 'f', value: 0},
 			aspect: {type: 'f', value: 1},
 			frequency: {type: 'f', value: 2},
 			speed: {type: 'f', value: 0},
@@ -44,6 +47,8 @@ export default class BrushPass extends BasePass {
 
 		// event
 		// Interface.on('draw-coat', this.onDrawCoat.bind(this))
+
+		Interface.on('resize', this.onResize.bind(this))
 	}
 
 	// onDrawCoat() {
@@ -63,7 +68,7 @@ export default class BrushPass extends BasePass {
 		this.uniforms.imageOpacity.value = 1
 	}
 
-	setSize(w, h) {
+	onResize(w, h) {
 		this.flowManager.setSize(w, h)
 		this.prevTexture.setSize(w, h)
 		this.texture.setSize(w, h)

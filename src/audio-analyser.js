@@ -12,7 +12,7 @@ export default class AudioAnalyser {
 		this.amp = 1
 		this.attack = false
 		this._threshold = 0
-		this.minInterval = 400
+		this.minInterval = 200
 		this.prevTime = 0
 
 		this.$volume = $('.control__volume')

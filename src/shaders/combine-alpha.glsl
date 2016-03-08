@@ -4,6 +4,8 @@ vec4 combineAlpha(sampler2D tex, vec2 p) {
 	vec2 colorPos = vec2(p.x, p.y);
 	vec2 alphaPos = vec2(0.5 + p.x, p.y);
 	return vec4(texture2D(tex, colorPos).rgb, texture2D(tex, alphaPos).r);
+
+	// return texture2D(tex, p);
 }
 
 #pragma glslify: export(combineAlpha)

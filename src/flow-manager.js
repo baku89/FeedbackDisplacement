@@ -24,6 +24,7 @@ export default class FlowManager {
 
 		// type
 		Interface.on('flow-type', this.changeFlowType.bind(this))
+		Interface.on('opacity', this.changeOpacity.bind(this))
 
 		// speed
 		Interface.on('volume', this.onChangeVolume.bind(this))
@@ -37,6 +38,11 @@ export default class FlowManager {
 	// type
 	changeFlowType(index) {
 		this.uniforms.flowType.value = index
+	}
+
+	changeOpacity(value) {
+		console.log(value)
+		this.uniforms.coatOpacity.value = value
 	}
 
 	// seed
