@@ -1,6 +1,7 @@
 import OSC from 'node-osc'
 
 import BaseInterface from './base-interface.js'
+import remote from 'remote'
 
 const TYPE = {
 	every: 1,
@@ -30,6 +31,13 @@ class VJInterface extends BaseInterface {
 
 		this.oscServer = new OSC.Server(1234, '0.0.0.0')
 		this.oscServer.on('message', this.onReceiveOSC.bind(this))
+
+		global.sharedObject = {}
+
+		// if (!global.sharedObject.controlWindow) {
+		// 	const BrowserWindow = remote.require('browser-window')
+		// 	let controlWindow = new BrowserWindow({})
+		// }
 	}
 
 
