@@ -13,7 +13,7 @@ export default class RenderPass extends BasePass {
 		let brushPass = new BrushPass(w, h)
 
 		super({
-			fragmentShader: require('./shaders/render-pass.frag'),
+			fragmentShader: require('../../shaders/render-pass.frag'),
 			uniforms: {
 				texture: {type: 't', value: brushPass.texture},
 				saturation: {type: 'f', value: 0}

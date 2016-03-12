@@ -1,6 +1,5 @@
 precision mediump float;
 
-#pragma glslify: combineAlpha = require('./combine-alpha.glsl')
 #pragma glslify: snoise2 = require(glsl-noise/simplex/2d)
 #pragma glslify: snoise3 = require(glsl-noise/simplex/3d)
 #pragma glslify: PI = require('glsl-pi')
@@ -8,6 +7,7 @@ precision mediump float;
 uniform sampler2D prev;
 uniform sampler2D image;
 uniform float imageOpacity;
+
 
 // flow
 uniform int flowType;

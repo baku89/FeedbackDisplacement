@@ -22,7 +22,7 @@ export default class BrushPass extends BasePass {
 		}
 
 		super({
-			fragmentShader: require('./shaders/brush-pass.frag'),
+			fragmentShader: require('../../shaders/brush-pass.frag'),
 			uniforms: uniforms
 		})
 

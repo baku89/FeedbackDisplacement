@@ -1,7 +1,5 @@
 import OSC from 'node-osc'
-
 import BaseInterface from './base-interface.js'
-import remote from 'remote'
 
 const TYPE = {
 	every: 1,

@@ -10,6 +10,7 @@ const BrowserSync = require('browser-sync')
 const browserSync = BrowserSync.create()
 
 let developmentMode = true
+process.env.NODE_ENV = 'dev'
 
 //==================================================
 gulp.task('webpack', () => {
@@ -33,7 +34,7 @@ gulp.task('webpack', () => {
 })
 
 //==================================================
-gulp.task('electron-dev', () => {
+gulp.task('babel', () => {
 	return gulp.src('src/index.js')
 		.pipe($.plumber())
 		.pipe($.eslint({useEslintrc: true}))
@@ -72,6 +73,9 @@ gulp.task('browser-sync', () => {
 			baseDir: 'build'
 		}
 	})
+
+	return gulp.src('.', {read: false})
+		.pipe($.shell(['/usr/local/bin/electron ./build > /dev/null']))
 })
 
 //==================================================
@@ -89,5 +93,5 @@ gulp.task('release', () => {
 
 //==================================================
 
-gulp.task('default', ['webpack', 'jade', 'stylus', 'electron-dev', 'watch', 'browser-sync'])
+gulp.task('default', ['webpack', 'jade', 'stylus', 'babel', 'watch', 'browser-sync'])
 gulp.task('build', ['release', 'jade', 'stylus', 'webpack'])

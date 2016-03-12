@@ -13,7 +13,7 @@ export default class BasePass {
 
 		let mat = new THREE.ShaderMaterial({
 			uniforms: this.uniforms,
-			vertexShader: option.vertexShader || require('./shaders/base-pass.vert'),
+			vertexShader: option.vertexShader || require('../../shaders/base-pass.vert'),
 			fragmentShader: option.fragmentShader
 		})
 

@@ -1,0 +1,17 @@
+{
+  "name": "smudgevj-shaders",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "glsl-blend": "^1.0.2",
+    "glsl-hsv2rgb": "^1.0.0",
+    "glsl-noise": "0.0.0",
+    "glsl-pi": "^1.0.0"
+  }
+}
