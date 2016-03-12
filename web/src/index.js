@@ -23,7 +23,7 @@ function createMainWindow() {
 		height: 400
 	})
 
-	window.toggleDevTools()
+	// window.toggleDevTools()
 
 	if (process.env['NODE_ENV'] == 'dev') {
 		window.loadUrl(`${indexFile}`)

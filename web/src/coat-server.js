@@ -3,7 +3,8 @@
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia
 URL = window.URL || window.webkitURL
 
-const SOURCE_NAME = 'CamTwist (7D69:90E0)'
+const SOURCE_NAME = 'CamTwist'
+// const SOURCE_NAME = 'FaceTime HD Camera (Built-in) (05ac:8510)'
 
 export default class CoatServer {
 
@@ -18,17 +19,19 @@ export default class CoatServer {
 
 	gotSources(sourceInfos) {
 
-		// console.log(sourceInfos)
+		console.log(sourceInfos)
 
 		let sourceId = null
 
 		for (let i = 0; i < sourceInfos.length; i++) {
 			let info = sourceInfos[i]
-			if (info.label == SOURCE_NAME) {
+			if (info.label.indexOf(SOURCE_NAME) != -1 ) {
 				sourceId = info.id
 				break
 			}
 		}
+
+		console.log(sourceId)
 
 		const option = {
 			video: {
@@ -51,8 +54,8 @@ export default class CoatServer {
 			this.$video.play()
 
 			this.texture = new THREE.VideoTexture(this.$video)
-			this.texture.minFilter = THREE.LinearFilter
-			this.texture.magFilter = THREE.LinearFilter
+			this.texture.minFilter = THREE.NearestFilter
+			this.texture.magFilter = THREE.NearestFilter
 			this.texture.format = THREE.RGBFormat
 
 			this.onReadyFunc(this.texture)

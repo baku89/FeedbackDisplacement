@@ -38,6 +38,8 @@ export default class BrushPass extends BasePass {
 		let targetOption = {
 			// wrapS: THREE.MirroredRepeatWrapping,
 			// wrapT: THREE.MirroredRepeatWrapping
+			// minFilter: THREE.NearestFilter,
+			// magFilter: THREE.NearestFilter
 		}
 
 		this.prevTexture = new THREE.WebGLRenderTarget(w, h, targetOption)

@@ -21,7 +21,7 @@ gulp.task('webpack', () => {
 		config.watch = true
 	} else {
 		config.plugins.push(
-			new webpack.optimize.UglifyJsPlugin(),
+			// new webpack.optimize.UglifyJsPlugin(),
 			new webpack.optimize.DedupePlugin()
 		)
 	}
@@ -58,7 +58,7 @@ gulp.task('stylus', () => {
 		.pipe($.plumber())
 		.pipe($.stylus({use: require('nib')()}))
 		.pipe($.autoprefixer())
-		.pipe($.if(!developmentMode, $.minifyCss()))
+		// .pipe($.if(!developmentMode, $.minifyCss()))
 		.pipe(gulp.dest('build'))
 		.pipe(browserSync.stream())
 

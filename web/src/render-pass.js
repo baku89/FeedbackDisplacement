@@ -22,10 +22,25 @@ export default class RenderPass extends BasePass {
 
 		this.brushPass = brushPass
 
-		Interface.on('saturation', (value) => {
+		this.$canvas = $('#canvas')
+		this.saturation = 0
+		this.brightness = 0
 
-			$('#canvas').css('-webkit-filter', `saturate(${value * 3})`)
+		Interface.on('saturation', (value) => {
+			this.saturation = value
+			this.updateHSB()
 		})
+		Interface.on('brightness', (value) => {
+			this.brightness = value
+			this.updateHSB()
+		})
+	}
+
+	updateHSB() {
+
+		this.$canvas.css(
+			'-webkit-filter',
+			`saturate(${this.saturation}) brightness(${this.brightness})`)
 	}
 
 	render() {
