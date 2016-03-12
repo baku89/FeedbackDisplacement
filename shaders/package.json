@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "of": "/usr/local/bin/glslify of-brush-pass.frag -o ../of/bin/data/brush-pass.frag; /usr/local/bin/glslify of-brush-pass.vert -o ../of/bin/data/brush-pass.vert"
   },
   "author": "",
   "license": "ISC",
