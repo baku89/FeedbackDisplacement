@@ -15,7 +15,9 @@ const OSCList = {
 	'/change-flow': TYPE.on,
 	'/flow-type': TYPE.every,
 	'/saturation': TYPE.every,
+	'/brightness': TYPE.every,
 	'/opacity': TYPE.every,
+	'/toggle-play': TYPE.every,
 	'/audio-amp': function(value) {
 		this.audioAnalyzer.amp = value
 	},
@@ -28,6 +30,8 @@ class VJInterface extends BaseInterface {
 
 	constructor() {
 		super()
+
+		// console.log('vj-interface init')
 
 		this.oscServer = new OSC.Server(1234, '0.0.0.0')
 		this.oscServer.on('message', this.onReceiveOSC.bind(this))

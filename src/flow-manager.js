@@ -41,7 +41,7 @@ export default class FlowManager {
 	}
 
 	changeOpacity(value) {
-		console.log(value)
+		// console.log(value)
 		this.uniforms.coatOpacity.value = value
 	}
 

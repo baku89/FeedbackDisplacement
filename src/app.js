@@ -26,6 +26,8 @@ class App {
 		this.initScene()
 		this.initHUD()
 
+		Ticker.setupInterface(window.Interface)
+
 		Ticker.on('update', this.animate.bind(this))
 		Ticker.start()
 	}
@@ -55,7 +57,9 @@ class App {
 
 		this.stats.domElement.style.position = 'absolute'
 		this.stats.domElement.style.left = '0px'
-		this.stats.domElement.style.top = '0px'
+		this.stats.domElement.style.bottom = '-32px'
+		this.stats.domElement.style.background = 'transparent'
+		this.stats.domElement.style.color = 'black'
 
 		document.body.appendChild( this.stats.domElement )
 	}
