@@ -5,6 +5,7 @@
 
 #include "ofxOSC.h"
 #include "ofxSyphon.h"
+#include "ofxDatGui.h"
 
 #define PORT 1234
 #define SYPHON_SERVER "Coat"
@@ -14,8 +15,10 @@ class ofApp : public ofBaseApp{
 
 public:
     void setup();
+	void setupGui();
     void update();
     void draw();
+	void drawGui(ofEventArgs & args);
 
     void keyPressed(int key);
     void keyReleased(int key);
@@ -35,6 +38,8 @@ public:
     
     ofxOscReceiver receiver;
     ofxSyphonClient syphon;
+	
+	ofxDatGui* gui;
 
     
 };

@@ -16,8 +16,17 @@ void ofApp::setup(){
     syphon.set(SYPHON_SERVER, SYPHON_APP);
     
     brushPass.setCoat(syphon.getTexture());
-    
-    cout << "init syphon tex" << endl;
+	
+}
+
+//--------------------------------------------------------------
+void ofApp::setupGui(){
+	ofSetBackgroundColor(0);
+	
+	
+	gui = new ofxDatGui(ofxDatGuiAnchor::TOP_LEFT);
+	gui->setAutoDraw(false);
+	gui->addFRM();
 }
 
 //--------------------------------------------------------------
@@ -58,9 +67,18 @@ void ofApp::draw(){
     ofBackground(0);
     
     brushPass.draw();
+	
     
 
 }
+
+//--------------------------------------------------------------
+void ofApp::drawGui(ofEventArgs & args){
+	
+	gui->draw();
+	
+}
+
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
