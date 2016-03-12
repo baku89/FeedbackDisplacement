@@ -108,6 +108,12 @@
 		8E208F571DA21DAB4608701A /* ofxDatGuiTextInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInput.h; path = ../../../../../oF/v0.9.3/addons/ofxDatGui/src/components/ofxDatGuiTextInput.h; sourceTree = SOURCE_ROOT; };
 		8ECBBBA31F37549494F69077 /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../../../oF/v0.9.3/addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
 		9066003799E67F7925F298EC /* ofxOscParameterSync.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscParameterSync.h; path = ../../../../../oF/v0.9.3/addons/ofxOsc/src/ofxOscParameterSync.h; sourceTree = SOURCE_ROOT; };
+		927722D21C94878D00B0962D /* .babelrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = .babelrc; sourceTree = "<group>"; };
+		927722D31C94878D00B0962D /* base-pass.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = "base-pass.vert"; sourceTree = "<group>"; };
+		927722D41C94878D00B0962D /* brush-pass.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = "brush-pass.frag"; sourceTree = "<group>"; };
+		927722D51C94878D00B0962D /* flow.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = flow.glsl; sourceTree = "<group>"; };
+		927722D81C94878D00B0962D /* of-brush-pass.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = "of-brush-pass.frag"; sourceTree = "<group>"; };
+		927722D91C94878D00B0962D /* of-brush-pass.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = "of-brush-pass.vert"; sourceTree = "<group>"; };
 		92C71AD31C942E97001B1467 /* BrushPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrushPass.h; sourceTree = "<group>"; };
 		92C71C5C1C9436F2001B1467 /* ofxBlend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBlend.h; sourceTree = "<group>"; };
 		92C71C5D1C9436F2001B1467 /* ofxClone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxClone.h; sourceTree = "<group>"; };
@@ -385,6 +391,20 @@
 			name = themes;
 			sourceTree = "<group>";
 		};
+		927722D11C94878D00B0962D /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				927722D21C94878D00B0962D /* .babelrc */,
+				927722D31C94878D00B0962D /* base-pass.vert */,
+				927722D41C94878D00B0962D /* brush-pass.frag */,
+				927722D51C94878D00B0962D /* flow.glsl */,
+				927722D81C94878D00B0962D /* of-brush-pass.frag */,
+				927722D91C94878D00B0962D /* of-brush-pass.vert */,
+			);
+			name = shaders;
+			path = ../../shaders;
+			sourceTree = "<group>";
+		};
 		92C71BCF1C9436F1001B1467 /* ofxFX */ = {
 			isa = PBXGroup;
 			children = (
@@ -566,6 +586,7 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				92C71AD31C942E97001B1467 /* BrushPass.h */,
 				92C71CC61C94534B001B1467 /* Interface.h */,
+				927722D11C94878D00B0962D /* shaders */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

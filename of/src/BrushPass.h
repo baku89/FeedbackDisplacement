@@ -15,6 +15,9 @@
 
 #define STRINGIFY(A) #A
 
+#define MIN_FLOW 0.3
+#define SPEED_AMP 0.05
+
 class BrushPass {
 public:
     
@@ -28,7 +31,7 @@ public:
     void setSize(int w, int h) {
         width = w;
         height = h;
-        pingPong.allocate(width, height, GL_RGB);
+        pingPong.allocate(width, height, GL_RGB32F);
     }
     
     void update() {
@@ -37,10 +40,11 @@ public:
         shader.begin();
         
         shader.setUniform2f("resolution", width, height);
-        shader.setUniform2f("coatResolution", coat->getWidth(), coat->getHeight());
+		shader.setUniform2f("coatResolution", coat->getWidth(), coat->getHeight());
         shader.setUniform1f("opacity", opacity);
         shader.setUniform1f("speed", speed);
         shader.setUniform1f("offset", offset);
+		shader.setUniform1i("flowType", flowType);
         shader.setUniformTexture("prevTex", pingPong.src->getTexture(), 0);
         shader.setUniformTexture("coatTex", *coat, 1);
         
@@ -51,6 +55,10 @@ public:
         
         pingPong.swap();
     };
+	
+	void reload() {
+		shader.load("brush-pass.vert", "brush-pass.frag");
+	};
     
     void draw() {
         pingPong.dst->draw(0, 0);
@@ -62,9 +70,11 @@ public:
     
     // uniforms
     float opacity = 0.0;
-    float speed = 1.0;
     float offset = 0.0;
-    
+	int flowType = 0;
+	
+	float speed = 1.0;
+	
     ofTexture *coat;
     bool isCoatAllocated = false;
     void setCoat(ofTexture &_coat) {

@@ -37,7 +37,13 @@ void ofApp::update(){
         
         } else if (address == "/offset") {
             brushPass.offset = m.getArgAsFloat(0);
-        }
+			
+		} else if (address == "/flow-type") {
+			brushPass.flowType = m.getArgAsInt(0);
+			
+		}else if (address == "/update-shader") {
+			brushPass.reload();
+		}
     }
     
     syphon.draw(0, 0, width / 2.0, height / 2.0);
@@ -52,8 +58,6 @@ void ofApp::draw(){
     ofBackground(0);
     
     brushPass.draw();
-    
-    
     
 
 }
