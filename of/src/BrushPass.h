@@ -24,15 +24,13 @@ public:
     void allocate(int w, int h) {
         setSize(w, h);
         shader.load("brush-pass.vert", "brush-pass.frag");
-        
-        glEnable(GL_TEXTURE_2D);
     };
     
     void setSize(int w, int h) {
         width = w;
         height = h;
-        pingPong.allocate(width, height, GL_RGB32F);
-    }
+        pingPong.allocate(width, height, GL_RGB);
+    };
     
     void update() {
         pingPong.dst->begin();
@@ -40,16 +38,19 @@ public:
         shader.begin();
         
         shader.setUniform2f("resolution", width, height);
-		shader.setUniform2f("coatResolution", coat->getWidth(), coat->getHeight());
+        shader.setUniform2f("coatResolution", coat->getWidth(), coat->getHeight());
+        shader.setUniform2f("maskResolution", mask->getWidth(), mask->getHeight());
+        shader.setUniform1f("maskOpacity", maskOpacity);
         shader.setUniform1f("opacity", opacity);
         shader.setUniform1f("speed", speed);
         shader.setUniform1f("offset", offset);
 		shader.setUniform1i("flowType", flowType);
         shader.setUniformTexture("prevTex", pingPong.src->getTexture(), 0);
         shader.setUniformTexture("coatTex", *coat, 1);
-        
+        shader.setUniformTexture("maskTex", *mask, 2);
         
         ofDrawRectangle(0, 0, width, height);
+        
         shader.end();
         pingPong.dst->end();
         
@@ -57,11 +58,12 @@ public:
     };
 	
 	void reload() {
-		shader.load("brush-pass.vert", "brush-pass.frag");
+        ofLog(OF_LOG_NOTICE, "upate shader");
+        shader.load("brush-pass.vert", "brush-pass.frag");
 	};
     
-    void draw() {
-        pingPong.dst->draw(0, 0);
+    ofTexture& getTexture() {
+        return pingPong.dst->getTexture();
     };
     
     ofShader shader;
@@ -72,14 +74,10 @@ public:
     float opacity = 0.0;
     float offset = 0.0;
 	int flowType = 0;
+	float speed = 0.0;
+    float maskOpacity = 0.0;
 	
-	float speed = 1.0;
-	
-    ofTexture *coat;
-    bool isCoatAllocated = false;
-    void setCoat(ofTexture &_coat) {
-        coat = &_coat;
-    }
+    ofTexture *coat, *mask;
     
     
 };

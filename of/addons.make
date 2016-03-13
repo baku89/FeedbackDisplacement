@@ -1,3 +1,4 @@
+ofxAubio
 ofxDatGui
 ofxFX
 ofxOsc
