@@ -3,9 +3,9 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-    width = 640;
-    height = 480;
-    
+	width = ofGetWidth();
+	height = ofGetHeight();
+	
     ofSetWindowShape(width, height);
     
     brushPass.allocate(width, height);
@@ -37,8 +37,19 @@ void ofApp::setup(){
     onset.setup();
     ofAddListener(onset.gotOnset, this, &ofApp::onsetEvent);
 
-//    soundStream.printDeviceList();
-    soundStream.setDeviceID(SOUND_DEVICE_ID);
+//	auto deviceList = soundStream.getDeviceList();
+//	
+//	for (auto it = deviceList.begin(); it != deviceList.end(); it++) {
+//		if (it->name.find(SOUND_DEVIDE_NAME) != string::npos) {
+//			soundStream.setDevice(*it);
+//			ofLog(OF_LOG_NOTICE, it->name);
+//			break;
+//		}
+//	}
+	
+//	soundStream.printDeviceList();
+	soundStream.setDeviceID(4);
+	
     soundStream.setup(this, 0, 2, 44100, bufferSize, 4);
 }
 
@@ -92,8 +103,8 @@ void ofApp::update(){
     pickPos.set(ofNoise(time), ofNoise(time + 1000.0));
     guiPickPos->setPoint(pickPos);
     
-    cout << pickPos.x << " " << pickPos.y << endl;
-    
+//    cout << pickPos.x << " " << pickPos.y << endl;
+	
     while (receiver.hasWaitingMessages()) {
         ofxOscMessage m;
         receiver.getNextMessage(&m);
@@ -177,6 +188,12 @@ void ofApp::drawGui(ofEventArgs & args){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+	
+	if (key == 's') {
+		
+		ofSaveFrame();
+		ofLog(OF_LOG_NOTICE, "save frame");
+	}
 
 }
 

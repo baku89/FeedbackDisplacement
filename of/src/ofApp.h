@@ -18,6 +18,7 @@
 #define SYPHON_APP "VDMX5"
 
 #define SOUND_DEVICE_ID 6
+#define SOUND_DEVIDE_NAME "Soundflower (2ch)"
 
 class ofApp : public ofBaseApp{
 
