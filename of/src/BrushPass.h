@@ -38,12 +38,12 @@ public:
         shader.begin();
         
         shader.setUniform2f("resolution", width, height);
-        shader.setUniform2f("coatResolution", coat->getWidth(), coat->getHeight());
-        shader.setUniform2f("maskResolution", mask->getWidth(), mask->getHeight());
+        shader.setUniform2f("texResolution", 1280, 720);
         shader.setUniform1f("maskOpacity", maskOpacity);
         shader.setUniform1f("opacity", opacity);
         shader.setUniform1f("speed", speed);
         shader.setUniform1f("offset", offset);
+        shader.setUniform1f("fade", fade);
 		shader.setUniform1i("flowType", flowType);
         shader.setUniformTexture("prevTex", pingPong.src->getTexture(), 0);
         shader.setUniformTexture("coatTex", *coat, 1);
@@ -66,6 +66,10 @@ public:
         return pingPong.dst->getTexture();
     };
     
+    void draw() {
+        pingPong.dst->draw(0, 0);
+    }
+    
     ofShader shader;
     ofxSwapBuffer pingPong;
     int width, height;
@@ -75,6 +79,7 @@ public:
     float offset = 0.0;
 	int flowType = 0;
 	float speed = 0.0;
+    float fade = 1.0;
     float maskOpacity = 0.0;
 	
     ofTexture *coat, *mask;

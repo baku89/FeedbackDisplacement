@@ -16,11 +16,14 @@ public:
     void allocate(int w, int h) {
         setSize(w, h);
         shader.setupShaderFromFile(GL_FRAGMENT_SHADER, "render-pass.frag");
+        shader.setupShaderFromFile(GL_VERTEX_SHADER, "brush-pass.vert");
         shader.linkProgram();
     }
     
     void setSize(int w, int h) {
-        dst.allocate(w, h);
+        width = w;
+        height = h;
+        dst.allocate(w, h, GL_RGB);
     }
     
     void reload() {
@@ -28,15 +31,25 @@ public:
         shader.load("brush-pass.vert", "brush-pass.frag");
     };
     
-    void update() {
-        dst.begin();
+    void begin() {
         shader.begin();
+        shader.setUniform2f("resolution", width, height);
+        shader.setUniform2f("texResolution", 1280, 720);
         shader.setUniform1f("brightness", brightness);
         shader.setUniform1f("saturation", saturation);
-        
-        src->draw(0, 0);
+        shader.setUniformTexture("maskTex", *mask, 1);
+        shader.setUniform1f("displaceIntensity", displaceIntensity);
+    }
     
+    void end() {
         shader.end();
+    }
+    
+    void update() {
+        dst.begin();
+        begin();
+        src->draw(0, 0);
+        end();
         dst.end();
     }
     
@@ -45,10 +58,12 @@ public:
     }
     
     
-    
     ofFbo dst;
     ofTexture *src;
+    ofTexture *mask;
     ofShader shader;
+    int width, height;
     float saturation = 0.0;
     float brightness = 0.0;
+    float displaceIntensity = 0.0;
 };

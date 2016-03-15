@@ -1,8 +1,7 @@
-#version 110
+#version 120
 
 uniform vec2 resolution;
-uniform vec2 coatResolution;
-uniform vec2 maskResolution;
+uniform vec2 texResolution;
 uniform float maskOpacity;
 uniform float opacity;
 
@@ -10,6 +9,7 @@ uniform float opacity;
 
 uniform float speed;
 uniform float offset;
+uniform float fade;
 uniform int flowType;
 
 #pragma glslify: flow = require(./flow.glsl, flowType=flowType, speed=speed, offset=offset);
@@ -28,19 +28,18 @@ varying vec2 pos;
 void main() {
 	
 	vec2 prevCoord = uv * resolution;
-	vec2 coatCoord = uv * coatResolution;
-	vec2 maskCoord = uv * maskResolution;
+	vec2 texCoord = uv * texResolution;
 	
 	// get original color
 	vec4 prev = texture2DRect(prevTex, prevCoord);
-	vec4 coat = texture2DRect(coatTex, coatCoord);
-	float mask = texture2DRect(maskTex, maskCoord).r;
+	vec4 coat = texture2DRect(coatTex, texCoord);
+	float mask = texture2DRect(maskTex, texCoord).r;
 	
 	// get flow and offset point of prevTex
 	prevCoord += flow(prev, coat, pos) * vec2(resolution.x, resolution.x);
 	prevCoord = mod(prevCoord, resolution);
 
-	prev = texture2DRect(prevTex, prevCoord);
+	prev = texture2DRect(prevTex, prevCoord) * vec4(fade, fade, fade, 1.0);
 
 	// mix
 	vec3 color = mix(prev.rgb, coat.rgb, opacity);

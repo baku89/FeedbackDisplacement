@@ -23,6 +23,7 @@ void ofApp::setup(){
     brushPass.mask = &maskTex.getTexture();
     
     renderPass.src = &brushPass.getTexture();
+    renderPass.mask = &maskTex.getTexture();
     
     pickPos.x = 0.5;
     pickPos.y = 0.5;
@@ -36,19 +37,20 @@ void ofApp::setup(){
     
     onset.setup();
     ofAddListener(onset.gotOnset, this, &ofApp::onsetEvent);
+    
 
-//	auto deviceList = soundStream.getDeviceList();
-//	
-//	for (auto it = deviceList.begin(); it != deviceList.end(); it++) {
-//		if (it->name.find(SOUND_DEVIDE_NAME) != string::npos) {
-//			soundStream.setDevice(*it);
-//			ofLog(OF_LOG_NOTICE, it->name);
-//			break;
-//		}
-//	}
+	auto deviceList = soundStream.getDeviceList();
+	
+	for (auto it = deviceList.begin(); it != deviceList.end(); it++) {
+		if (it->name.find(SOUND_DEVIDE_NAME) != string::npos) {
+			soundStream.setDevice(*it);
+			ofLog(OF_LOG_NOTICE, it->name);
+			break;
+		}
+	}
 	
 //	soundStream.printDeviceList();
-	soundStream.setDeviceID(4);
+//	soundStream.setDeviceID(4);
 	
     soundStream.setup(this, 0, 2, 44100, bufferSize, 4);
 }
@@ -67,6 +69,17 @@ void ofApp::onsetEvent(float &time) {
 void ofApp::audioIn(float *input, int bufferSize, int nChannels) {
     beat.audioIn(input, bufferSize, nChannels);
     onset.audioIn(input, bufferSize, nChannels);
+    
+//    int max = 0;
+//    for (int i = 0; i < bufferSize; i++) {
+//        if (input[i] > max) {
+//            max = input[i];
+//        }
+//    }
+//    
+//    volume = max / 256.0;
+//    
+//    cout << volume << endl;
 }
 
 //--------------------------------------------------------------
@@ -83,6 +96,7 @@ void ofApp::setupGui(){
     gui->addSlider("opacity", 0, 1)->bind(brushPass.opacity);
     gui->addSlider("flow speed", 0, 0.1)->bind(brushPass.speed);
     gui->addSlider("offset", 0, 1)->bind(brushPass.offset);
+    gui->addSlider("fade", 0, 1)->bind(brushPass.fade);
     
     gui->addBreak()->setHeight(10.0f);
     gui->addSlider("saturation", 0, 1)->bind(renderPass.saturation);
@@ -92,8 +106,12 @@ void ofApp::setupGui(){
     guiPickPos = gui->add2dPad("pick pos");
     
     gui->addBreak()->setHeight(10.0f);
+    gui->addSlider("volume", 0, 1)->bind(this->volume);
     gui->addSlider("beat volume", 0, 1)->bind(this->beatVolume);
     gui->addSlider("onset volume", 0, 1)->bind(this->onsetVolume);
+    
+    gui->addBreak()->setHeight(10.0f);
+    guiEnableDisplace = gui->addToggle("enable displace");
 }
 
 //--------------------------------------------------------------
@@ -120,7 +138,10 @@ void ofApp::update(){
         } else if (address == "/offset") {
             brushPass.offset = m.getArgAsFloat(0);
 			
-		} else if (address == "/flow-type") {
+        } else if (address == "/fade") {
+            brushPass.fade = m.getArgAsFloat(0);
+        
+        } else if (address == "/flow-type") {
 			brushPass.flowType = m.getArgAsInt(0);
 			
         } else if (address == "/saturation") {
@@ -128,20 +149,26 @@ void ofApp::update(){
             
         } else if (address == "/brightness") {
             renderPass.brightness = m.getArgAsFloat(0);
-            
-		}else if (address == "/update-shader") {
+        
+        } else if (address == "/enable-displace") {
+            enableDisplace = m.getArgAsBool(0);
+            guiEnableDisplace->setEnabled(enableDisplace);
+        
+		} else if (address == "/update-shader") {
             brushPass.reload();
             renderPass.reload();
-		}
+		
+        }
     }
 
-    
+    // calc audio
     if (gotBeat) {
         beatVolume = 1.0;
+        volume = 1.0;
         gotBeat = false;
-//        brushPass.offset = ofRandomuf();
     } else {
         beatVolume = 0.0;
+        volume *= 0.95;
     }
     
     if (gotOnset) {
@@ -150,9 +177,15 @@ void ofApp::update(){
     } else {
         onsetVolume = 0.0;
     }
+    
+    // audio-based parameter
     brushPass.maskOpacity = onsetVolume;
     
-    
+    if (enableDisplace) {
+        renderPass.displaceIntensity = volume;
+    } else {
+        renderPass.displaceIntensity = 0.0;
+    }
 }
 
 //--------------------------------------------------------------
@@ -166,16 +199,15 @@ void ofApp::draw(){
     
     // update brush
     brushPass.update();
+
+    renderPass.begin();
     
     ofScale(1, -1);
     ofTranslate(0, -height);
     brushPass.pingPong.dst->draw(0, 0);
     
     // update render
-//    renderPass.update();
-    
-    
-//    renderPass.draw();
+    renderPass.end();
 }
 
 //--------------------------------------------------------------
@@ -190,8 +222,13 @@ void ofApp::drawGui(ofEventArgs & args){
 void ofApp::keyPressed(int key){
 	
 	if (key == 's') {
+        
+//        ss.str("");
+        
+//        ss << "../../../../capture/" << setw(10) << setfill('0') << ofGetFrameNum() << ".png";
 		
-		ofSaveFrame();
+        ofSaveFrame();
+//        ofSaveScreen(ss.str());
 		ofLog(OF_LOG_NOTICE, "save frame");
 	}
 

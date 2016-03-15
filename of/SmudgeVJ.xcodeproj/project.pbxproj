@@ -23,6 +23,13 @@
 		7969C078B1CA6FFB5EE8A095 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2ACFE7094485D1603782407 /* tinyxmlparser.cpp */; };
 		7C346BB0C3EC4E725E2C9C63 /* ofxSyphonClient.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7B18E5BEB786CB90E00B3D4A /* ofxSyphonClient.mm */; };
 		89FF046DF12D5D1015FC182E /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6762FD9FFF7A5515762A3001 /* ofxSyphonServer.mm */; };
+		920E61381C98386C006F4BBF /* aubio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 920E61221C98386C006F4BBF /* aubio.framework */; };
+		920E613B1C98386C006F4BBF /* ofxAubioBeat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 920E612A1C98386C006F4BBF /* ofxAubioBeat.cpp */; };
+		920E613C1C98386C006F4BBF /* ofxAubioBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 920E612C1C98386C006F4BBF /* ofxAubioBlock.cpp */; };
+		920E613D1C98386C006F4BBF /* ofxAubioMelBands.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 920E612E1C98386C006F4BBF /* ofxAubioMelBands.cpp */; };
+		920E613E1C98386C006F4BBF /* ofxAubioOnset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 920E61301C98386C006F4BBF /* ofxAubioOnset.cpp */; };
+		920E613F1C98386C006F4BBF /* ofxAubioPitch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 920E61321C98386C006F4BBF /* ofxAubioPitch.cpp */; };
+		920E61401C9838A3006F4BBF /* aubio.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 920E61221C98386C006F4BBF /* aubio.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		92C71CAE1C9436F2001B1467 /* ofxFXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 92C71C761C9436F2001B1467 /* ofxFXObject.cpp */; };
 		9B30D6C33A6416EA8E5F3B6D /* ofxDatGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2F504DB1AC02F79CFDC938F9 /* ofxDatGui.cpp */; };
 		A9161694BABE6B9BD56BF7A7 /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD03D3A92F01EEFB000FAFEE /* ofxXmlSettings.cpp */; };
@@ -63,6 +70,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				4D508D34156E7076531D9084 /* Syphon.framework in CopyFiles */,
+				920E61401C9838A3006F4BBF /* aubio.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +116,19 @@
 		8E208F571DA21DAB4608701A /* ofxDatGuiTextInput.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxDatGuiTextInput.h; path = ../../../../../oF/v0.9.3/addons/ofxDatGui/src/components/ofxDatGuiTextInput.h; sourceTree = SOURCE_ROOT; };
 		8ECBBBA31F37549494F69077 /* ofxOscBundle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscBundle.cpp; path = ../../../../../oF/v0.9.3/addons/ofxOsc/src/ofxOscBundle.cpp; sourceTree = SOURCE_ROOT; };
 		9066003799E67F7925F298EC /* ofxOscParameterSync.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscParameterSync.h; path = ../../../../../oF/v0.9.3/addons/ofxOsc/src/ofxOscParameterSync.h; sourceTree = SOURCE_ROOT; };
+		920E61221C98386C006F4BBF /* aubio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = aubio.framework; sourceTree = "<group>"; };
+		920E61291C98386C006F4BBF /* ofxAubio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAubio.h; sourceTree = "<group>"; };
+		920E612A1C98386C006F4BBF /* ofxAubioBeat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAubioBeat.cpp; sourceTree = "<group>"; };
+		920E612B1C98386C006F4BBF /* ofxAubioBeat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAubioBeat.h; sourceTree = "<group>"; };
+		920E612C1C98386C006F4BBF /* ofxAubioBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAubioBlock.cpp; sourceTree = "<group>"; };
+		920E612D1C98386C006F4BBF /* ofxAubioBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAubioBlock.h; sourceTree = "<group>"; };
+		920E612E1C98386C006F4BBF /* ofxAubioMelBands.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAubioMelBands.cpp; sourceTree = "<group>"; };
+		920E612F1C98386C006F4BBF /* ofxAubioMelBands.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAubioMelBands.h; sourceTree = "<group>"; };
+		920E61301C98386C006F4BBF /* ofxAubioOnset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAubioOnset.cpp; sourceTree = "<group>"; };
+		920E61311C98386C006F4BBF /* ofxAubioOnset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAubioOnset.h; sourceTree = "<group>"; };
+		920E61321C98386C006F4BBF /* ofxAubioPitch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAubioPitch.cpp; sourceTree = "<group>"; };
+		920E61331C98386C006F4BBF /* ofxAubioPitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAubioPitch.h; sourceTree = "<group>"; };
+		920E61411C983DA2006F4BBF /* RenderPass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderPass.h; sourceTree = "<group>"; };
 		927722D21C94878D00B0962D /* .babelrc */ = {isa = PBXFileReference; lastKnownFileType = text; path = .babelrc; sourceTree = "<group>"; };
 		927722D31C94878D00B0962D /* base-pass.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = "base-pass.vert"; sourceTree = "<group>"; };
 		927722D41C94878D00B0962D /* brush-pass.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = "brush-pass.frag"; sourceTree = "<group>"; };
@@ -151,7 +172,6 @@
 		92C71C801C9436F2001B1467 /* ofxRipples.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxRipples.h; sourceTree = "<group>"; };
 		92C71C811C9436F2001B1467 /* ofxSubstract.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSubstract.h; sourceTree = "<group>"; };
 		92C71C821C9436F2001B1467 /* ofxThreshold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxThreshold.h; sourceTree = "<group>"; };
-		92C71CC61C94534B001B1467 /* Interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Interface.h; sourceTree = "<group>"; };
 		93AAD66B3684DB0BDD41209B /* NetworkingUtils.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = NetworkingUtils.cpp; path = ../../../../../oF/v0.9.3/addons/ofxOsc/libs/oscpack/src/ip/posix/NetworkingUtils.cpp; sourceTree = SOURCE_ROOT; };
 		9767F64E881FB7ED827C1C47 /* OscTypes.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscTypes.cpp; path = ../../../../../oF/v0.9.3/addons/ofxOsc/libs/oscpack/src/osc/OscTypes.cpp; sourceTree = SOURCE_ROOT; };
 		9951FDB6D06E63256F43D066 /* ofxSyphonServer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSyphonServer.h; path = ../../../../../oF/v0.9.3/addons/ofxSyphon/src/ofxSyphonServer.h; sourceTree = SOURCE_ROOT; };
@@ -202,6 +222,7 @@
 			files = (
 				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
 				E1A3FD40C8BCD507345F1126 /* Syphon.framework in Frameworks */,
+				920E61381C98386C006F4BBF /* aubio.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,6 +412,42 @@
 			name = themes;
 			sourceTree = "<group>";
 		};
+		920E61141C98386C006F4BBF /* ofxAubio */ = {
+			isa = PBXGroup;
+			children = (
+				920E61211C98386C006F4BBF /* lib */,
+				920E61281C98386C006F4BBF /* src */,
+			);
+			name = ofxAubio;
+			path = ../../../../../oF/v0.9.3/addons/ofxAubio;
+			sourceTree = "<group>";
+		};
+		920E61211C98386C006F4BBF /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				920E61221C98386C006F4BBF /* aubio.framework */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		920E61281C98386C006F4BBF /* src */ = {
+			isa = PBXGroup;
+			children = (
+				920E61291C98386C006F4BBF /* ofxAubio.h */,
+				920E612A1C98386C006F4BBF /* ofxAubioBeat.cpp */,
+				920E612B1C98386C006F4BBF /* ofxAubioBeat.h */,
+				920E612C1C98386C006F4BBF /* ofxAubioBlock.cpp */,
+				920E612D1C98386C006F4BBF /* ofxAubioBlock.h */,
+				920E612E1C98386C006F4BBF /* ofxAubioMelBands.cpp */,
+				920E612F1C98386C006F4BBF /* ofxAubioMelBands.h */,
+				920E61301C98386C006F4BBF /* ofxAubioOnset.cpp */,
+				920E61311C98386C006F4BBF /* ofxAubioOnset.h */,
+				920E61321C98386C006F4BBF /* ofxAubioPitch.cpp */,
+				920E61331C98386C006F4BBF /* ofxAubioPitch.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		927722D11C94878D00B0962D /* shaders */ = {
 			isa = PBXGroup;
 			children = (
@@ -512,6 +569,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				920E61141C98386C006F4BBF /* ofxAubio */,
 				92C71BCF1C9436F1001B1467 /* ofxFX */,
 				D8DD1043C333F6F63C8685E6 /* ofxDatGui */,
 				E6053AB7FEC63D5F83825B88 /* ofxOsc */,
@@ -584,8 +642,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
+				920E61411C983DA2006F4BBF /* RenderPass.h */,
 				92C71AD31C942E97001B1467 /* BrushPass.h */,
-				92C71CC61C94534B001B1467 /* Interface.h */,
 				927722D11C94878D00B0962D /* shaders */,
 			);
 			path = src;
@@ -726,7 +784,10 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				63F9C05FE3B3F59D51836955 /* ofxDatGuiComponent.cpp in Sources */,
+				920E613E1C98386C006F4BBF /* ofxAubioOnset.cpp in Sources */,
 				C1C815BAFFA9F499B53E437E /* ofxSmartFont.cpp in Sources */,
+				920E613D1C98386C006F4BBF /* ofxAubioMelBands.cpp in Sources */,
+				920E613F1C98386C006F4BBF /* ofxAubioPitch.cpp in Sources */,
 				9B30D6C33A6416EA8E5F3B6D /* ofxDatGui.cpp in Sources */,
 				5F4F3E22C7EBF22B615AF6C8 /* ofxOscBundle.cpp in Sources */,
 				92C71CAE1C9436F2001B1467 /* ofxFXObject.cpp in Sources */,
@@ -740,10 +801,12 @@
 				250F04F7880736D4002FEC1D /* OscOutboundPacketStream.cpp in Sources */,
 				BD876A1F17FD387CC4885E15 /* OscPrintReceivedElements.cpp in Sources */,
 				4789B80D946F46903094AE5A /* OscReceivedElements.cpp in Sources */,
+				920E613C1C98386C006F4BBF /* ofxAubioBlock.cpp in Sources */,
 				55769EABBE208212FA0E13BB /* OscTypes.cpp in Sources */,
 				7C346BB0C3EC4E725E2C9C63 /* ofxSyphonClient.mm in Sources */,
 				89FF046DF12D5D1015FC182E /* ofxSyphonServer.mm in Sources */,
 				7028E7ECE40E2DDAE4C30567 /* ofxSyphonServerDirectory.mm in Sources */,
+				920E613B1C98386C006F4BBF /* ofxAubioBeat.cpp in Sources */,
 				1DFADE917998FF7936974701 /* SyphonNameboundClient.m in Sources */,
 				A9161694BABE6B9BD56BF7A7 /* ofxXmlSettings.cpp in Sources */,
 				236E9D9ADFFDD5264CE201E6 /* tinyxml.cpp in Sources */,
@@ -892,6 +955,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					../../../../../oF/v0.9.3/addons/ofxSyphon/libs/Syphon/lib/osx,
+					../../../../../oF/v0.9.3/addons/ofxAubio/lib,
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../../oF/v0.9.3/libs/glut/lib/osx\"";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -948,6 +1012,7 @@
 					"$(inherited)",
 					"$(FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					../../../../../oF/v0.9.3/addons/ofxSyphon/libs/Syphon/lib/osx,
+					../../../../../oF/v0.9.3/addons/ofxAubio/lib,
 				);
 				FRAMEWORK_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../../../../oF/v0.9.3/libs/glut/lib/osx\"";
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;

@@ -20,6 +20,16 @@
 #define SOUND_DEVICE_ID 6
 #define SOUND_DEVIDE_NAME "Soundflower (2ch)"
 
+//#define MASK_NOTHING    0
+//#define MASK_COAT       1
+//#define MASK_DISPLACE   2
+//
+//static const vector<string> MASK_NAME = {
+//    "mask nothing",
+//    "mask coat",
+//    "mask displace"
+//};
+
 class ofApp : public ofBaseApp{
 
 public:
@@ -48,6 +58,8 @@ public:
     
     
     //---------------------------------------------
+    stringstream ss;
+    
     
     int width, height;
     
@@ -60,15 +72,21 @@ public:
 	
 	ofxDatGui* gui;
     ofxDatGui2dPad* guiPickPos;
+    ofxDatGuiToggle* guiEnableDisplace;
+    
+    // toggle
+    bool enableDisplace = false;
     
     // audio analyse
     ofSoundStream soundStream;
     
     ofxAubioBeat beat;
     ofxAubioOnset onset;
+    
     bool gotBeat = false;
     bool gotOnset = false;
     
+    float volume = 0;
     float onsetVolume = 0;
     float beatVolume = 0;
     
