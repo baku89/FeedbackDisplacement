@@ -3,11 +3,11 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 
-	width = ofGetWidth();
-	height = ofGetHeight();
+	width = CANVAS_WIDTH;//ofGetWidth();
+	height = CANVAS_HEIGHT;//ofGetHeight();
 	
-    ofSetWindowShape(width, height);
-    
+//    ofSetWindowShape(width, height);
+	
     brushPass.allocate(width, height);
     renderPass.allocate(width, height);
     
@@ -272,11 +272,11 @@ void ofApp::mouseExited(int x, int y){
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
     
-    width = w;
-    height = h;
-    
-    brushPass.setSize(width, height);
-    renderPass.setSize(width, height);
+//    width = w;
+//    height = h;
+	
+//    brushPass.setSize(width, height);
+//    renderPass.setSize(width, height);
 
 }
 

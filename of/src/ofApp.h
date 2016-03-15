@@ -20,6 +20,9 @@
 #define SOUND_DEVICE_ID 6
 #define SOUND_DEVIDE_NAME "Soundflower (2ch)"
 
+#define CANVAS_WIDTH 1280
+#define CANVAS_HEIGHT 720
+
 //#define MASK_NOTHING    0
 //#define MASK_COAT       1
 //#define MASK_DISPLACE   2

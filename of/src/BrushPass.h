@@ -18,6 +18,7 @@
 #define MIN_FLOW 0.3
 #define SPEED_AMP 0.05
 
+
 class BrushPass {
 public:
     
