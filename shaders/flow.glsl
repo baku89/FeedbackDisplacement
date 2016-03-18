@@ -16,7 +16,7 @@ vec2 polarTurb(vec4 prev, vec4 coat, vec2 pos) {
 //--------------------------------------------------
 vec2 directionalDisp(vec4 prev, vec4 coat, vec2 pos) {
 	float brightness = (coat.r + coat.b + coat.g) / 3.0;
-	float amp = brightness * speed; //(snoise3(prev.rgb) / 2.0 + 0.5) * speed * 1.0;
+	float amp = brightness * speed * 0.75; //(snoise3(prev.rgb) / 2.0 + 0.5) * speed * 1.0;
 	float angle = (floor(offset * 4.0) / 4.0 + 0.125) * (PI * 2.0);
 
  	return amp * vec2(cos(angle), sin(angle));
@@ -37,7 +37,7 @@ vec2 colorDir(vec4 prev, vec4 coat, vec2 pos) {
 	float angle = (prev.r - prev.g + offset) * PI * 2.0;
 
 	float brightness = (coat.r + coat.g + coat.b) / 3.0;
-	float amp = mix( 0.1, 1.0, brightness) * speed;
+	float amp = mix( 0.1, 1.0, brightness) * speed * 0.75;
 
 	return vec2(cos(angle), sin(angle)) * amp;
 }

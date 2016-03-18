@@ -17,7 +17,7 @@
 #define SYPHON_MASK "Mask"
 #define SYPHON_APP "VDMX5"
 
-#define SOUND_DEVICE_ID 6
+#define SOUND_DEVICE_ID 0
 #define SOUND_DEVIDE_NAME "Soundflower (2ch)"
 
 #define CANVAS_WIDTH 1280
@@ -65,6 +65,7 @@ public:
     
     
     int width, height;
+	float scaleWidth, scaleHeight;
     
     BrushPass brushPass;
     RenderPass renderPass;
@@ -74,8 +75,9 @@ public:
     ofxSyphonClient maskTex;
 	
 	ofxDatGui* gui;
-    ofxDatGui2dPad* guiPickPos;
+//    ofxDatGui2dPad* guiPickPos;
     ofxDatGuiToggle* guiEnableDisplace;
+	ofxDatGuiColorPicker* guiFillColor;
     
     // toggle
     bool enableDisplace = false;

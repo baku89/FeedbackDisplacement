@@ -35,10 +35,13 @@ public:
         shader.begin();
         shader.setUniform2f("resolution", width, height);
         shader.setUniform2f("texResolution", 1280, 720);
+		
         shader.setUniform1f("brightness", brightness);
-        shader.setUniform1f("saturation", saturation);
+		shader.setUniform1f("saturation", saturation);
+		shader.setUniform1f("displaceIntensity", displaceIntensity);
+		shader.setUniform3f("fillColor", fillColor.r, fillColor.g, fillColor.b);
+		
         shader.setUniformTexture("maskTex", *mask, 1);
-        shader.setUniform1f("displaceIntensity", displaceIntensity);
     }
     
     void end() {
@@ -57,7 +60,6 @@ public:
         dst.draw(0, 0);
     }
     
-    
     ofFbo dst;
     ofTexture *src;
     ofTexture *mask;
@@ -66,4 +68,5 @@ public:
     float saturation = 0.0;
     float brightness = 0.0;
     float displaceIntensity = 0.0;
+	ofFloatColor fillColor = ofFloatColor(0.0, 0.0, 0.0);
 };

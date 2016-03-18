@@ -6,10 +6,15 @@ void ofApp::setup(){
 	width = CANVAS_WIDTH;//ofGetWidth();
 	height = CANVAS_HEIGHT;//ofGetHeight();
 	
+	ofSetWindowPosition(1921,0);
+//	ofSetFullscreen(true);
+	
 //    ofSetWindowShape(width, height);
 	
     brushPass.allocate(width, height);
     renderPass.allocate(width, height);
+	scaleWidth = (float)ofGetWidth() / CANVAS_WIDTH;
+	scaleHeight = (float)ofGetHeight() / CANVAS_HEIGHT;
     
     receiver.setup(PORT);
     
@@ -38,7 +43,7 @@ void ofApp::setup(){
     onset.setup();
     ofAddListener(onset.gotOnset, this, &ofApp::onsetEvent);
     
-
+	/*
 	auto deviceList = soundStream.getDeviceList();
 	
 	for (auto it = deviceList.begin(); it != deviceList.end(); it++) {
@@ -48,9 +53,10 @@ void ofApp::setup(){
 			break;
 		}
 	}
+	*/
 	
-//	soundStream.printDeviceList();
-//	soundStream.setDeviceID(4);
+	soundStream.printDeviceList();
+	soundStream.setDeviceID(SOUND_DEVICE_ID);
 	
     soundStream.setup(this, 0, 2, 44100, bufferSize, 4);
 }
@@ -97,14 +103,16 @@ void ofApp::setupGui(){
     gui->addSlider("flow speed", 0, 0.1)->bind(brushPass.speed);
     gui->addSlider("offset", 0, 1)->bind(brushPass.offset);
     gui->addSlider("fade", 0, 1)->bind(brushPass.fade);
+	guiFillColor = gui->addColorPicker("fill color");
+	guiFillColor->setColor(renderPass.fillColor);
     
     gui->addBreak()->setHeight(10.0f);
     gui->addSlider("saturation", 0, 1)->bind(renderPass.saturation);
     gui->addSlider("brightness", 0, 1)->bind(renderPass.brightness);
     
-    gui->addBreak()->setHeight(10.0f);
-    guiPickPos = gui->add2dPad("pick pos");
-    
+//    gui->addBreak()->setHeight(10.0f);
+//    guiPickPos = gui->add2dPad("pick pos");
+	
     gui->addBreak()->setHeight(10.0f);
     gui->addSlider("volume", 0, 1)->bind(this->volume);
     gui->addSlider("beat volume", 0, 1)->bind(this->beatVolume);
@@ -118,9 +126,9 @@ void ofApp::setupGui(){
 void ofApp::update(){
     
     float time = ofGetElapsedTimef();
-    pickPos.set(ofNoise(time), ofNoise(time + 1000.0));
-    guiPickPos->setPoint(pickPos);
-    
+//    pickPos.set(ofNoise(time), ofNoise(time + 1000.0));
+//    guiPickPos->setPoint(pickPos);
+	
 //    cout << pickPos.x << " " << pickPos.y << endl;
 	
     while (receiver.hasWaitingMessages()) {
@@ -153,7 +161,13 @@ void ofApp::update(){
         } else if (address == "/enable-displace") {
             enableDisplace = m.getArgAsBool(0);
             guiEnableDisplace->setEnabled(enableDisplace);
-        
+			
+		} else if (address == "/fill-color") {
+			int color = m.getArgAsRgbaColor(0);
+			renderPass.fillColor.setHex(color);
+			guiFillColor->setColor(renderPass.fillColor);
+			
+		
 		} else if (address == "/update-shader") {
             brushPass.reload();
             renderPass.reload();
@@ -202,7 +216,7 @@ void ofApp::draw(){
 
     renderPass.begin();
     
-    ofScale(1, -1);
+    ofScale(scaleWidth, -scaleHeight);
     ofTranslate(0, -height);
     brushPass.pingPong.dst->draw(0, 0);
     
@@ -271,7 +285,10 @@ void ofApp::mouseExited(int x, int y){
 
 //--------------------------------------------------------------
 void ofApp::windowResized(int w, int h){
-    
+	
+	scaleWidth = (float)w / CANVAS_WIDTH;
+	scaleHeight = (float)h / CANVAS_HEIGHT;
+	
 //    width = w;
 //    height = h;
 	
