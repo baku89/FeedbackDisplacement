@@ -5,7 +5,6 @@ module.exports = {
 	output: {
 		filename: '[name].js'
 	},
-	target: 'electron',
 	resolve: {
 		alias: {},
 		modulesDirectories: [
