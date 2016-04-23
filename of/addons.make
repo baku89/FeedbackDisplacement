@@ -1,6 +1,10 @@
+ofxMessagePack
+ofxAlembic
+ofxAssimpModelLoader
 ofxAubio
 ofxDatGui
 ofxFX
+ofxJSON
 ofxOsc
 ofxSyphon
 ofxXmlSettings

@@ -1,35 +1,12 @@
 # Smudge Tool VJ
 
-![](thumb.png)
+![](thumbs/thumb.png)
+
+<img src="thumbs/1.jpg" style="width:50%;"><img src="thumbs/1_original.png" style="width:50%;">  
+<img src="thumbs/2.jpg" style="width:50%;"><img src="thumbs/2_original.png" style="width:50%;">  
+<img src="thumbs/3.png" style="width:50%;"><img src="thumbs/3_original.png" style="width:50%;">  
 
 > VJ set for upcoming events in spring.
-
-## Memo
-
-```
-ln -s "vdmx/Separate RGB.qtz" "~/Library/Application Support/VDMX/qcFX"
-```
-
-## Dev
-
-```
-$ npm install
-```
-
-### Run
-
-```
-$ npm start
-```
-
-### Build
-
-```
-$ npm run build
-```
-
-Builds the app for OS X, Linux, and Windows, using [electron-packager](https://github.com/maxogden/electron-packager).
-
 
 ## License
 

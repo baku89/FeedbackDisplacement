@@ -6,32 +6,14 @@
 #include "ofxSyphon.h"
 #include "ofxDatGui.h"
 #include "ofxXmlSettings.h"
-#include "ofxAubio.h"
 
-
+#include "Config.h"
 #include "BrushPass.h"
-#include "RenderPass.h"
+//#include "RenderPass.h"
+#include "ModelPass.h"
 
-#define PORT 1234
-#define SYPHON_COAT "Coat"
-#define SYPHON_MASK "Mask"
-#define SYPHON_APP "VDMX5"
-
-#define SOUND_DEVICE_ID 0
-#define SOUND_DEVIDE_NAME "Soundflower (2ch)"
-
-#define CANVAS_WIDTH 1280
-#define CANVAS_HEIGHT 720
-
-//#define MASK_NOTHING    0
-//#define MASK_COAT       1
-//#define MASK_DISPLACE   2
-//
-//static const vector<string> MASK_NAME = {
-//    "mask nothing",
-//    "mask coat",
-//    "mask displace"
-//};
+#include "DispPass.h"
+#include "AudioSync.h"
 
 class ofApp : public ofBaseApp{
 
@@ -40,6 +22,7 @@ public:
 	void setupGui();
     void update();
     void draw();
+	void exit();
 	void drawGui(ofEventArgs & args);
 
     void keyPressed(int key);
@@ -53,49 +36,41 @@ public:
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    
-    void audioIn(float * input, int bufferSize, int nChannels);
-    
-    void beatEvent(float & time);
-    void onsetEvent(float & time);
-    
-    
+	
     //---------------------------------------------
     stringstream ss;
-    
-    
-    int width, height;
-	float scaleWidth, scaleHeight;
-    
+	
+	// for render
+	
+	int opacityCount = 4;
+	bool opacityReset = false;
+	
+	// audio-sync
+	AudioSync audio;
+	float volume = 0;
+	float onsetVolume = 0;
+	float beatVolume = 0;
+	
+	// param
+	bool enableModel = false;
+	bool enableOpacity = false;
+	
+	// render pass
     BrushPass brushPass;
-    RenderPass renderPass;
-    
+//    RenderPass renderPass;
+	DispPass dispPass;
+	ModelPass modelPass;
+	
+	// interface with other application
     ofxOscReceiver receiver;
     ofxSyphonClient coatTex;
-    ofxSyphonClient maskTex;
+//    ofxSyphonClient maskTex;
 	
+	// gui
 	ofxDatGui* gui;
-//    ofxDatGui2dPad* guiPickPos;
-    ofxDatGuiToggle* guiEnableDisplace;
-	ofxDatGuiColorPicker* guiFillColor;
-    
-    // toggle
-    bool enableDisplace = false;
-    
-    // audio analyse
-    ofSoundStream soundStream;
-    
-    ofxAubioBeat beat;
-    ofxAubioOnset onset;
-    
-    bool gotBeat = false;
-    bool gotOnset = false;
-    
-    float volume = 0;
-    float onsetVolume = 0;
-    float beatVolume = 0;
-    
-    ofPoint pickPos;
+	
+	ofImage img;
+	
 
     
 };

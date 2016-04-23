@@ -1,6 +1,8 @@
 #include "ofMain.h"
 #include "ofApp.h"
 
+#include "Config.h"
+
 //========================================================================
 int main( ){
     
@@ -8,15 +10,15 @@ int main( ){
     ofGLFWWindowSettings settings;
 	
     settings.setGLVersion(1,0);
-	settings.width = 1920;
-	settings.height = 1080;
-	settings.setPosition(ofVec2f(1920 - 1280 + 300, 0));
+	settings.width = SCREEN_WIDTH;
+	settings.height = SCREEN_HEIGHT;
+	settings.setPosition(ofVec2f(DISPLAY_WIDTH - SCREEN_WIDTH, 0));
 	settings.resizable = true;
 	shared_ptr<ofAppBaseWindow> mainWindow = ofCreateWindow(settings);
 	
-	settings.width = 300;
-	settings.height = 720;
-	settings.setPosition(ofVec2f(1920 - 1280 + 0, 0));
+	settings.width = GUI_WIDTH;
+	settings.height = SCREEN_HEIGHT;
+	settings.setPosition(ofVec2f(DISPLAY_WIDTH - GUI_WIDTH, SCREEN_HEIGHT + 80));
 	settings.resizable = true;
 	// uncomment next line to share main's OpenGL resources with gui
 	//settings.shareContextWith = mainWindow;

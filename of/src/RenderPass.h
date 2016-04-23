@@ -10,14 +10,14 @@
 
 #include "ofMain.h"
 
+#include "Config.h"
+
 class RenderPass {
 public:
     
     void allocate(int w, int h) {
-        setSize(w, h);
-        shader.setupShaderFromFile(GL_FRAGMENT_SHADER, "render-pass.frag");
-        shader.setupShaderFromFile(GL_VERTEX_SHADER, "brush-pass.vert");
-        shader.linkProgram();
+		setSize(w, h);
+		reload();
     }
     
     void setSize(int w, int h) {
@@ -27,26 +27,30 @@ public:
     }
     
     void reload() {
-        ofLog(OF_LOG_NOTICE, "upate shader");
-        shader.load("brush-pass.vert", "brush-pass.frag");
+		ofLog(OF_LOG_NOTICE, "update RenderPass shader");
+        shader.load("shaders/passthru.vert", "shaders/render-pass.frag");
     };
     
     void begin() {
         shader.begin();
         shader.setUniform2f("resolution", width, height);
-        shader.setUniform2f("texResolution", 1280, 720);
+        shader.setUniform2f("texResolution", CANVAS_WIDTH, CANVAS_HEIGHT);
 		
         shader.setUniform1f("brightness", brightness);
 		shader.setUniform1f("saturation", saturation);
-		shader.setUniform1f("displaceIntensity", displaceIntensity);
-		shader.setUniform3f("fillColor", fillColor.r, fillColor.g, fillColor.b);
-		
-        shader.setUniformTexture("maskTex", *mask, 1);
     }
     
     void end() {
         shader.end();
     }
+	
+	void bind() {
+		dst.bind();
+	}
+	
+	void unbind() {
+		dst.unbind();
+	}
     
     void update() {
         dst.begin();
@@ -55,18 +59,15 @@ public:
         end();
         dst.end();
     }
-    
+	
     void draw() {
         dst.draw(0, 0);
     }
-    
+	
+	ofTexture *src;
     ofFbo dst;
-    ofTexture *src;
-    ofTexture *mask;
     ofShader shader;
     int width, height;
     float saturation = 0.0;
     float brightness = 0.0;
-    float displaceIntensity = 0.0;
-	ofFloatColor fillColor = ofFloatColor(0.0, 0.0, 0.0);
 };
