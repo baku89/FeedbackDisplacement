@@ -1,4 +1,6 @@
-# Smudge Tool VJ
+# Feedback Displacement (WIP)
+
+Inspired by Photoshop's smudge tool, this effect displaces pictures and turns them into abstract gradients.
 
 ![](thumbs/thumb.png)
 
