@@ -8,8 +8,6 @@ Inspired by Photoshop's smudge tool, this effect displaces pictures and turns th
 <img src="thumbs/2.jpg" style="width:50%;"><img src="thumbs/2_original.png" style="width:50%;">  
 <img src="thumbs/3.png" style="width:50%;"><img src="thumbs/3_original.png" style="width:50%;">  
 
-> VJ set for upcoming events in spring.
-
 ## License
 
 MIT © [Baku Hashimoto](http://baku89.com)
