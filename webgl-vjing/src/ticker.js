@@ -27,21 +27,6 @@ class Ticker extends EventEmitter {
 		}
 	}
 
-	// start() {
-	// 	this.update()
-	// }
-
-	// stop() {
-	// 	clearTimeout(this.requestId)
-	// 	this.requestId = undefined
-	// }
-
-	// update() {
-	// 	this.requestId = setTimeout(this.update, FRAME_DURATION)
-	// 	this.emit('update')
-	// }
-
-
 	start() {
 		console.log('ticker start')
 		this.update()
