@@ -51,7 +51,6 @@ gulp.task('jade', () => {
 		.pipe($.data(() => {
 			return requireUncached('./src/jade/data.json')
 		}))
-		.pipe($.shell(['node ./add-relations-to-works.js']))
 		.pipe($.jade({pretty: developmentMode}))
 		.pipe(gulp.dest('public'))
 		.pipe(browserSync.stream())

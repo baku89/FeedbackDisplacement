@@ -48,6 +48,8 @@ module.exports = {
 	plugins: [
 		new webpack.IgnorePlugin(/vertx/),
 		new webpack.ProvidePlugin({
+			Vue: 'vue',
+			$: 'jquery'
 		})
 	]
 };

@@ -1,0 +1,19 @@
+doctype html
+html
+	head
+		include ./jade/_meta.jade
+
+	body(v-cloak)
+	
+		canvas#canvas
+		
+		.control
+			dl.control__form
+				dt type
+				dd 
+					select
+						option(v-for='flow in pref.flows' v-bind:value='flow.func') {{flow.name}}
+				
+	
+
+	script(src='./js/index.js')
