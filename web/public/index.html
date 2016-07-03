@@ -27,16 +27,7 @@
   </head>
   <body v-cloak>
     <canvas id="canvas"></canvas>
-    <div class="control">
-      <dl class="control__form">
-        <dt>type</dt>
-        <dd> 
-          <select>
-            <option v-for="flow in pref.flows" v-bind:value="flow.func">{{flow.name}}</option>
-          </select>
-        </dd>
-      </dl>
-    </div>
   </body>
+  <script src="./js/dat.gui.min.js"></script>
   <script src="./js/index.js"></script>
 </html>

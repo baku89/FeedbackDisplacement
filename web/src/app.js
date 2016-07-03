@@ -1,3 +1,5 @@
+/* global dat */
+
 import THREE from 'three'
 import Stats from 'stats.js'
 
@@ -49,13 +51,18 @@ export default class App extends Vue {
 			this.stats.setMode(0)
 
 			this.stats.domElement.style.position = 'absolute'
-			this.stats.domElement.style.left = '0px'
-			this.stats.domElement.style.bottom = '-32px'
+			this.stats.domElement.style.left = 'auto'
+			this.stats.domElement.style.right = '0px'
+			this.stats.domElement.style.bottom = '0px'
+			this.stats.domElement.style.top = 'auto'
 			this.stats.domElement.style.background = 'transparent'
 			this.stats.domElement.style.color = 'black'
 
 			document.body.appendChild( this.stats.domElement )
 		}
+
+		// init dat.gui
+		this.gui = new dat.GUI()
 
 
 	}

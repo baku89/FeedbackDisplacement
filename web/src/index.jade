@@ -6,14 +6,8 @@ html
 	body(v-cloak)
 	
 		canvas#canvas
-		
-		.control
-			dl.control__form
-				dt type
-				dd 
-					select
-						option(v-for='flow in pref.flows' v-bind:value='flow.func') {{flow.name}}
 				
 	
 
+	script(src='./js/dat.gui.min.js')
 	script(src='./js/index.js')
