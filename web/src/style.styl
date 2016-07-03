@@ -41,3 +41,19 @@ html
 
 body
 	font-size 1.6rem
+	background: #222
+
+//--------------------------------------------------
+
+$canvas-margin = 30px
+
+.canvas-wrapper
+	position:  absolute;
+	top $canvas-margin
+	right $canvas-margin
+	bottom $canvas-margin
+	left $canvas-margin
+
+#canvas
+	box-sizing: content-box;
+	transform-origin top left

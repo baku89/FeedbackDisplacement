@@ -123,4 +123,17 @@ html {
 }
 body {
   font-size: 1.6rem;
+  background: #222;
+}
+.canvas-wrapper {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
+}
+#canvas {
+  box-sizing: content-box;
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
 }
