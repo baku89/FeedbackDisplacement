@@ -22,8 +22,9 @@ export default class FlowPass extends BasePass {
 			}
 		})
 
-		this.prevTexture = new THREE.WebGLRenderTarget()
-		this.texture = new THREE.WebGLRenderTarget()
+		this.prevRenderTarget = new THREE.WebGLRenderTarget()
+		this.currentRenderTarget = new THREE.WebGLRenderTarget()
+		this.texture = this.currentRenderTarget.texture
 	}
 
 	/*
@@ -34,14 +35,18 @@ export default class FlowPass extends BasePass {
 	*/
 
 	render() {
-		[this.prevTexture, this.texture] = [this.texture, this.prevTexture]
-		this.uniforms.prevTexture.value = this.prevTexture
-		super.render(this.texture)
+		[this.prevRenderTarget, this.currentRenderTarget]
+			= [this.currentRenderTarget, this.prevRenderTarget]
+		this.uniforms.prevTexture.value = this.prevRenderTarget.texture
+
+		super.render(this.currentRenderTarget)
+
+		this.texture = this.currentRenderTarget.texture
 	}
 
 	setSize(w, h) {
-		this.texture.setSize(w, h)
-		this.prevTexture.setSize(w, h)
+		this.prevRenderTarget.setSize(w, h)
+		this.currentRenderTarget.setSize(w, h)
 		// this.uniforms.aspect.value = h / w
 	}
 }
