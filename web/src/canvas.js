@@ -10,13 +10,12 @@ export default class Canvas {
 		this.$canvas = $('#canvas')
 		this.$wrapper = $('.canvas-wrapper')
 
-		this.renderer = new THREE.WebGLRenderer({
+		window.renderer = new THREE.WebGLRenderer({
 			canvas: this.$canvas[0]
 		})
+		window.renderer.setClearColor(0x000000)
 
-		this.renderer.setClearColor(0x000000)
 		this.updateCanvas()
-
 
 		$(window).on('resize', this.onResize.bind(this))
 
@@ -29,20 +28,16 @@ export default class Canvas {
 	updateCanvas() {
 		// this.renderer.setSize(window.innerWidth, window.innerHeight)
 
-		this.renderer.setSize(this.width, this.height)
+		window.renderer.setSize(this.width, this.height)
 
 		let sw = this.$wrapper.width() / this.width
 		let sh = this.$wrapper.height() / this.height
 
-		console.log(this.$wrapper.width())
-		console.log(this.$wrapper.height())
-
 		let scale = Math.min(sw, sh)
-
 		let x = (this.$wrapper.width() - this.width * scale) / 2
 		let y = (this.$wrapper.height() - this.height * scale) / 2
 
-		this.$canvas.css({scale, x, y})
+		this.$canvas.css({x, y, scale})
 
 	}
 

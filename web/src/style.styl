@@ -45,6 +45,26 @@ body
 
 //--------------------------------------------------
 
+.center-v,
+.center-h
+	position absolute
+	background cyan
+	z-index 10
+	opacity .5
+	display none
+
+.center-v
+	top 0
+	left 50%
+	width 1px
+	height 100%
+
+.center-h
+	top 50%
+	left 0
+	width 100%
+	height: 1px
+
 $canvas-margin = 30px
 
 .canvas-wrapper
@@ -53,6 +73,7 @@ $canvas-margin = 30px
 	right $canvas-margin
 	bottom $canvas-margin
 	left $canvas-margin
+	// background rgba(255, 0, 0, 0.1)
 
 #canvas
 	box-sizing: content-box;
