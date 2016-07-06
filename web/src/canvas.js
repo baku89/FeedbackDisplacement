@@ -39,7 +39,7 @@ export default class Canvas {
 	// private
 
 	_onResize() {
-		this.updateCanvas()
+		this._updateCanvas()
 	}
 
 	_updateCanvas() {

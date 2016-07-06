@@ -1,2 +1,6 @@
 node_modules
 ftp.config.js
+
+public/index.html
+public/style.css
+public/js/index.js
