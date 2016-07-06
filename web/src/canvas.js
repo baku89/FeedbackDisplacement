@@ -29,17 +29,20 @@ export default class Canvas {
 			}
 		})
 
-		this.updateCanvas()
+		this._updateCanvas()
 
-		$(window).on('resize', this.onResize.bind(this))
+		$(window).on('resize', this._onResize.bind(this))
 
 	}
 
-	onResize() {
+	//----------------------------------------
+	// private
+
+	_onResize() {
 		this.updateCanvas()
 	}
 
-	updateCanvas() {
+	_updateCanvas() {
 		// this.renderer.setSize(window.innerWidth, window.innerHeight)
 
 		window.renderer.setSize(this.width, this.height)
@@ -56,11 +59,20 @@ export default class Canvas {
 
 	}
 
-	update() {
+	//----------------------------------------
+	// public
 
+	update() {
 		this.flowPass.render()
 		this.renderPass.render()
-
 	}
 
+	resetByTexture(texture) {
+		this.initialTexture = texture
+		this.width = this.initialTexture.width
+		this.height = this.initialTexture.height
+		this._updateCanvas()
+
+		this.flowPass.resetByTexture(this.initialTexture)
+	}
 }

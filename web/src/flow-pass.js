@@ -25,6 +25,14 @@ export default class FlowPass extends BasePass {
 		this.prevRenderTarget = new THREE.WebGLRenderTarget()
 		this.currentRenderTarget = new THREE.WebGLRenderTarget()
 		this.texture = this.currentRenderTarget.texture
+
+		this.passthruPass = new BasePass({
+			fragmentShader: require('./shaders/passthru.frag'),
+			uniforms: {
+				texture: {type: 't', value: null}
+			}
+		})
+
 	}
 
 	/*
@@ -37,11 +45,23 @@ export default class FlowPass extends BasePass {
 	render() {
 		[this.prevRenderTarget, this.currentRenderTarget]
 			= [this.currentRenderTarget, this.prevRenderTarget]
-		this.uniforms.prevTexture.value = this.prevRenderTarget.texture
 
-		super.render(this.currentRenderTarget)
+		if (this.resetTexture) {
+			// this.resetTexture = null
+			this.passthruPass.uniforms.texture.value = this.resetTexture
+			this.passthruPass.render(this.currentRenderTarget)
+			this.resetTexture = null
+
+		} else {
+			this.uniforms.prevTexture.value = this.prevRenderTarget
+			super.render(this.currentRenderTarget)
+		}
 
 		this.texture = this.currentRenderTarget.texture
+	}
+
+	resetByTexture(texture) {
+		this.resetTexture = texture
 	}
 
 	setSize(w, h) {
