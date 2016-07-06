@@ -1,6 +1,9 @@
 import THREE from 'three'
 import 'jquery.transit'
 
+import FlowPass from './flow-pass'
+import BasePass from './base-pass'
+
 export default class Canvas {
 
 	constructor() {
@@ -10,10 +13,21 @@ export default class Canvas {
 		this.$canvas = $('#canvas')
 		this.$wrapper = $('.canvas-wrapper')
 
+		// create renderer
 		window.renderer = new THREE.WebGLRenderer({
 			canvas: this.$canvas[0]
 		})
 		window.renderer.setClearColor(0x000000)
+
+		// init passes
+		this.flowPass = new FlowPass()
+
+		this.renderPass = new BasePass({
+			fragmentShader: require('./shaders/render-pass.frag'),
+			uniforms: {
+				prevPass: {type: 't', value: this.flowPass.texture}
+			}
+		})
 
 		this.updateCanvas()
 
@@ -29,6 +43,7 @@ export default class Canvas {
 		// this.renderer.setSize(window.innerWidth, window.innerHeight)
 
 		window.renderer.setSize(this.width, this.height)
+		this.flowPass.setSize(this.width, this.height)
 
 		let sw = this.$wrapper.width() / this.width
 		let sh = this.$wrapper.height() / this.height
@@ -42,6 +57,9 @@ export default class Canvas {
 	}
 
 	update() {
+
+		this.flowPass.render()
+		this.renderPass.render()
 
 	}
 

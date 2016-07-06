@@ -6,14 +6,14 @@ module.exports = {
 	},
 	output: {
 		filename: '[name].js',
-		publicPath: "/js/"
+		publicPath: '/js/'
 	},
 	resolve: {
 		alias: {},
 		modulesDirectories: [
 			'node_modules',
-			"web_modules"
-		],
+			'web_modules'
+		]
 	},
 	target: 'web',
 	module: {
@@ -53,4 +53,4 @@ module.exports = {
 			THREE: 'three'
 		})
 	]
-};
+}

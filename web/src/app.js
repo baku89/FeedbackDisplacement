@@ -57,7 +57,6 @@ export default class App extends Vue {
 
 		this.canvas = new Canvas()
 
-
 		Ticker.on('update', this.update.bind(this))
 		Ticker.start()
 
