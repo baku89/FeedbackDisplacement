@@ -4,9 +4,9 @@ precision highp int;
 attribute vec2 uUv;
 attribute vec3 position;
 
-varying vec2 pos;
+varying vec2 uv;
 
 void main(void) {
-	pos = vec2(uUv.x, uUv.y);
+	uv = vec2(uUv.x, uUv.y);
 	gl_Position = vec4(position, 1.0);
 }
