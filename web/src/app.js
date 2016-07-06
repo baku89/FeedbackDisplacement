@@ -49,7 +49,6 @@ export default class App extends Vue {
 
 		this.loader = new THREE.TextureLoader()
 		this.loader.load('./assets/sample.png', (texture) => {
-			console.log(texture)
 			this.canvas.resetByTexture(texture)
 		})
 

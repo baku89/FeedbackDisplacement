@@ -69,8 +69,8 @@ export default class Canvas {
 
 	resetByTexture(texture) {
 		this.initialTexture = texture
-		this.width = this.initialTexture.width
-		this.height = this.initialTexture.height
+		this.width = this.initialTexture.image.width
+		this.height = this.initialTexture.image.height
 		this._updateCanvas()
 
 		this.flowPass.resetByTexture(this.initialTexture)

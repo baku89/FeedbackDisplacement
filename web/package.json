@@ -19,6 +19,8 @@
     "eventemitter3": "^1.2.0",
     "exdat": "github:anvaka/dat.gui",
     "file-loader": "^0.8.5",
+    "glsl-noise": "0.0.0",
+    "glsl-pi": "^1.0.0",
     "glslify": "^5.1.0",
     "glslify-loader": "^1.0.2",
     "gulp": "^3.9.1",
