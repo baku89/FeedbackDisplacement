@@ -22,7 +22,8 @@ export default class Canvas {
 
 		// create renderer
 		window.renderer = new THREE.WebGLRenderer({
-			canvas: this.$canvas[0]
+			canvas: this.$canvas[0],
+			preserveDrawingBuffer: true
 		})
 		window.renderer.setClearColor(0x000000)
 
@@ -69,24 +70,6 @@ export default class Canvas {
 			this.saveAsImage()
 			return false
 		})
-
-		Mousetrap.bind('u', () => {
-			let shader = require('./shaders/flow-pass.frag')
-			shader = shader.replace(/0\.001/g, '-0.001')
-			// console.log(shader)
-			this.flowPass.updateFragmentShader(shader)
-		})
-
-		/*
-		Mousetrap.bind('command')
-
-		this.keyboard.on('ctrl', 'activate', () => {
-			this.isChangingBrushSize = true
-		})
-		this.keyboard.on('ctrl', 'release', () => {
-			this.isChangingBrushSize = false
-		})
-		*/
 	}
 
 	// event
@@ -140,7 +123,6 @@ export default class Canvas {
 
 	saveAsImage() {
 		this.$canvas[0].toBlob((blob) => {
-			console.log(blob)
 			FileSaver.saveAs(blob, 'image.png')
 		})
 	}
