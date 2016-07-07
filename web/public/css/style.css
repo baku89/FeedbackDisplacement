@@ -68,11 +68,13 @@ body {
   background: rgba(255,255,255,0.8);
   -webkit-transform: translateX(-300px);
   transform: translateX(-300px);
-  -webkit-transition: -webkit-transform 0.3s ease-out;
-  transition: -webkit-transform 0.3s ease-out;
-  transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.24, 0, 0.21, 1);
+  transition: -webkit-transform 0.3s cubic-bezier(0.24, 0, 0.21, 1);
+  transition: transform 0.3s cubic-bezier(0.24, 0, 0.21, 1);
+  transition: transform 0.3s cubic-bezier(0.24, 0, 0.21, 1), -webkit-transform 0.3s cubic-bezier(0.24, 0, 0.21, 1);
   z-index: 100;
+}
+.toolbar:hover {
   -webkit-transform: translateX(0);
   transform: translateX(0);
 }
@@ -80,6 +82,13 @@ body {
   padding: 1.5rem 1rem;
   border-bottom: 1px solid #ddd;
   font-size: 2.4rem;
+}
+.toolbar__offset {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: #ddd;
+  cursor: all-scroll;
 }
 .easel {
   position: absolute;
@@ -90,10 +99,10 @@ body {
 }
 .canvas-wrapper {
   position: absolute;
-  top: 30px;
-  right: 30px;
-  bottom: 30px;
-  left: 30px;
+  top: 15px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
   cursor: none;
 }
 .brush-cursor {

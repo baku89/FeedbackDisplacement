@@ -8,6 +8,29 @@ import Canvas from './canvas'
 
 const DEBUG = true
 
+Vue.directive('wheel', {
+	twoWay: true,
+	bind() {
+		let isMousedown = false
+
+		$(this.el).on({
+			'mousedown': () => {
+				isMousedown = true
+			},
+			'mousemove': () => {
+				if (isMousedown) {
+					this.set({x: 10, y: 20})
+				}
+			}
+		})
+
+		$(window).on('mouseup', () => {
+			isMousedown = false
+			this.set({x: 0, y: 0})
+		})
+	}
+})
+
 export default class App extends Vue {
 
 	constructor() {
@@ -19,6 +42,7 @@ export default class App extends Vue {
 				frequency: 2,
 				speed: 0.001,
 				angle: 0,
+				offset: {x: 0, y: 0},
 				flows: require('./shaders/flow').default
 			}
 		})

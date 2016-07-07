@@ -43,6 +43,9 @@
       <label>Angle</label>
       <input type="range" min="0" max="360" step="0.1" v-model="angle" v-on:change="onChangeFlowParameter()">
       <div>{{angle}}</div>
+      <label>Offset</label>
+      <div v-wheel="offset" class="toolbar__offset"></div>
+      <div>{{offset.x}}, {{offset.y}}</div>
     </div>
     <div class="easel">
       <div class="brush-cursor"></div>

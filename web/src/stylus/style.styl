@@ -79,17 +79,24 @@ $toolbar-fold-width = 30px
 	height 100%
 	background rgba(255, 255, 255, 0.8)
 	transform translateX($toolbar-width * -1)
-	transition transform .3s ease-out
+	transition transform .3s cubic-bezier(.24,0,.21,1)
 	z-index 100
 
-	// &:hover
-	transform translateX(0)
+	&:hover
+		transform translateX(0)
 
 
 .toolbar__title
 	padding 1.5rem 1rem
 	border-bottom 1px solid #ddd
 	font-size 2.4rem
+
+.toolbar__offset
+	width 100px
+	height 100px
+	border-radius 50%
+	background #ddd
+	cursor all-scroll
 
 //--------------------------------------------------
 // easel
@@ -101,7 +108,7 @@ $toolbar-fold-width = 30px
 	left $toolbar-fold-width
 
 
-$canvas-margin = 30px
+$canvas-margin = 15px
 
 .canvas-wrapper
 	position absolute

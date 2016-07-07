@@ -27,6 +27,11 @@ html
 			input(type='range' min='0' max='360' step='0.1' v-model='angle' v-on:change='onChangeFlowParameter()')
 			div {{angle}}
 			
+			label Offset
+			.toolbar__offset(v-wheel='offset')
+			
+			div {{offset.x}}, {{offset.y}}
+			
 			
 			
 		
