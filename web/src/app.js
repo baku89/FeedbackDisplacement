@@ -16,18 +16,12 @@ export default class App extends Vue {
 		super({
 			el: 'body',
 			data: {
-				/*
 				tool: {
 					flow: 0
 				},
 				pref: {
-					flows: [
-						{name: 'Polar Turbulance', func: 'polarTurb'},
-						{name: 'Directional', func: 'directionalDIsp'},
-						{name: 'Earthworm', func: 'earthworm'}
-					]
+					flows: require('./shaders/flow')
 				}
-				*/
 			}
 		})
 

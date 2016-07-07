@@ -65,9 +65,16 @@ export default class Canvas {
 			this.resetByTexture()
 		})
 
-		Mousetrap.bind('command+s', (e) => {
+		Mousetrap.bind('command+s', () => {
 			this.saveAsImage()
 			return false
+		})
+
+		Mousetrap.bind('u', () => {
+			let shader = require('./shaders/flow-pass.frag')
+			shader = shader.replace(/0\.001/g, '-0.001')
+			// console.log(shader)
+			this.flowPass.updateFragmentShader(shader)
 		})
 
 		/*

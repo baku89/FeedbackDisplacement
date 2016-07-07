@@ -2,16 +2,16 @@ export default class BasePass {
 
 	constructor(option) {
 
-		this.scene = new THREE.Scene()
+		this._scene = new THREE.Scene()
 
 		// camera
-		this.camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000)
-		this.camera.position.set(0, 0, 10)
-		this.scene.add(this.camera)
+		this._camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 1, 1000)
+		this._camera.position.set(0, 0, 10)
+		this._scene.add(this._camera)
 
 		this.uniforms = option.uniforms
 
-		let material = new THREE.RawShaderMaterial({
+		this._material = new THREE.RawShaderMaterial({
 			uniforms: this.uniforms,
 			vertexShader: option.vertexShader || require('./shaders/base-pass.vert'),
 			fragmentShader: option.fragmentShader
@@ -43,12 +43,26 @@ export default class BasePass {
 			geometry.addAttribute('uUv', new THREE.BufferAttribute(uvs, 2))
 		}
 
-		let plane = new THREE.Mesh(geometry, material)
+		this._mesh = new THREE.Mesh(geometry, this._material)
 
-		this.scene.add(plane)
+		this._scene.add(this._mesh)
 	}
 
 	render(targetRenderer) {
-		window.renderer.render(this.scene, this.camera, targetRenderer)
+		window.renderer.render(this._scene, this._camera, targetRenderer)
+	}
+
+	updateFragmentShader(shader) {
+		this._material = new THREE.RawShaderMaterial({
+			uniforms: this.uniforms,
+			vertexShader: this._material.vertexShader,
+			fragmentShader: shader
+		})
+
+		this._mesh.material = this._material
+		this._material.needsUpdate = true
+
+		// console.log()
+
 	}
 }

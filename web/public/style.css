@@ -150,16 +150,27 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 80px;
+  width: 330px;
   height: 100%;
-  background: #fff;
+  background: rgba(255,255,255,0.8);
+  -webkit-transform: translateX(-300px);
+  transform: translateX(-300px);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  z-index: 100;
+}
+.toolbar:hover {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
 }
 .easel {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 80px;
+  left: 30px;
 }
 .canvas-wrapper {
   position: absolute;
