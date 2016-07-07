@@ -154,15 +154,45 @@ body {
   height: 100%;
   background: #fff;
 }
+.easel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 80px;
+}
 .canvas-wrapper {
   position: absolute;
   top: 30px;
   right: 30px;
   bottom: 30px;
-  left: 110px;
+  left: 30px;
+  cursor: none;
 }
-#canvas {
+.brush-cursor {
+  position: relative;
+  border: 1px solid #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  visibility: hidden;
+  z-index: 100;
+  mix-blend-mode: difference;
+}
+.brush-cursor.show {
+  visibility: visible;
+}
+#canvas,
+#overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   box-sizing: content-box;
   -webkit-transform-origin: top left;
   transform-origin: top left;
+}
+#overlay {
+  z-index: 10;
+  background: #7f7f7f;
+  mix-blend-mode: overlay;
 }

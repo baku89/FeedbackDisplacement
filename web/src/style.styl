@@ -78,6 +78,14 @@ $toolbar-width = 80px
 	background white
 
 //--------------------------------------------------
+// easel
+.easel
+	position absolute
+	top 0
+	right 0
+	bottom 0
+	left $toolbar-width
+
 
 $canvas-margin = 30px
 
@@ -86,9 +94,33 @@ $canvas-margin = 30px
 	top $canvas-margin
 	right $canvas-margin
 	bottom $canvas-margin
-	left $canvas-margin + $toolbar-width
+	left $canvas-margin
+	cursor none
 	// background rgba(255, 0, 0, 0.1)
 
-#canvas
-	box-sizing: content-box;
+
+.brush-cursor
+	position relative
+	border 1px solid white
+	width 30px
+	height 30px
+	border-radius 50%
+	visibility hidden
+	z-index 100
+	mix-blend-mode difference
+
+	&.show
+		visibility visible
+
+#canvas,
+#overlay
+	position absolute
+	top 0
+	left 0
+	box-sizing content-box
 	transform-origin top left
+
+#overlay
+	z-index 10
+	background #7f7f7f
+	mix-blend-mode overlay

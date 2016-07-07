@@ -16,6 +16,7 @@ export default class App extends Vue {
 		super({
 			el: 'body',
 			data: {
+				/*
 				tool: {
 					flow: 0
 				},
@@ -26,8 +27,11 @@ export default class App extends Vue {
 						{name: 'Earthworm', func: 'earthworm'}
 					]
 				}
+				*/
 			}
 		})
+
+
 
 		if (DEBUG) {
 			this.stats = new Stats()
@@ -45,7 +49,7 @@ export default class App extends Vue {
 		}
 
 		// init dat.gui
-		this.gui = new dat.GUI()
+		// this.gui = new dat.GUI()
 
 		this.loader = new THREE.TextureLoader()
 		this.loader.load('./assets/sample.png', (texture) => {
@@ -54,13 +58,15 @@ export default class App extends Vue {
 
 		this.canvas = new Canvas()
 
-		Ticker.on('update', this.update.bind(this))
+		Ticker.on('update', this._update.bind(this))
 		Ticker.start()
 
 	}
 
+	_initKeybind() {
+	}
 
-	update() {
+	_update() {
 		if (DEBUG) this.stats.begin()
 
 		this.canvas.update()
