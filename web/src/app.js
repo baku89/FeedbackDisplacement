@@ -31,8 +31,6 @@ export default class App extends Vue {
 			}
 		})
 
-
-
 		if (DEBUG) {
 			this.stats = new Stats()
 			this.stats.setMode(0)

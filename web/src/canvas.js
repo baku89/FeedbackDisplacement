@@ -6,6 +6,7 @@ import FileSaver from 'filesaverjs'
 import FlowPass from './flow-pass'
 import BasePass from './base-pass'
 
+const KEY_COMMAND = 91
 
 export default class Canvas {
 
@@ -60,13 +61,12 @@ export default class Canvas {
 	// init
 	_setupKeybind() {
 
-		Mousetrap.bind('r', () => {
+		Mousetrap.bind('esc', () => {
 			this.resetByTexture()
 		})
 
 		Mousetrap.bind('command+s', (e) => {
 			this.saveAsImage()
-
 			return false
 		})
 
@@ -99,17 +99,11 @@ export default class Canvas {
 	}
 	_moveCursor(e) {
 
-		if (this.isChangingBrushSize) {
+		this.$cursor.css({
+			x: e.pageX - this.$easel[0].offsetLeft,
+			y: e.pageY - this.$easel[0].offsetTop
+		})
 
-			console.log('aaa')
-
-		} else {
-
-			this.$cursor.css({
-				x: e.pageX - this.$easel[0].offsetLeft,
-				y: e.pageY - this.$easel[0].offsetTop
-			})
-		}
 	}
 
 	_onResize() {
