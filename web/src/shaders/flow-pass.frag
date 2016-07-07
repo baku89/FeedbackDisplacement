@@ -7,6 +7,7 @@ uniform sampler2D initialTexture;
 uniform float frequency;
 uniform float speed;
 uniform float seed;
+uniform float angle;
 uniform float aspect; // height / width
 
 varying vec2 uv;

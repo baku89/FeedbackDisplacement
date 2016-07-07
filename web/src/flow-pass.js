@@ -21,6 +21,7 @@ export default class FlowPass extends BasePass {
 				aspect: {type: 'f', value: 1},
 				frequency: {type: 'f', value: 1.5},
 				speed: {type: 'f', value: 0.001},
+				angle: {type: 'f', value: 0},
 				seed: {type: 'f', value: 0}
 			}
 		})
@@ -43,12 +44,9 @@ export default class FlowPass extends BasePass {
 
 	}
 
-	/*
-	set aspect(value) { this.uniforms.aspect.value = value }
 	set frequency(value) { this.uniforms.frequency.value = value }
-	set speed(value) { this.uniforms.speed.value = value }
 	set seed(value) { this.uniforms.seed.value = value }
-	*/
+	set angle(value) { this.uniforms.angle.value = value }
 
 	changeFlow(code) {
 		let shader = this.baseCode.replace(/vec2 displace(.*)/, code)

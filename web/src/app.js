@@ -1,6 +1,7 @@
 /* global dat */
 
 import Stats from 'stats.js'
+import radians from 'degrees-radians'
 
 import Ticker from './ticker'
 import Canvas from './canvas'
@@ -15,11 +16,12 @@ export default class App extends Vue {
 			el: 'body',
 			data: {
 				flowType: 0,
+				frequency: 2,
+				speed: 0.001,
+				angle: 0,
 				flows: require('./shaders/flow').default
 			}
 		})
-
-		console.log(this.$data.flows)
 
 		// this.onChangeFlowType = this.onChangeFlowType.bind(this)
 
@@ -49,6 +51,7 @@ export default class App extends Vue {
 		this.canvas = new Canvas()
 
 		this.onChangeFlowType()
+		this.onChangeFlowParameter()
 
 		Ticker.on('update', this._update.bind(this))
 		Ticker.start()
@@ -69,6 +72,12 @@ export default class App extends Vue {
 	onChangeFlowType() {
 		console.log(this)
 		this.canvas.changeFlow( this.$data.flows[ this.$data.flowType ].code )
+	}
+
+	onChangeFlowParameter() {
+		this.canvas.flowPass.frequency = this.$data.frequency
+		this.canvas.flowPass.speed = this.$data.speed
+		this.canvas.flowPass.angle = radians(this.$data.angle)
 	}
 
 }
