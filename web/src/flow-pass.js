@@ -11,18 +11,23 @@ export default class FlowPass extends BasePass {
 
 	constructor() {
 
+		let fragmentShader = require('./shaders/flow-pass.frag')
+
 		super({
-			fragmentShader: require('./shaders/flow-pass.frag'),
+			fragmentShader,
 			uniforms: {
+				initialTexture: {type: 't', value: null},
 				prevTexture: {type: 't', value: null},
 				aspect: {type: 'f', value: 1},
 				frequency: {type: 'f', value: 1.5},
-				speed: {type: 'f', value: 0.1},
+				speed: {type: 'f', value: 0.001},
 				seed: {type: 'f', value: 0}
 			}
 		})
 
-		this.speed = 1
+		this.baseCode = fragmentShader
+
+		this.speed = 0.001
 		this.enableDisplace = false
 
 		this.prevRenderTarget = new THREE.WebGLRenderTarget()
@@ -45,18 +50,25 @@ export default class FlowPass extends BasePass {
 	set seed(value) { this.uniforms.seed.value = value }
 	*/
 
+	changeFlow(code) {
+		let shader = this.baseCode.replace(/vec2 displace(.*)/, code)
+		console.log(shader)
+
+		this.updateFragmentShader(shader)
+	}
+
 	render() {
 		[this.prevRenderTarget, this.currentRenderTarget]
 			= [this.currentRenderTarget, this.prevRenderTarget]
 
-		if (this.resetTexture) {
-			// this.resetTexture = null
-			this.passthruPass.uniforms.texture.value = this.resetTexture
+		if (this.needsReset) {
+			this.needsReset = false
+			this.uniforms.initialTexture.value = this.initialTexture
+			this.passthruPass.uniforms.texture.value = this.initialTexture
 			this.passthruPass.render(this.currentRenderTarget)
-			this.resetTexture = null
 
 		} else {
-			this.uniforms.prevTexture.value = this.prevRenderTarget
+			this.uniforms.prevTexture.value = this.prevRenderTarget.texture
 
 			this.uniforms.speed.value = this.speed * (this.enableDisplace ? 1 : 0)
 
@@ -67,12 +79,13 @@ export default class FlowPass extends BasePass {
 	}
 
 	resetByTexture(texture) {
-		this.resetTexture = texture
+		this.initialTexture = texture
+		this.needsReset = true
 	}
 
 	setSize(w, h) {
 		this.prevRenderTarget.setSize(w, h)
 		this.currentRenderTarget.setSize(w, h)
-		// this.uniforms.aspect.value = h / w
+		this.uniforms.aspect.value = h / w
 	}
 }

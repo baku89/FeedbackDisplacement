@@ -8,7 +8,13 @@ html
 		//- .center-v
 		//- .center-h
 		
-		.toolbar
+		.toolbar.row
+			h1.toolbar__title Feedback Displacement
+			
+			label Flow Type
+			select(v-model='flowType' v-on:change='onChangeFlowType()')
+				option(v-for='flow in flows' v-bind:value='$index') {{flow.name}}
+			
 		
 		.easel
 			.brush-cursor

@@ -58,13 +58,13 @@ gulp.task('jade', () => {
 
 //==================================================
 gulp.task('stylus', () => {
-	return gulp.src('./src/style.styl')
+	return gulp.src('./src/stylus/*.styl')
 		.pipe($.plumber())
 		.pipe($.stylus({use: [require('nib')()]}))
 		.pipe($.autoprefixer())
 		.pipe($.if(!developmentMode, $.combineMq()))
 		.pipe($.if(!developmentMode, $.minifyCss()))
-		.pipe(gulp.dest('public'))
+		.pipe(gulp.dest('public/css'))
 		.pipe(browserSync.stream())
 })
 

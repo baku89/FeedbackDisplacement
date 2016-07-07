@@ -23,10 +23,18 @@
     <meta name="twitter:description" content="demo">
     <meta name="twitter:image:src" content="http://ins-stud.io/img/ogp.png">
     <title>Feedback Displacement</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/skeleton.css">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
   </head>
   <body v-cloak>
-    <div class="toolbar"></div>
+    <div class="toolbar row">
+      <h1 class="toolbar__title">Feedback Displacement</h1>
+      <label>Flow Type</label>
+      <select v-model="flowType" v-on:change="onChangeFlowType()">
+        <option v-for="flow in flows" v-bind:value="$index">{{flow.name}}</option>
+      </select>
+    </div>
     <div class="easel">
       <div class="brush-cursor"></div>
       <div class="canvas-wrapper">

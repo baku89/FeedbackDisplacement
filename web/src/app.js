@@ -11,19 +11,17 @@ export default class App extends Vue {
 
 	constructor() {
 
-		console.log('init')
-
 		super({
 			el: 'body',
 			data: {
-				tool: {
-					flow: 0
-				},
-				pref: {
-					flows: require('./shaders/flow')
-				}
+				flowType: 0,
+				flows: require('./shaders/flow').default
 			}
 		})
+
+		console.log(this.$data.flows)
+
+		// this.onChangeFlowType = this.onChangeFlowType.bind(this)
 
 		if (DEBUG) {
 			this.stats = new Stats()
@@ -50,6 +48,8 @@ export default class App extends Vue {
 
 		this.canvas = new Canvas()
 
+		this.onChangeFlowType()
+
 		Ticker.on('update', this._update.bind(this))
 		Ticker.start()
 
@@ -64,6 +64,11 @@ export default class App extends Vue {
 		this.canvas.update()
 
 		if (DEBUG) this.stats.end()
+	}
+
+	onChangeFlowType() {
+		console.log(this)
+		this.canvas.changeFlow( this.$data.flows[ this.$data.flowType ].code )
 	}
 
 }

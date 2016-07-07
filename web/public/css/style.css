@@ -1,0 +1,119 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+  outline: none;
+}
+::-moz-selection,
+::-moz-selection,
+::-webkit-selection {
+  background: #fff;
+}
+::selection,
+::-moz-selection,
+::-webkit-selection {
+  background: #fff;
+}
+[v-cloak] {
+  visibility: hidden;
+}
+select {
+  font-size: 1.2rem;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+html {
+  font-family: Helvetica, "游ゴシック体", "Yu Gothic", YuGothic, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 10px;
+}
+body {
+  font-size: 1.6rem;
+  background: #eee;
+}
+.center-v,
+.center-h {
+  position: absolute;
+  background: #0ff;
+  z-index: 10;
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  display: none;
+}
+.center-v {
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+}
+.center-h {
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+.toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 330px;
+  padding: 0 40px 0 10px;
+  height: 100%;
+  background: rgba(255,255,255,0.8);
+  -webkit-transform: translateX(-300px);
+  transform: translateX(-300px);
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
+  z-index: 100;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.toolbar__title {
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  font-size: 2.4rem;
+}
+.easel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 30px;
+}
+.canvas-wrapper {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  bottom: 30px;
+  left: 30px;
+  cursor: none;
+}
+.brush-cursor {
+  position: relative;
+  border: 1px solid #fff;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  visibility: hidden;
+  z-index: 100;
+  mix-blend-mode: difference;
+}
+.brush-cursor.show {
+  visibility: visible;
+}
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: content-box;
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+}

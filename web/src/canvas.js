@@ -134,6 +134,10 @@ export default class Canvas {
 	//----------------------------------------
 	// public
 
+	changeFlow(code) {
+		this.flowPass.changeFlow(code)
+	}
+
 	saveAsImage() {
 		this.$canvas[0].toBlob((blob) => {
 			console.log(blob)
