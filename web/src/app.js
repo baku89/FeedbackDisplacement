@@ -47,16 +47,12 @@ export default class App extends Vue {
 		// init dat.gui
 		this.gui = new dat.GUI()
 
-		/*
 		this.loader = new THREE.TextureLoader()
-
 		this.loader.load('./assets/sample.png', (texture) => {
-			this.updateSource()
+			this.canvas.resetByTexture(texture)
 		})
-		*/
 
 		this.canvas = new Canvas()
-
 
 		Ticker.on('update', this.update.bind(this))
 		Ticker.start()

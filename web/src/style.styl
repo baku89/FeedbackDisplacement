@@ -37,22 +37,57 @@ html
 	font-smoothing antialiased
 	-moz-osx-font-smoothing: grayscale
 	font-size 10px
-	background black
 
 body
 	font-size 1.6rem
-	background: #222
+	background: #d9d9d9
+
+//--------------------------------------------------
+
+.center-v,
+.center-h
+	position absolute
+	background cyan
+	z-index 10
+	opacity .5
+	display none
+
+.center-v
+	top 0
+	left 50%
+	width 1px
+	height 100%
+
+.center-h
+	top 50%
+	left 0
+	width 100%
+	height: 1px
+
+//--------------------------------------------------
+// toolbar
+
+$toolbar-width = 80px
+
+.toolbar
+	position absolute
+	top 0
+	left 0
+	width $toolbar-width
+	height 100%
+	background white
 
 //--------------------------------------------------
 
 $canvas-margin = 30px
 
 .canvas-wrapper
-	position:  absolute;
+	position absolute
 	top $canvas-margin
 	right $canvas-margin
 	bottom $canvas-margin
-	left $canvas-margin
+	left $canvas-margin + $toolbar-width
+	// background rgba(255, 0, 0, 0.1)
 
 #canvas
 	box-sizing: content-box;
