@@ -5,31 +5,11 @@ import radians from 'degrees-radians'
 
 import Ticker from './ticker'
 import Canvas from './canvas'
+import ImageLoader from './image-loader'
+import './directives'
 
 const DEBUG = true
 
-Vue.directive('wheel', {
-	twoWay: true,
-	bind() {
-		let isMousedown = false
-
-		$(this.el).on({
-			'mousedown': () => {
-				isMousedown = true
-			},
-			'mousemove': () => {
-				if (isMousedown) {
-					this.set({x: 10, y: 20})
-				}
-			}
-		})
-
-		$(window).on('mouseup', () => {
-			isMousedown = false
-			this.set({x: 0, y: 0})
-		})
-	}
-})
 
 export default class App extends Vue {
 
@@ -43,6 +23,7 @@ export default class App extends Vue {
 				speed: 0.001,
 				angle: 0,
 				offset: {x: 0, y: 0},
+
 				flows: require('./shaders/flow').default
 			}
 		})
@@ -64,11 +45,8 @@ export default class App extends Vue {
 			document.body.appendChild( this.stats.domElement )
 		}
 
-		// init dat.gui
-		// this.gui = new dat.GUI()
-
-		this.loader = new THREE.TextureLoader()
-		this.loader.load('./assets/sample.png', (texture) => {
+		this.imageLoader = new ImageLoader()
+		this.imageLoader.on('load', (texture) => {
 			this.canvas.resetByTexture(texture)
 		})
 
