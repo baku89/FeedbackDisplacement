@@ -8,8 +8,9 @@ import Canvas from './canvas'
 import ImageLoader from './image-loader'
 import './directives'
 
-const DEBUG = true
+import './ctrl'
 
+const DEBUG = true
 
 export default class App extends Vue {
 
@@ -28,12 +29,9 @@ export default class App extends Vue {
 			}
 		})
 
-		// this.onChangeFlowType = this.onChangeFlowType.bind(this)
-
 		if (DEBUG) {
 			this.stats = new Stats()
 			this.stats.setMode(0)
-
 			this.stats.domElement.style.position = 'absolute'
 			this.stats.domElement.style.left = 'auto'
 			this.stats.domElement.style.right = '0px'
@@ -52,11 +50,13 @@ export default class App extends Vue {
 
 		this.canvas = new Canvas()
 
-		this.onChangeFlowType()
-		this.onChangeFlowParameter()
+		/*
+		this._onChangeFlowType()
+		this._onChangeFlowParameter()
 
 		Ticker.on('update', this._update.bind(this))
 		Ticker.start()
+		*/
 
 	}
 
@@ -71,12 +71,11 @@ export default class App extends Vue {
 		if (DEBUG) this.stats.end()
 	}
 
-	onChangeFlowType() {
-		console.log(this)
+	_onChangeFlowType() {
 		this.canvas.changeFlow( this.$data.flows[ this.$data.flowType ].code )
 	}
 
-	onChangeFlowParameter() {
+	_onChangeFlowParameter() {
 		this.canvas.flowPass.frequency = this.$data.frequency
 		this.canvas.flowPass.speed = this.$data.speed
 		this.canvas.flowPass.angle = radians(this.$data.angle)

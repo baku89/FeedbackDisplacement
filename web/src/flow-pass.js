@@ -50,7 +50,7 @@ export default class FlowPass extends BasePass {
 
 	changeFlow(code) {
 		let shader = this.baseCode.replace(/vec2 displace(.*)/, code)
-		console.log(shader)
+		// console.log(shader)
 
 		this.updateFragmentShader(shader)
 	}

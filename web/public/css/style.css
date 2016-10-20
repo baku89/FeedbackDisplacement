@@ -1,3 +1,94 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+  color: #000;
+  background: #fff;
+}
+ol,
+ul {
+  list-style: none;
+}
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  vertical-align: middle;
+}
+caption,
+th,
+td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+a img {
+  border: none;
+}
 *,
 ::after,
 ::before {
@@ -27,75 +118,326 @@ body {
   overflow: hidden;
 }
 html {
-  font-family: Helvetica, "游ゴシック体", "Yu Gothic", YuGothic, sans-serif;
+  font-family: 'Cabin', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 10px;
 }
 body {
   font-size: 1.6rem;
-  background: #eee;
-}
-.center-v,
-.center-h {
-  position: absolute;
-  background: #0ff;
-  z-index: 10;
-  opacity: 0.5;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-  filter: alpha(opacity=50);
-  display: none;
-}
-.center-v {
-  top: 0;
-  left: 50%;
-  width: 1px;
-  height: 100%;
-}
-.center-h {
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 1px;
+  background: #0a0a0a;
+  line-height: 1.2;
 }
 .toolbar {
   position: absolute;
   top: 0;
   left: 0;
-  width: 330px;
-  padding: 0 40px 0 10px;
+  width: 240px;
   height: 100%;
-  background: rgba(255,255,255,0.8);
-  -webkit-transform: translateX(-300px);
-  transform: translateX(-300px);
-  -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.24, 0, 0.21, 1);
-  transition: -webkit-transform 0.3s cubic-bezier(0.24, 0, 0.21, 1);
-  transition: transform 0.3s cubic-bezier(0.24, 0, 0.21, 1);
-  transition: transform 0.3s cubic-bezier(0.24, 0, 0.21, 1), -webkit-transform 0.3s cubic-bezier(0.24, 0, 0.21, 1);
-  z-index: 100;
-}
-.toolbar:hover {
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
+  color: #ccc;
+  background: #1a1a1a;
 }
 .toolbar__title {
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid #ddd;
-  font-size: 2.4rem;
+  margin: 0 1rem 0;
+  padding: 1.4rem 0.4rem;
+  border-bottom: 1px solid #333;
+  line-height: 1.3;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
-.toolbar__offset {
-  width: 100px;
-  height: 100px;
+input {
+  outline: none !important;
+}
+input[type=range] {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: transparent;
+  overflow: visible;
+  border: 0;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+/* Make the thumbs the same size as your custom sliderthumb.
+	    they will not be visible but they will be draggable.    */
+/* microsoft IE10+ and Edge - eliminates default fills before and after thumb */
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: transparent;
+  overflow: visible;
+  border: 0;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: transparent;
+  overflow: visible;
+  border: 0;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: transparent;
+  border: 1px solid transparent;
+}
+input[type=range]::-ms-thumb,
+input[type=range]::-moz-range-thumb {
+  width: $sider-size;
+  height: $sider-size;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+  width: $sider-size;
+  height: $sider-size;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  -webkit-appearance: none;
+}
+input[type=range]::-ms-fill-lower,
+input[type=range]::-ms-fill-upper {
+  background: transparent;
+  border: 0 none;
+}
+input[type=range]::-ms-tooltip {
+  display: none;
+}
+.ctrl {
+  padding: 0 1rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+.ctrl__component {
+  margin-bottom: 1.8rem;
+}
+.ctrl__component label {
+  display: block;
+  color: #ccc;
+  font-size: 1.4rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8rem;
+}
+.ctrl__component .value {
+  margin-right: 0.4rem;
+  font-size: 1.2rem;
+  color: #808080;
+  font-family: 'Droid Sans Mono', monospace;
+}
+.ctrl__dropdown select {
+  display: block;
+  background: transparent;
+  line-height: 1;
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+  color: #808080;
+  text-align: center;
+  -moz-text-align-last: center;
+       text-align-last: center;
+  background-color: #242424;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  width: 100%;
+  -webkit-transition: all 0.1s ease;
+  transition: all 0.1s ease;
+}
+.ctrl__range .container {
+  position: relative;
+  background-color: #242424;
+  height: 24px;
+  overflow: hidden;
+}
+.ctrl__range .fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: #999;
+  pointer-events: none;
+}
+.ctrl__range .value {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 24px;
+}
+.ctrl__offset .container {
+  position: relative;
+  overflow: hidden;
+  background-color: #242424;
+  height: 24px;
+}
+.ctrl__offset .grid {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 300%;
+  height: 100%;
+  background-image: -webkit-linear-gradient(0deg, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%);
+  background-image: -webkit-linear-gradient(left, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%);
+  background-image: linear-gradient(90deg, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%);
+  background-size: 40px 24px;
+  background-repeat: repeat-x;
+  background-position: center center;
+}
+.ctrl__offset .zero {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background-color: #999;
+}
+.ctrl__offset .value {
+  position: absolute;
+  top: 0;
+  right: 0;
+  line-height: 24px;
+}
+.ctrl__angle .container {
+  position: relative;
+}
+.ctrl__angle .knob {
+  position: relative;
+  background-color: #242424;
+  width: 64px;
+  height: 64px;
   border-radius: 50%;
-  background: #ddd;
-  cursor: all-scroll;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.ctrl__angle .marker {
+  position: absolute;
+  background-color: #999;
+  width: 21.333333333333332px;
+  height: 1px;
+  top: 50%;
+  right: 0;
+  margin-top: -1px;
+}
+.ctrl__angle .value {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -0.5em;
+}
+.ctrl__range2d label {
+  float: left;
+}
+.ctrl__range2d .container {
+  clear: both;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 50%;
+  background-color: #242424;
+  overflow: hidden;
+}
+.ctrl__range2d .pad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.ctrl__range2d .value {
+  float: right;
+  margin-top: 2px;
+}
+.ctrl__range2d .dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background-color: #999;
+  pointer-events: none;
+}
+.ctrl__range2d .axis-x,
+.ctrl__range2d .axis-y {
+  position: absolute;
+  background-color: rgba(153,153,153,0.1);
+  pointer-events: none;
+}
+.ctrl__range2d .axis-x {
+  width: 100%;
+  height: 1px;
+  left: 0;
+}
+.ctrl__range2d .axis-y {
+  width: 1px;
+  height: 100%;
+  top: 0;
+}
+.ctrl__offset2d label {
+  float: left;
+}
+.ctrl__offset2d .container {
+  clear: both;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-top: 50%;
+  background-color: #242424;
+  overflow: hidden;
+}
+.ctrl__offset2d .pad {
+  position: absolute;
+  left: -100%;
+  top: -100%;
+  width: 300%;
+  height: 300%;
+  background-image: -webkit-linear-gradient(0deg, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%), -webkit-linear-gradient(90deg, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%);
+  background-image: -webkit-linear-gradient(left, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%), -webkit-linear-gradient(bottom, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%);
+  background-image: linear-gradient(90deg, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%), linear-gradient(0deg, transparent 50%, rgba(153,153,153,0.1) 50%, rgba(153,153,153,0.1) 52.5%, transparent 52.5%);
+  background-size: 40px 40px, 40px 40px;
+  background-repeat: repeat, repeat;
+  background-position: center center;
+}
+.ctrl__offset2d .axis-x,
+.ctrl__offset2d .axis-y {
+  position: absolute;
+  background-color: #999;
+  pointer-events: none;
+}
+.ctrl__offset2d .axis-x {
+  width: 100%;
+  height: 1px;
+  left: 0;
+  top: 50%;
+}
+.ctrl__offset2d .axis-y {
+  width: 1px;
+  height: 100%;
+  top: 0;
+  left: 50%;
+}
+.ctrl__offset2d .value {
+  float: right;
+  margin-top: 2px;
 }
 .easel {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 30px;
+  left: 240px;
 }
 .canvas-wrapper {
   position: absolute;

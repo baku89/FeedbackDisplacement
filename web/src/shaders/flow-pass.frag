@@ -22,7 +22,6 @@ void main() {
 	vec4 c = texture2D(prevTexture, uv);
 
 	vec2 offset = displace(i, c, uv, pos);
-
 	vec4 color = texture2D(prevTexture, uv + offset * speed);
 
 	gl_FragColor = color;

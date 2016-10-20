@@ -4,43 +4,28 @@ html
 		include ./jade/_meta.jade
 
 	body(v-cloak)
-		
-		//- .center-v
-		//- .center-h
-		
-		.toolbar.row
-			h1.toolbar__title Feedback Displacement
-			
-			label Flow Type
-			select(v-model='flowType' v-on:change='onChangeFlowType()')
-				option(v-for='flow in flows' v-bind:value='$index') {{flow.name}}
-				
-			label Frequency
-			input(type='range' min='1' max='10' step='0.001' v-model='frequency' v-on:change='onChangeFlowParameter()')
-			div {{frequency}}
-			
-			label Speed
-			input(type='range' min='0' max='0.01' step='0.00005' v-model='speed' v-on:change='onChangeFlowParameter()')
-			div {{speed}}
-			
-			label Angle
-			input(type='range' min='0' max='360' step='0.1' v-model='angle' v-on:change='onChangeFlowParameter()')
-			div {{angle}}
-			
-			label Offset
-			.toolbar__offset(v-wheel='offset')
-			
-			div {{offset.x}}, {{offset.y}}
-			
-			
-			
-		
+
+		.toolbar
+			h1.toolbar__title
+				| Feedback
+				br
+				| Displacement
+
+			.toolbar__control.ctrl
+
+				ctrl-dropdown(name='TYPE')
+				ctrl-range
+				ctrl-offset
+				ctrl-angle
+				ctrl-range2d
+				ctrl-offset2d
+
 		.easel
 			.brush-cursor
-			
+
 			.canvas-wrapper
 				canvas#canvas
-	
+
 
 	script(src='./js/dat.gui.min.js')
 	script(src='./js/index.js')
