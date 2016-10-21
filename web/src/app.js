@@ -16,6 +16,7 @@ export default class App extends Vue {
 
 	constructor() {
 
+		/*
 		super({
 			el: 'body',
 			data: {
@@ -26,6 +27,19 @@ export default class App extends Vue {
 				offset: {x: 0, y: 0},
 
 				flows: require('./shaders/flow').default
+			}
+		})*/
+
+		super({
+			el: 'body',
+			data: {
+				flowType: ['One', 'Two', 'Three'],
+				unifromParams: [
+					{type: 'range', name: 'frequency', label: 'FREQUENCY', value: 2, min: 0, max: 10},
+					{type: 'range', name: 'speed', label: 'SPEED', value: 0.001, min: 0, max: 0.1},
+					{type: 'angle', name: 'angle', label: 'ANGLE', value: 0},
+					{type: 'offset2d', name: 'offset', label: 'OFFSET', value: {x: 0, y: 0}}
+				]
 			}
 		})
 
@@ -39,7 +53,6 @@ export default class App extends Vue {
 			this.stats.domElement.style.top = 'auto'
 			this.stats.domElement.style.background = 'transparent'
 			this.stats.domElement.style.color = 'black'
-
 			document.body.appendChild( this.stats.domElement )
 		}
 
@@ -50,14 +63,11 @@ export default class App extends Vue {
 
 		this.canvas = new Canvas()
 
-		/*
-		this._onChangeFlowType()
-		this._onChangeFlowParameter()
-
-		Ticker.on('update', this._update.bind(this))
-		Ticker.start()
-		*/
-
+		// this._onChangeFlowType()
+		// this._onChangeFlowParameter()
+		//
+		// Ticker.on('update', this._update.bind(this))
+		// Ticker.start()
 	}
 
 	_initKeybind() {

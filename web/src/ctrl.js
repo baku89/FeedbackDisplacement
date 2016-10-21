@@ -9,7 +9,8 @@ function mod(n, m) {
 	return ((n % m) + m) % m
 }
 
-
+//------------------------------------------------------------------
+// filters
 Vue.filter('precision', function(value) {
 	return parseFloat(value).toFixed(2)
 })
@@ -18,21 +19,69 @@ Vue.filter('degrees', function(value) {
 	return `${(value * 180 / Math.PI).toFixed(1)}°`
 })
 
+//------------------------------------------------------------------
+// group
+
+Vue.component('ctrl-group', {
+	template: `
+		<div class='ctrl__group'>
+			<template v-for='p in params'>
+
+				<template v-if='p.type == "dropdown"'>
+					<ctrl-dropdown :label='p.label' :options='p.options'></ctrl-dropdown>
+				</template>
+
+				<template v-if='p.type == "range"'>
+					<ctrl-range :label='p.label' :value='p.value' :min='p.min' :max='p.max'></ctrl-range>
+				</template>
+
+				<template v-if='p.type == "offset"'>
+					<ctrl-offset :label='p.label' :value='p.value' :width='p.width'></ctrl-offset>
+				</template>
+
+				<template v-if='p.type == "angle"'>
+					<ctrl-angle :label='p.label' :value='p.value'></ctrl-angle>
+				</template>
+
+				<template v-if='p.type == "range2d"'>
+					<ctrl-range2d :label='p.label' :value='p.value'></ctrl-range2d>
+				</template>
+
+				<template v-if='p.type == "offset2d"'>
+					<ctrl-offset2d :label='p.label' :value='p.value'></ctrl-offset2d>
+				</template>
+
+				<template v-if='p.type == "random"'>
+					<ctrl-random :label='p.label' :value='p.value'></ctrl-random>
+				</template>
+
+
+			</template>
+		</div>
+		`,
+	props: {
+		params: {
+			type: Array,
+			default: []
+		}
+	}
+})
+
+//------------------------------------------------------------------
+// components
 
 //------------------------------------------------------------------
 Vue.component('ctrl-dropdown', {
 	template: `
 		<div class='ctrl__component ctrl__dropdown'>
-			<label>{{name}}</label>
+			<label>{{label}}</label>
 			<select>
 				<option v-for='option in options'>{{option}}</option>
 			</select>
 		</div>`,
-	props: ['name'],
-	data() {
-		return {
-			options: ['One', 'Two', 'Three']
-		}
+	props: {
+		label: {type: String, default: 'DROPDOWN'},
+		options: {type: Array, default: []}
 	}
 })
 
@@ -40,25 +89,36 @@ Vue.component('ctrl-dropdown', {
 Vue.component('ctrl-range', {
 	template: `
 		<div class='ctrl__component ctrl__range'>
-			<label>{{name}}</label>
-			<div class='container'>
-				<div class='fill' v-bind:style='{transform: fillTransform}'></div>
+			<label>{{label}}</label>
+			<div class='container' @mousedown='onMousedown'>
+				<div class='fill' :style='{transform: fillTransform}'></div>
 				<div class='value'>{{value | precision}}</div>
-				<input type='range' v-bind:min='min' v-bind:max='max' v-model='value' v-bind:step='step' />
 			</div>
 		</div>`,
-	data() {
-		return {
-			name: 'FREQUENCY',
-			value: 0.2,
-			min: 0,
-			max: 2,
-			step: 0.0001
-		}
+	props: {
+		label: {type: String, default: 'RANGE'},
+		value: {type: Number, default: 0},
+		min: {type: Number, default: 0},
+		max: {type: Number, default: 1},
+		step: {type: Number, default: 0.0001}
 	},
 	computed: {
 		fillTransform: function() {
 			return `scaleX(${this.value / (this.max - this.min)})`
+		}
+	},
+	methods: {
+		onMousedown(e) {
+			let rect = this.$el.getBoundingClientRect()
+			let w = rect.width
+			let origin = {
+				x: rect.left,
+				y: rect.top
+			}
+
+			trackDragging({origin}, (x) => {
+				this.value = clamp(lerp(this.min, this.max, x / w), this.min, this.max)
+			})
 		}
 	}
 })
@@ -67,19 +127,17 @@ Vue.component('ctrl-range', {
 Vue.component('ctrl-offset', {
 	template: `
 		<div class='ctrl__component ctrl__offset'>
-			<label>{{name}}</label>
-			<div class='container' v-on:mousedown='onMousedown'>
-				<div class='grid' v-bind:style='{transform: gridTranslate}'></div>
-				<div class='zero' v-bind:style='{transform: zeroTranslate}'></div>
+			<label>{{label}}</label>
+			<div class='container' @mousedown='onMousedown'>
+				<div class='grid' :style='{transform: gridTranslate}'></div>
+				<div class='zero' :style='{transform: zeroTranslate}'></div>
 				<div class='value'>{{value | precision}}</div>
 			</div>
 		</div>`,
-	data() {
-		return {
-			name: 'FLOAT',
-			value: 1.0,
-			width: 2.0
-		}
+	props: {
+		label: {type: String, default: 'OFFSET'},
+		value: {type: Number, default: 0},
+		width: {type: Number, default: 2}
 	},
 	computed: {
 		gridTranslate() {
@@ -107,20 +165,18 @@ Vue.component('ctrl-offset', {
 Vue.component('ctrl-angle', {
 	template: `
 		<div class='ctrl__component ctrl__angle'>
-			<label>{{name}}</label>
+			<label>{{label}}</label>
 			<div class='container'>
-				<div class='knob' v-on:mousedown='onMousedown' v-bind:style='{transform: knobRotate}'>
+				<div class='knob' @mousedown='onMousedown' :style='{transform: knobRotate}'>
 					<div class='marker'></div>
 				</div>
 				<div class='value'>{{value | degrees}}</div>
 			</div>
 		</div>
 		`,
-	data() {
-		return {
-			name: 'ANGLE',
-			value: 2
-		}
+	props: {
+		label: {type: String, default: 'ANGLE'},
+		value: {type: Number, default: 0}
 	},
 	computed: {
 		knobRotate: function() {
@@ -151,25 +207,20 @@ Vue.component('ctrl-angle', {
 Vue.component('ctrl-range2d', {
 	template: `
 		<div class='ctrl__component ctrl__range2d'>
-			<label>{{name}}</label>
+			<label>{{label}}</label>
 			<div class='value'>{{value.x | precision}}, {{value.y | precision}}</div>
-			<div class='container' v-on:mousedown='onMousedown($event)'>
+			<div class='container' @mousedown='onMousedown($event)'>
 				<div class='pad'>
-					<div class='dot' v-bind:style='{top: uiTop, left: uiLeft}'></div>
-					<div class='axis-x' v-bind:style='{top: uiTop}'></div>
-					<div class='axis-y' v-bind:style='{left: uiLeft}'></div>
+					<div class='dot' :style='{top: uiTop, left: uiLeft}'></div>
+					<div class='axis-x' :style='{top: uiTop}'></div>
+					<div class='axis-y' :style='{left: uiLeft}'></div>
 				</div>
 			</div>
 		</div>
 		`,
-	data() {
-		return {
-			name: 'POSITION',
-			value: {
-				x: 0.5,
-				y: 0.5
-			}
-		}
+	props: {
+		label: {type: String, default: 'RANGE 2D'},
+		value: {type: Object, default: function() {return {x: .5, y: .5}}}
 	},
 	computed: {
 		uiTop: function() {
@@ -200,24 +251,19 @@ Vue.component('ctrl-range2d', {
 Vue.component('ctrl-offset2d', {
 	template: `
 		<div class='ctrl__component ctrl__offset2d'>
-			<label>{{name}}</label>
+			<label>{{label}}</label>
 			<div class='value'>{{value.x | precision}}, {{value.y | precision}}</div>
-			<div class='container' v-on:mousedown='onMousedown($event)'>
-				<div class='pad' v-bind:style='{transform: gridTranslate}'>
+			<div class='container' @mousedown='onMousedown($event)'>
+				<div class='pad' :style='{transform: gridTranslate}'>
 				</div>
-				<div class='axis-x' v-bind:style='{transform: axisXTranslate}'></div>
-				<div class='axis-y' v-bind:style='{transform: axisYTranslate}'></div>
+				<div class='axis-x' :style='{transform: axisXTranslate}'></div>
+				<div class='axis-y' :style='{transform: axisYTranslate}'></div>
 			</div>
 		</div>
 		`,
-	data() {
-		return {
-			name: 'OFFSET',
-			value: {
-				x: 0,
-				y: 0
-			}
-		}
+	props: {
+		label: {type: String, default: 'OFFSET 2D'},
+		value: {type: Object, default: function() {return {x: 0, y: 0}}}
 	},
 	computed: {
 		backgroundPosition() {
@@ -250,6 +296,32 @@ Vue.component('ctrl-offset2d', {
 				this.value.x += x * stepX
 				this.value.y += y * stepY
 			})
+		}
+	}
+})
+
+//------------------------------------------------------------------
+Vue.component('ctrl-random', {
+	template: `
+		<div class='ctrl__component ctrl__random'>
+			<label>{{label}}</label>
+			<div class='container'>
+				<input type='number' v-model='value'>
+				<button @click='generate'></button>
+			</div>
+		</div>`,
+	props: {
+		label: {type: String, default: 'RANDOM'},
+		value: {type: Number, default: 0}
+	},
+	computed: {
+		fillTransform: function() {
+			return `scaleX(${this.value / (this.max - this.min)})`
+		}
+	},
+	methods: {
+		generate() {
+			this.value = Math.random()
 		}
 	}
 })

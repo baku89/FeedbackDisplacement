@@ -30,12 +30,8 @@
     <div class="toolbar">
       <h1 class="toolbar__title">Feedback<br>Displacement</h1>
       <div class="toolbar__control ctrl">
-        <ctrl-dropdown name="TYPE"></ctrl-dropdown>
-        <ctrl-range></ctrl-range>
-        <ctrl-offset></ctrl-offset>
-        <ctrl-angle></ctrl-angle>
-        <ctrl-range2d></ctrl-range2d>
-        <ctrl-offset2d></ctrl-offset2d>
+        <ctrl-dropdown label="TYPE" v-bind:options="flowType"></ctrl-dropdown>
+        <ctrl-group v-bind:params="unifromParams"></ctrl-group>
       </div>
     </div>
     <div class="easel">

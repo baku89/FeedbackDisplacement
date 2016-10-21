@@ -13,19 +13,15 @@ html
 
 			.toolbar__control.ctrl
 
-				ctrl-dropdown(name='TYPE')
-				ctrl-range
-				ctrl-offset
-				ctrl-angle
-				ctrl-range2d
-				ctrl-offset2d
+				ctrl-dropdown(label='TYPE', v-bind:options='flowType')
+
+				ctrl-group(v-bind:params='unifromParams')
 
 		.easel
 			.brush-cursor
 
 			.canvas-wrapper
 				canvas#canvas
-
 
 	script(src='./js/dat.gui.min.js')
 	script(src='./js/index.js')
