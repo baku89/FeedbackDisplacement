@@ -81,7 +81,7 @@ Vue.component('ctrl-dropdown', {
 		</div>`,
 	props: {
 		label: {type: String, default: 'DROPDOWN'},
-		options: {type: Array, default: []}
+		options: {type: Array, default: function() { return [] }}
 	}
 })
 
@@ -108,7 +108,7 @@ Vue.component('ctrl-range', {
 		}
 	},
 	methods: {
-		onMousedown(e) {
+		onMousedown() {
 			let rect = this.$el.getBoundingClientRect()
 			let w = rect.width
 			let origin = {
@@ -272,7 +272,7 @@ Vue.component('ctrl-offset2d', {
 		gridTranslate() {
 			let $pad = this.$el.children[2]
 			let x = mod(this.value.x * $pad.offsetWidth / 2, 40)
-			let y = mod(this.value.y * $pad.offsetHeight / 2, 40)
+			let y = mod(-this.value.y * $pad.offsetHeight / 2, 40)
 			return `translate(${x}px, ${y}px)`
 		},
 		axisXTranslate() {
@@ -282,15 +282,17 @@ Vue.component('ctrl-offset2d', {
 		},
 		axisYTranslate() {
 			let $pad = this.$el.children[2]
-			let y = this.value.x * $pad.offsetWidth / 2
+			let y = -this.value.x * $pad.offsetWidth / 2
 			return `translateX(${y}px)`
 		}
 	},
 	methods: {
-		onMousedown(e) {
+		onMousedown() {
 
 			let stepX = 1 / this.$el.children[2].offsetWidth * 2
-			let stepY = 1 / this.$el.children[2].offsetHeight * 2
+			let stepY = -
+
+			1 / this.$el.children[2].offsetHeight * 2
 
 			trackDragging({reset: true}, (x, y) => {
 				this.value.x += x * stepX

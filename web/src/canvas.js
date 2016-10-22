@@ -1,19 +1,17 @@
 import 'jquery.transit'
 import Mousetrap from 'mousetrap'
 import FileSaver from 'filesaverjs'
-// import createjs from 'imports?this=>window!exports?window.createjs!easeljs'
 
-import FlowPass from './flow-pass'
+import DisplacePass from './displace-pass'
 import BasePass from './base-pass'
 
-const KEY_COMMAND = 91
+import Ticker from './ticker'
 
 export default class Canvas {
 
 	constructor() {
 
-		this.width = 1280
-		this.height = 720
+
 		this.$canvas = $('#canvas')
 		this.$easel = $('.easel')
 		this.$wrapper = $('.canvas-wrapper')
@@ -28,18 +26,27 @@ export default class Canvas {
 		window.renderer.setClearColor(0x000000)
 
 		// init passes
-		this.flowPass = new FlowPass()
+		this.displacePass = new DisplacePass()
+
+		new THREE.TextureLoader().load('./assets/sample.png', (tex) => {
+			this.displacePass.reset(tex)
+			this._update()
+		})
 
 		this.renderPass = new BasePass({
 			fragmentShader: require('./shaders/render-pass.frag'),
 			uniforms: {
-				prevPass: {type: 't', value: this.flowPass.texture}
+				tex: {type: 't', value: this.displacePass.texture}
 			}
 		})
 
-		this._updateCanvas()
+		this._setResolution(1024, 1024)
 
-		$(window).on('resize', this._onResize.bind(this))
+		Ticker.on('update', this._update.bind(this))
+		this._update()
+
+		$(window).on('resize', this._updateTransform.bind(this))
+		this._updateTransform()
 
 		this.$canvas.on({
 			'mousedown': this._onMousedown.bind(this),
@@ -59,11 +66,17 @@ export default class Canvas {
 	//----------------------------------------
 	// private
 
+	_update() {
+		this.displacePass.render()
+		this.renderPass.render()
+		console.log('update')
+	}
+
 	// init
 	_setupKeybind() {
-
 		Mousetrap.bind('esc', () => {
-			this.resetByTexture()
+			this.displacePass.reset()
+			this._update()
 		})
 
 		Mousetrap.bind('command+s', () => {
@@ -74,36 +87,29 @@ export default class Canvas {
 
 	// event
 	_onMousedown() {
-		this.flowPass.enableDisplace = true
+		Ticker.start()
 	}
 
 	_onMouseup() {
-		this.flowPass.enableDisplace = false
+		Ticker.stop()
 	}
 
 	_showCursor() {
 		this.$cursor.addClass('show')
 	}
+
 	_hideCursor() {
 		this.$cursor.removeClass('show')
 	}
-	_moveCursor(e) {
 
+	_moveCursor(e) {
 		this.$cursor.css({
 			x: e.pageX - this.$easel[0].offsetLeft,
 			y: e.pageY - this.$easel[0].offsetTop
 		})
-
 	}
 
-	_onResize() {
-		this._updateCanvas()
-	}
-
-	_updateCanvas() {
-		window.renderer.setSize(this.width, this.height)
-		this.flowPass.setSize(this.width, this.height)
-
+	_updateTransform() {
 		let sw = this.$wrapper.width() / this.width
 		let sh = this.$wrapper.height() / this.height
 
@@ -114,11 +120,18 @@ export default class Canvas {
 		this.$canvas.css({x, y, scale})
 	}
 
+	_setResolution(w, h) {
+		this.width = w
+		this.height = h
+		this.displacePass.setSize(this.width, this.height)
+		window.renderer.setSize(this.width, this.height)
+	}
+
 	//----------------------------------------
 	// public
 
-	changeFlow(code) {
-		this.flowPass.changeFlow(code)
+	changeProgram(code) {
+		this.displacePass.changeProgram(code)
 	}
 
 	saveAsImage() {
@@ -127,19 +140,9 @@ export default class Canvas {
 		})
 	}
 
-	update() {
-		this.flowPass.render()
-		this.renderPass.render()
-	}
-
-	resetByTexture(texture) {
-		if (texture) {
-			this.initialTexture = texture
-		}
-		this.width = this.initialTexture.image.width
-		this.height = this.initialTexture.image.height
-		this._updateCanvas()
-
-		this.flowPass.resetByTexture(this.initialTexture)
+	setOriginalTexture(tex) {
+		this.originalTexture = tex
+		this._setResolution(tex.image.width, tex.image.height)
+		this.displacePass.reset(this.originalTexture)
 	}
 }

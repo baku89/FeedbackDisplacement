@@ -53,6 +53,7 @@
     "json-loader": "^0.5.4",
     "jstransformer-markdown-it": "^0.2.3",
     "lerp": "^1.0.3",
+    "lodash": "^4.16.4",
     "mobile-detect": "^1.3.2",
     "mousetrap": "^1.6.0",
     "nib": "^1.1.0",
