@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import 'jquery.transit'
 import lerp from 'lerp'
 import clamp from 'clamp'
@@ -224,7 +223,7 @@ Vue.component('ctrl-range2d', {
 	},
 	computed: {
 		uiTop: function() {
-			return `${this.value.y * 100}%`
+			return `${(1 - this.value.y) * 100}%`
 		},
 		uiLeft: function() {
 			return `${this.value.x * 100}%`
@@ -241,7 +240,7 @@ Vue.component('ctrl-range2d', {
 
 			trackDragging({origin}, (x, y) => {
 				this.value.x = clamp(x / rect.width, 0, 1)
-				this.value.y = clamp(y / rect.height, 0, 1)
+				this.value.y = 1 - clamp(y / rect.height, 0, 1)
 			})
 		}
 	}
@@ -277,12 +276,12 @@ Vue.component('ctrl-offset2d', {
 		},
 		axisXTranslate() {
 			let $pad = this.$el.children[2]
-			let y = this.value.y * $pad.offsetHeight / 2
+			let y = -this.value.y * $pad.offsetHeight / 2
 			return `translateY(${y}px)`
 		},
 		axisYTranslate() {
 			let $pad = this.$el.children[2]
-			let y = -this.value.x * $pad.offsetWidth / 2
+			let y = this.value.x * $pad.offsetWidth / 2
 			return `translateX(${y}px)`
 		}
 	},
@@ -290,9 +289,7 @@ Vue.component('ctrl-offset2d', {
 		onMousedown() {
 
 			let stepX = 1 / this.$el.children[2].offsetWidth * 2
-			let stepY = -
-
-			1 / this.$el.children[2].offsetHeight * 2
+			let stepY = -1 / this.$el.children[2].offsetHeight * 2
 
 			trackDragging({reset: true}, (x, y) => {
 				this.value.x += x * stepX
