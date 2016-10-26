@@ -63,8 +63,7 @@
     "stylus-media-queries": "^1.0.0",
     "three": "^0.78.0",
     "vinyl-ftp": "^0.4.5",
-    "vue": "^1.0.21",
-    "vue-loader": "^9.7.0",
+    "vue": "^1.0.28",
     "webpack": "^1.13.0",
     "webpack-stream": "^3.1.0"
   }

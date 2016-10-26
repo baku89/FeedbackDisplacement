@@ -15,7 +15,7 @@ html
 
 				ctrl-dropdown(label='TYPE', v-bind:options='flowType')
 
-				ctrl-group(v-bind:params='unifromParams')
+				ctrl-group(v-bind:params='uniformParams' v-on:change='updateUniforms')
 
 		.easel
 			.brush-cursor

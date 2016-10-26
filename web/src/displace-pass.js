@@ -45,8 +45,12 @@ export default class DisplacePass extends BasePass {
 
 	changeProgram(code, uniforms) {
 
+		this.uniforms = _.merge(this.baseUniforms, uniforms)
+
+		console.log(this.uniforms)
+
 		let mat = new THREE.RawShaderMaterial({
-			uniforms: _.merge(this.baseUniforms, uniforms),
+			uniforms: this.uniforms,
 			vertexShader: this._material.vertexShader,
 			fragmentShader: code
 		})

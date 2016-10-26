@@ -10,7 +10,7 @@ export default class ImageLoader extends EventEmitter {
 
 			let file = files[0]
 			let reader = new FileReader()
-			let data = null
+			// let data = null
 
 			reader.addEventListener('load', () => {
 				this.loader.load(reader.result, (texture) => {

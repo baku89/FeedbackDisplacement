@@ -1,9 +1,6 @@
-/* global dat */
-
 import Stats from 'stats.js'
-import radians from 'degrees-radians'
 
-import Canvas from './canvas'
+import Easel from './easel'
 import ImageLoader from './image-loader'
 import './directives'
 
@@ -14,31 +11,16 @@ const DEBUG = true
 export default class App extends Vue {
 
 	constructor() {
-
-		/*
-		super({
-			el: 'body',
-			data: {
-				flowType: 0,
-				frequency: 2,
-				speed: 0.001,
-				angle: 0,
-				offset: {x: 0, y: 0},
-
-				flows: require('./shaders/flow').default
-			}
-		})*/
-
 		super({
 			el: 'body',
 			data: {
 				programs: ['One', 'Two', 'Three'],
-				unifromParams: [
-					{type: 'range', name: 'frequency', label: 'FREQUENCY', value: 2, min: 0, max: 10},
-					{type: 'range', name: 'speed', label: 'SPEED', value: 0.001, min: 0, max: 0.1},
-					{type: 'angle', name: 'angle', label: 'ANGLE', value: 0},
-					{type: 'offset2d', name: 'offset', label: 'OFFSET', value: {x: 0, y: 0}}
-				]
+				uniformParams: {
+					frequency: {type: 'range', label: 'FREQUENCY', value: 2, min: 0, max: 10},
+					speed: {type: 'range', label: 'SPEED', value: 0.001, min: 0, max: 0.1},
+					angle: {type: 'angle', label: 'ANGLE', value: 0},
+					offset: {type: 'offset2d', label: 'OFFSET', value: {x: 0, y: 0}}
+				}
 			}
 		})
 
@@ -62,17 +44,32 @@ export default class App extends Vue {
 		})
 		*/
 
-		this.canvas = new Canvas()
+		this.easel = new Easel()
 
 		// this._onChangeFlowType()
 		// this._onChangeFlowParameter()
 		//
+
+
 	}
 
 	/*
 	_initKeybind() {
 	}
 	*/
+
+	updateUniforms() {
+		let uniforms = this.uniformParams
+
+		this.easel.updateUniforms({
+			frequency: uniforms.frequency.value,
+			speed: uniforms.speed.value,
+			angle: uniforms.angle.value,
+			offset: uniforms.offset.value
+		})
+
+
+	}
 
 	/*
 	_onChangeCode() {

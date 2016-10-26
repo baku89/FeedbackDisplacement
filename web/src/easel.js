@@ -7,10 +7,9 @@ import BasePass from './base-pass'
 
 import Ticker from './ticker'
 
-export default class Canvas {
+export default class Easel {
 
 	constructor() {
-
 
 		this.$canvas = $('#canvas')
 		this.$easel = $('.easel')
@@ -22,11 +21,22 @@ export default class Canvas {
 		window.renderer = new THREE.WebGLRenderer({
 			canvas: this.$canvas[0],
 			preserveDrawingBuffer: true
+
 		})
 		window.renderer.setClearColor(0x000000)
 
 		// init passes
 		this.displacePass = new DisplacePass()
+
+		this.displacePass.changeProgram(
+			require('./shaders/displace-pass.frag'),
+			{
+				frequency: {type: 'f', value: 0},
+				speed: {type: 'f', value: 0},
+				angle: {type: 'f', value: 0},
+				offset: {type: 'v2', value: new THREE.Vector2(0)}
+			}
+		)
 
 		new THREE.TextureLoader().load('./assets/sample.png', (tex) => {
 			this.displacePass.reset(tex)
@@ -49,8 +59,8 @@ export default class Canvas {
 		this._updateTransform()
 
 		this.$canvas.on({
-			'mousedown': this._onMousedown.bind(this),
-			'mouseup': this._onMouseup.bind(this)
+			'mousedown': () => Ticker.start(),
+			'mouseup': () => Ticker.stop()
 		})
 
 		this.$easel.on({
@@ -60,7 +70,16 @@ export default class Canvas {
 		})
 
 		this._setupKeybind()
+	}
 
+	updateUniforms(_uniforms) {
+		let uniforms = this.displacePass.uniforms
+
+		uniforms.frequency.value = _uniforms.frequency
+		uniforms.speed.value = _uniforms.speed
+		uniforms.angle.value = _uniforms.angle
+		uniforms.offset.value.x = _uniforms.offset.x
+		uniforms.offset.value.y = _uniforms.offset.y
 	}
 
 	//----------------------------------------
@@ -86,13 +105,6 @@ export default class Canvas {
 	}
 
 	// event
-	_onMousedown() {
-		Ticker.start()
-	}
-
-	_onMouseup() {
-		Ticker.stop()
-	}
 
 	_showCursor() {
 		this.$cursor.addClass('show')

@@ -11,7 +11,7 @@ export default class BasePass {
 
 		this.uniforms = option.uniforms
 
-		let material = new THREE.RawShaderMaterial({
+		this._material = new THREE.RawShaderMaterial({
 			uniforms: this.uniforms,
 			vertexShader: option.vertexShader || require('./shaders/base-pass.vert'),
 			fragmentShader: option.fragmentShader
@@ -43,7 +43,7 @@ export default class BasePass {
 			geometry.addAttribute('uUv', new THREE.BufferAttribute(uvs, 2))
 		}
 
-		this._mesh = new THREE.Mesh(geometry, material)
+		this._mesh = new THREE.Mesh(geometry, this._material)
 
 		this._scene.add(this._mesh)
 	}

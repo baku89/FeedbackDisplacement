@@ -27,45 +27,49 @@ Vue.component('ctrl-group', {
 			<template v-for='p in params'>
 
 				<template v-if='p.type == "dropdown"'>
-					<ctrl-dropdown :label='p.label' :options='p.options'></ctrl-dropdown>
+					<ctrl-dropdown @change='onChange' :label='p.label' :options='p.options'></ctrl-dropdown>
 				</template>
 
 				<template v-if='p.type == "range"'>
-					<ctrl-range :label='p.label' :value='p.value' :min='p.min' :max='p.max'></ctrl-range>
+					<ctrl-range @change='onChange' :label='p.label' :value.sync='p.value' :min='p.min' :max='p.max'></ctrl-range>
 				</template>
 
 				<template v-if='p.type == "offset"'>
-					<ctrl-offset :label='p.label' :value='p.value' :width='p.width'></ctrl-offset>
+					<ctrl-offset @change='onChange' :label='p.label' :value.sync='p.value' :width='p.width'></ctrl-offset>
 				</template>
 
 				<template v-if='p.type == "angle"'>
-					<ctrl-angle :label='p.label' :value='p.value'></ctrl-angle>
+					<ctrl-angle @change='onChange' :label='p.label' :value.sync='p.value'></ctrl-angle>
 				</template>
 
 				<template v-if='p.type == "range2d"'>
-					<ctrl-range2d :label='p.label' :value='p.value'></ctrl-range2d>
+					<ctrl-range2d @change='onChange' :label='p.label' :value.sync='p.value'></ctrl-range2d>
 				</template>
 
 				<template v-if='p.type == "offset2d"'>
-					<ctrl-offset2d :label='p.label' :value='p.value'></ctrl-offset2d>
+					<ctrl-offset2d @change='onChange' :label='p.label' :value.sync='p.value'></ctrl-offset2d>
 				</template>
 
 				<template v-if='p.type == "random"'>
-					<ctrl-random :label='p.label' :value='p.value'></ctrl-random>
+					<ctrl-random @change='onChange' :label='p.label' :value.sync='p.value'></ctrl-random>
 				</template>
-
 
 			</template>
 		</div>
 		`,
+
 	props: {
 		params: {
-			type: Array,
-			default: []
+			type: Object,
+			default: {}
+		}
+	},
+	methods: {
+		onChange() {
+			this.$emit('change')
 		}
 	}
 })
-
 //------------------------------------------------------------------
 // components
 
@@ -117,6 +121,7 @@ Vue.component('ctrl-range', {
 
 			trackDragging({origin}, (x) => {
 				this.value = clamp(lerp(this.min, this.max, x / w), this.min, this.max)
+				this.$emit('change', this.value)
 			})
 		}
 	}
@@ -155,6 +160,7 @@ Vue.component('ctrl-offset', {
 			let step = this.width /  this.$el.offsetWidth
 			trackDragging({reset: true}, (x) => {
 				this.value += x * step
+				this.$emit('change')
 			})
 		}
 	}
@@ -197,6 +203,7 @@ Vue.component('ctrl-angle', {
 			trackDragging({origin}, (x, y) => {
 				let angle = -Math.atan2(y, x)
 				this.value = (initialValue + (angle - initialAngle) + Math.PI * 2) % (Math.PI * 2)
+				this.$emit('change')
 			})
 		}
 	}
@@ -241,6 +248,7 @@ Vue.component('ctrl-range2d', {
 			trackDragging({origin}, (x, y) => {
 				this.value.x = clamp(x / rect.width, 0, 1)
 				this.value.y = 1 - clamp(y / rect.height, 0, 1)
+				this.$emit('change')
 			})
 		}
 	}
@@ -294,6 +302,7 @@ Vue.component('ctrl-offset2d', {
 			trackDragging({reset: true}, (x, y) => {
 				this.value.x += x * stepX
 				this.value.y += y * stepY
+				this.$emit('change')
 			})
 		}
 	}
@@ -321,6 +330,7 @@ Vue.component('ctrl-random', {
 	methods: {
 		generate() {
 			this.value = Math.random()
+			this.$emit('change')
 		}
 	}
 })
